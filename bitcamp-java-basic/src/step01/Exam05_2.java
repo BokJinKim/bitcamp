@@ -1,4 +1,4 @@
-// 정수의 리터럴 II - 자릿수 표기
+// 정수의 리터럴 - 자릿수 표기
 package step01;
 
 public class Exam05_2 {
