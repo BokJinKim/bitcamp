@@ -1,48 +1,40 @@
 package bitcamp.java106.pms;
 
+import javax.xml.stream.events.StartDocument;
 
 public class App{
     
     public static void main(String[] args){
         java.io.InputStream keyboard = System.in;
-        java.util.Scanner keyScan = new java.util.Scanner(System.in);
-        
-        
-        bitcamp.java106.pms.Score[] a1  = new bitcamp.java106.pms.Score[10];
-        int count = 0;
-        for (int i = 0; i < a1.length; i++) {
-            a1[i] = new bitcamp.java106.pms.Score();
+        java.util.Scanner keyScan = new java.util.Scanner(keyboard);
+        String team;
+        String explan;
+        int people;
+        String start;
+        String end;
+
         System.out.print("팀명 : ");
-        a1[i].teamName = keyScan.nextLine();
+        team = keyScan.nextLine();
         System.out.print("설명 : ");
-        a1[i].description = keyScan.nextLine();
+        explan = keyScan.nextLine();
         System.out.print("최대인원 : ");
-        a1[i].maxQty = keyScan.nextInt();
+        people = keyScan.nextInt();
         keyScan.nextLine();
         System.out.print("시작일 : ");
-        a1[i].startDate = keyScan.nextLine();
+        start = keyScan.nextLine();
         System.out.print("종료일 : ");
-        a1[i].endDate = keyScan.nextLine();
-
-        if (i == 4) break;
-        System.out.print("계속 입력하시겠습니다?(Y/n) ");
-        String ys = keyScan.nextLine();
-        count = i + 1;
-        if (ys.equals("y") || ys.equals("Y")) {}
-            else break;
-        }     
+        end = keyScan.nextLine();
+        
         System.out.println("---------------------------");
-        for (int i = 0; i < count; i++) {
-            System.out.printf("%s, %d명, %s ~ %s\n", a1[i].teamName,
-            a1[i].maxQty, a1[i].startDate, a1[i].endDate); 
-            }    
-        }
+        System.out.printf("팀명 : %s\n", team);
+        System.out.printf("설명 : \n%s\n", explan);
+        System.out.printf("최대인원 : %d명\n", people);
+        System.out.printf("일자 : %s ~ %s", start, end);
+        
+
+    }
+
 }
-
-   
-
-
-
 /*
 # 자바 프로젝트 
 

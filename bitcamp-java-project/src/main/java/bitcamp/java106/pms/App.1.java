@@ -8,8 +8,11 @@ public class App{
         java.util.Scanner keyScan = new java.util.Scanner(System.in);
         
         
+        // Score 메모리(인스턴스)의 주소를 저장할 변수: 레퍼런스 준비
         bitcamp.java106.pms.Score[] a1  = new bitcamp.java106.pms.Score[10];
-        int count = 0;
+
+// Score 메모리(인스턴스)의 주소를 저장할 변수: 레퍼런스 준비
+      // 입력 값을 저장할 Score 메모리를 준비한다.
         for (int i = 0; i < a1.length; i++) {
             a1[i] = new bitcamp.java106.pms.Score();
         System.out.print("팀명 : ");
@@ -23,20 +26,25 @@ public class App{
         a1[i].startDate = keyScan.nextLine();
         System.out.print("종료일 : ");
         a1[i].endDate = keyScan.nextLine();
-
-        if (i == 4) break;
+      
         System.out.print("계속 입력하시겠습니다?(Y/n) ");
-        String ys = keyScan.nextLine();
-        count = i + 1;
-        if (ys.equals("y") || ys.equals("Y")) {}
+        String ys = keyScan.nextLine().toLowerCase();
+         if (ys.equals("y") || ys.equals("Y")) {} 
             else break;
+                            
+                System.out.println(i);
         }     
         System.out.println("---------------------------");
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < a1.length; i++) {
             System.out.printf("%s, %d명, %s ~ %s\n", a1[i].teamName,
             a1[i].maxQty, a1[i].startDate, a1[i].endDate); 
             }    
         }
+              
+        
+            
+
+       
 }
 
    
