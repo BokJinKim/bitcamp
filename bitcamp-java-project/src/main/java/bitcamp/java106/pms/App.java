@@ -2,11 +2,10 @@ package bitcamp.java106.pms;
 import java.util.Scanner;
 import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.domain.Member;
-import java.util.ArrayList;
 public class App {
     public static void main(String[] args) {
         Scanner keyScan = new Scanner(System.in);
-        Team[] teams = new Team[5];
+        Team[] teams= new Team[3]; // teams에 레퍼런스 주소값 3개 생김
         Member[] member = new Member[5];
         int count1 = 0;
         int count2 = 0;
@@ -25,44 +24,44 @@ public class App {
             System.out.println("종료 : quit");
         }
         else if (order.toLowerCase().equals("team/add")) {
-            for (int i = 0; i < teams.length; i++) {
-            count1 ++;
-            teams[i] = new Team();    
+            
+            teams[count1] = new Team();    
             System.out.print("팀명? ");
-            teams[i].name = keyScan.nextLine();
+            teams[count1].name = keyScan.nextLine();
             System.out.print("설명? ");
-            teams[i].description = keyScan.nextLine();
+            teams[count1].description = keyScan.nextLine();
             System.out.print("최대인원? ");
-            teams[i].maxQty = keyScan.nextInt();
+            teams[count1].maxQty = keyScan.nextInt();
             keyScan.nextLine();
             System.out.print("시작일? ");
-            teams[i].startDate = keyScan.nextLine();
+            teams[count1].startDate = keyScan.nextLine();
             System.out.print("종료일 ");
-            teams[i].endDate = keyScan.nextLine();
-            break;
-            }
-            for (int i = 0; i < count1; i++) {
-                System.out.printf("%s", teams[i].name);
-            }
+            teams[count1].endDate = keyScan.nextLine();
+            count1 ++;
+            
         }
         else if (order.toLowerCase().equals("member/add")) {
-            for (int i = 0; i < member.length; i++) {
-            count2 ++;    
-            member[i] = new Member();    
+            member[count2] = new Member();    
             System.out.print("아이디? ");
-            member[i].id = keyScan.nextLine();
+            member[count2].id = keyScan.nextLine();
             System.out.print("이메일? ");
-            member[i].email = keyScan.nextLine();
+            member[count2].email = keyScan.nextLine();
             System.out.print("암호? ");
-            member[i].password = keyScan.nextInt();
+            member[count2].password = keyScan.nextInt();
             keyScan.nextLine();
+            count2 ++;
             }
-        }
-        else if (order.toLowerCase().equals("team/list")) {
+        else if (order.toLowerCase().equals("team/list")) { 
             for (int i = 0; i < count1; i++) {
             System.out.printf("%s, %d, %s ~ %s\n", teams[i].name, 
                 teams[i].maxQty, teams[i].startDate, teams[i].endDate);
-            }
+           }
+        }
+        else if (order.toLowerCase().equals("team/view 비트오케이")) {
+            System.out.println("해당 이름의 팀이 없습니다.");
+        }
+        else if (order.toLowerCase().equals("team/view")) {
+            System.out.println("해당 이름의 팀이 없습니다.");
         }
         else if (order.toLowerCase().equals("member/view")) {
             System.out.println("아이디를 입력하시기 바랍니다.");
@@ -80,7 +79,29 @@ public class App {
         else if (order.toLowerCase().equals("memeber/list")) {
             System.out.println("명령어가 올바르지 않습니다.");
         }
-        
+        else if ((order.startsWith("team/view"))) {
+            String tv = order.substring(10); 
+            for(int i = 0; i < count1; i++) {
+                if(tv.equals(teams[i].name)) { 
+                System.out.printf("팀명: %s \n설명: %s \n최대인원: %d \n기간 %s ~ %s\n", 
+                teams[i].name, teams[i].description, teams[i].maxQty, teams[i].startDate, teams[i].endDate);
+                break;
+                } 
+            }
+        }
+        else if ((order.startsWith("member/view"))) {
+            String mv = order.substring(12); 
+            System.out.println(mv);
+            System.out.println(member[0].id);
+            for(int i = 0; i < count2; i++) {
+                if(mv.equals(member[i].id)) { 
+                System.out.printf("아이디: %s \n이메일: %s \n암호: %d \n", 
+                member[i].id, member[i].email, member[i].password);
+                break;
+                } 
+            }
+        }
+       
     }
 }
 }
