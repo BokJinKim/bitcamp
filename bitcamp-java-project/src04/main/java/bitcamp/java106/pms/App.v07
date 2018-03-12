@@ -1,0 +1,77 @@
+package bitcamp.java106.pms;
+import java.util.Scanner;
+import bitcamp.java106.pms.domain.Team;
+import bitcamp.java106.pms.domain.Member;
+
+// ver 0.7 - team/list 명령을 구현한다.
+// ver 0.6 - team/add 명령을 구현한다.
+// ver 0.5 - help 명령 구현
+// ver 0.4 - quit 명령어 입력 시 반복문을 종료한다.
+// ver 0.3 - 사용자로부터 입력 받는 것을 무한 반복 한다.
+// ver 0.2 - 사용자 입력을 받아 출력한다.
+// ver 0.1 - 명령 입력 프롬프트를 출력한다.
+public class App {
+    public static void main(String[] args) {
+        Scanner keyScan = new Scanner(System.in);
+
+        Team[] teams = new Team[1000]; // 팀 객체의 주소를 1000개 받는 것이다. (레퍼런스)
+        int teamIndex = 0; // 주소를 채울 방의 이름
+
+        while (true) {
+            System.out.print("명령> ");
+            String input = keyScan.nextLine().toLowerCase(); 
+            // 여기서 toLowerCase()를 쓰면 아래에서 계속 써줄필요 없다.
+            if (input.equals("quit")) {
+                System.out.println("안녕히 가세요!"); 
+                break;
+            } else if (input.equals("help")) {
+                System.out.println("[도움말]");
+                System.out.println("팀 등록 명령 : team/add");
+                System.out.println("팀 조회 명령 : team/list");
+                System.out.println("팀 상세조회 명령 : team/view 팀명");
+                System.out.println("회원 등록 명령 : member/add");
+                System.out.println("회원 조회 명령 : member/list");
+                System.out.println("회원 상세조회 명령 : member/view 아이디");
+                System.out.println("종료 : quit");
+                System.out.println();
+                continue; // 반복 조건 비교문으로 돌아간다.
+            } else if (input.equals("team/add")) {
+                System.out.println("[팀 정보 입력]");
+                Team team = new Team();
+
+                System.out.print("팀명? ");
+                team.name = keyScan.nextLine();
+                
+                System.out.print("설명? ");
+                team.description = keyScan.nextLine();
+
+                System.out.print("최대인원? ");
+                team.maxQty = keyScan.nextInt();
+                keyScan.nextLine();
+
+                System.out.print("시작일? ");
+                team.startDate = keyScan.nextLine();
+                
+                System.out.print("종료일 ");
+                team.endDate = keyScan.nextLine();
+
+                // 팀 정보가 담겨있는 객체의 주소를 배열에 보관한다.
+                teams[teamIndex++] = team; // 방 번호 하나씩 증가
+                                
+                System.out.println();
+                continue;
+            } else if (input.equals("team/list")) {
+                System.out.println("[팀 목록]");
+                for (int i = 0; i < teamIndex; i ++) {
+                    System.out.printf("%s, %d, %s ~ %s\n",
+                        teams[i].name, teams[i].maxQty, 
+                        teams[i].startDate, teams[i].endDate);
+                }
+                System.out.println();
+                continue;
+            }
+
+            System.out.println(input);
+        }
+    }
+}
