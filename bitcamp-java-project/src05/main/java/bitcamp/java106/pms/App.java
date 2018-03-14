@@ -4,7 +4,6 @@ package bitcamp.java106.pms;
 import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.domain.Member;
 import java.util.Scanner;
-import java.util.Iterator;
 
 // ver 0.5 - member/add,list,view 명령어를 처리하는 코드를 메서드로 분리한다.
 // ver 0.4 - team/add,list,view 명령어를 처리하는 코드를 메서드로 분리한다.
@@ -108,8 +107,8 @@ public class App {
         if (option == null) {
             System.out.println("팀명을 입력하시기 바랍니다.");
             System.out.println();
-             // 값을 리턴하면 안되기 때문에 return 명령만 작성한다.
-            return;       // 의미? 즉시 메서드 실행을 멈추고 이전 위치로 돌아간다.
+            return; // 값을 리턴하면 안되기 때문에 return 명령만 작성한다.
+                    // 의미? 즉시 메서드 실행을 멈추고 이전 위치로 돌아간다.
         }
         
         Team team = null;
@@ -130,42 +129,12 @@ public class App {
             System.out.printf("최대인원(%d)? ", team.maxQty);
             team.maxQty = keyScan.nextInt();
             keyScan.nextLine();
-            System.out.printf("시작일(%s)? ", team.startDate); 
+            System.out.printf("시작일(%s)? ", team.starDate); 
             team.startDate = keyScan.nextLine();
             System.out.printf("종료일(%s)? ", team.endDate); 
             team.endDate = keyScan.nextLine();
         }
     }
-
-    static void onTeamDelete() {
-        System.out.println("[팀 정보 삭제]");
-        if (option == null) {
-            System.out.println("팀명을 입력하시기 바랍니다.");
-            System.out.println();
-             // 값을 리턴하면 안되기 때문에 return 명령만 작성한다.
-            return;       // 의미? 즉시 메서드 실행을 멈추고 이전 위치로 돌아간다.
-        }
-        
-        Team team = null;
-        for (int i = 0; i < teamIndex; i++) {
-            if (option.equals(teams[i].name.toLowerCase())) {
-                
-                System.out.print("정말 삭제하시겠습니까?(Y/n) ");
-                String del = keyScan.nextLine().toLowerCase();
-                if (del.equals("y")) {
-                    team.remove(teams[i]);
-                    System.out.println("삭제하였습니다");
-                    break;
-                } else break;
-
-                
-            }
-            if (team == null) {
-            System.out.println("해당 이름의 팀이 없습니다.");
-        }
-    }
-    }
-
     static void onMemberAdd() {
         System.out.println("[회원 정보 입력]");
         Member member = new Member();
@@ -236,10 +205,8 @@ public class App {
                 onTeamList();
             } else if (menu.equals("team/view")) {
                 onTeamView();
-            } else if (menu.equals("team/update")) {    
+            } else if (menu.equals("teamm")) {    
                 onTeamUpdate();
-            } else if (menu.equals("team/del")) {
-                onTeamDelete();
             } else if (menu.equals("member/add")) {
                 onMemberAdd();
             } else if (menu.equals("member/list")) {

@@ -153,7 +153,7 @@ public class App {
                 System.out.print("정말 삭제하시겠습니까?(Y/n) ");
                 String del = keyScan.nextLine().toLowerCase();
                 if (del.equals("y")) {
-                    team.remove(teams[i]);
+                    Team.remove(teams[i]);
                     System.out.println("삭제하였습니다");
                     break;
                 } else break;
