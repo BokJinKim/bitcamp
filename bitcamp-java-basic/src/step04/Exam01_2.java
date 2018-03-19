@@ -14,6 +14,6 @@ public class Exam01_2 {
 
         // 강제로 실행 순서를 바꾸고 싶다면
         // 괄호()를 묶어라!
-        Systme.out.println((2 + 3) * 7); // = 35
+        System.out.println((2 + 3) * 7); // = 35
     }
 }

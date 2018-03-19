@@ -74,7 +74,7 @@ public class BoardController {
         }
         
         int i = getBoardIndex(name);
-
+        
         if (i == -1) {
             System.out.println("해당 게시글이 없습니다.");
         } else {

@@ -14,4 +14,5 @@ public class Score{
     public int math;
     public int sum;
     public float aver;
+    public float average;
 }

@@ -1,9 +1,10 @@
 package bitcamp.java106.pms;
 
-import bitcamp.java106.pms.controller.TeamController;
-import bitcamp.java106.pms.controller.MemberController;
-import bitcamp.java106.pms.util.Console;
 import java.util.Scanner;
+
+import bitcamp.java106.pms.controller.MemberController;
+import bitcamp.java106.pms.controller.TeamController;
+import bitcamp.java106.pms.util.Console;
 
 // ver 0.1 - 팀명으로 배열에서 팀 정보를 찾는 코드를 함수로 분리한다.
 //           => getTeamIndex() 추가
