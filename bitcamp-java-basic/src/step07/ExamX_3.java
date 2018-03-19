@@ -1,31 +1,41 @@
-// 사용자 정의 데이터 타입 - 인스턴스 메서드
+// 사용자 정의 데이터 타입 - 인스턴스 메서드 
 package step07;
 
-import step07.Score2;
-
-public class Exam03_1 {
+public class ExamX_3 {
     public static void main(String[] args) {
-        // 사용자 정의 데이터 타입의 값을 연산자를 사용하여 다뤄보자!
-        Score2 score = new Score2();
+        Score3 score = new Score3();
         score.name = "홍길동";
         score.kor = 100;
         score.eng = 90;
         score.math = 85;
         
-        // 다음은 Score의 값을 다루는 연산자가 없을 때의 예이다.
+        // 다음은 Score의 값을 다루기 위해 non-instance 메서드를 호출하는 예이다.
+        // => non-instance 메서드 = static 메서드 = 클래스 메서드
         /*
-        score.sum = score.kor + score.eng + score.math;
-        score.average = score.sum / 3f;
-        */
         Score2.calculate(score);
+        */
         
-        System.out.printf("%s, %d, %d, %d, %d, %.1f\n",
-                score.name, score.kor, score.eng, score.math, score.sum, score.average);
+        // 클래스 메서드를 사용할 때 마다 매번 인스턴스의 주소를 파라미터로 넘겨줘야 했다.
+        // 그러나 인스턴스 메서드를 사용하면 인스턴스 주소를 넘기기가 더 편하다.
+        // 메서드 호출 앞에다 둔다.
+        // 훨씬 소스 코드의 목적을 이해하는데 직관적이다.
+        score.calculate(); // 변수 뒤에 연산자를 놓는 i++ 의 예와 비슷하다.
+        
+        System.out.printf("%s, %d, %d, %d, %d, %.1f\n", 
+                score.name, score.kor, score.eng, score.math, 
+                score.sum, score.average);
     }
 }
 
-// 클래스 문법의 용도?
-// 1) 사용자 정의 데이터 타입 만들 때
-//    - 즉 새로운 구조의 메모리를 설계할 때 사용한다.
-// 2) 관련 메서드를 묶을 때
-//    - 서로 관련된 기능을 관리하기 쉽게 묶고 싶을 떄 사용한다.
+// 사용자 정의 데이터 타입에서 
+// 인스턴스의 값을 다루는 연산자를 정의할 때는
+// 인스턴스 메서드로 만드는 것이 사용하기 편하다!
+
+
+
+
+
+
+
+
+
