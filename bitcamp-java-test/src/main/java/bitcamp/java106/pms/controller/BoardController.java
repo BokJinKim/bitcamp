@@ -30,15 +30,15 @@ public class BoardController {
     }
 
     
-    static int getBoardIndex(String id) {
-        
-        int index = Integer.parseInt(id);
-        return index;
-            
-        
-        
+    static int getBoardIndex(String title) {
+        int index = Integer.parseInt(title);
+        for (int i = 0; i < boardIndex; i++) {
+            if (boards[i] == null) continue;
+            if (index == i) { 
+                return index;
+        } 
+    } return -1;
     }
-
     public static void onBoardAdd() {
         System.out.println("[게시글 정보 입력]");
         Board board = new Board();
@@ -72,11 +72,10 @@ public class BoardController {
             System.out.println("제목을 입력하시기 바랍니다.");
             return;
         }
-        
         int i = getBoardIndex(name);
         
         if (i == -1) {
-            System.out.println("해당 게시글이 없습니다.");
+            System.out.println("해당 게시판이 없습니다.");
         } else {
             Board board = boards[i];
             System.out.printf("제목: %s\n", board.title);
@@ -84,7 +83,7 @@ public class BoardController {
             System.out.printf("등록일: %s\n", board.regDate);
         }
     }
-
+    
     public static void onBoardUpdate(String name) {
         System.out.println("[게시글 정보 변경]");
         if (name == null) {
