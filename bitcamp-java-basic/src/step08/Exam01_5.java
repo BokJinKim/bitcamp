@@ -1,4 +1,4 @@
-// 클래스 변수와 인스턴스 변수 생성 시점
+// 클래스 변수와 인스턴스 변수 응용
 package step08;
 
 public class Exam01_5 {

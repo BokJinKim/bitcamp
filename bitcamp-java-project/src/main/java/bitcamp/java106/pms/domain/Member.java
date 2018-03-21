@@ -1,7 +1,8 @@
 package bitcamp.java106.pms.domain;
 
 public class Member {
+    public int no;
     public String id;
-    public String password;
     public String email;
+    public String password;
 }
