@@ -8,18 +8,13 @@ import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.util.Console;
 
 public class MemberController {
-    // 이 클래스를 사용하려면 keyboard 스캐너가 있어야 한다.
-    // 이 클래스를 사용하기 전에 스캐너를 설정하라!
-    public Scanner keyScan;
-    
+    Scanner keyScan;
+
     MemberDao memberDao = new MemberDao();
     
     public MemberController(Scanner scanner) {
         this.keyScan = scanner;
     }
-
-    Member[] members = new Member[1000];
-    int memberIndex = 0;
 
     public void service(String menu, String option) {
         if (menu.equals("member/add")) {
@@ -50,7 +45,6 @@ public class MemberController {
         System.out.print("암호? ");
         member.password = this.keyScan.nextLine();
 
-        // 회원 정보가 담겨있는 객체의 주소를 배열에 보관한다.
         memberDao.insert(member);
     }
 
@@ -95,13 +89,13 @@ public class MemberController {
             System.out.println("해당 아이디의 회원이 없습니다.");
         } else {
             Member updateMember = new Member();
-            System.out.printf("아이디(%s)? ", member.id);
-            updateMember.id = this.keyScan.nextLine();
+            System.out.printf("아이디: %s\n", member.id);
+            updateMember.id = member.id;
             System.out.printf("이메일(%s)? ", member.email);
             updateMember.email = this.keyScan.nextLine();
             System.out.printf("암호? ");
             updateMember.password = this.keyScan.nextLine();
-            updateMember.no = member.no;
+            
             memberDao.update(updateMember);
             System.out.println("변경하였습니다.");
         }
@@ -120,10 +114,12 @@ public class MemberController {
             System.out.println("해당 아이디의 회원이 없습니다.");
         } else {
             if (Console.confirm("정말 삭제하시겠습니까?")) {
-                memberDao.delete(member);
+                memberDao.delete(id);
                 System.out.println("삭제하였습니다.");
             }
         }
     }
     
 }
+
+//ver 14 - MemberDao를 사용하여 회원 데이터를 관리한다.

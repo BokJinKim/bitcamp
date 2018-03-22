@@ -1,4 +1,3 @@
-// 스태틱 멤버(변수 및 메서드)를 인스턴스 멤버로 변경한다. 
 package bitcamp.java106.pms.controller;
 
 import java.sql.Date;
@@ -16,7 +15,7 @@ public class BoardController {
     public BoardController(Scanner scanner) {
         this.keyScan = scanner;
     }
-
+    
     public void service(String menu, String option) {
         if (menu.equals("board/add")) {
             this.onBoardAdd();
@@ -67,6 +66,7 @@ public class BoardController {
         }
         
         Board board = boardDao.get(Integer.parseInt(option));
+        
         if (board == null) {
             System.out.println("유효하지 않은 게시물 번호입니다.");
         } else {
@@ -94,7 +94,7 @@ public class BoardController {
             System.out.printf("설명(%s)? ", board.content);
             updateBoard.content = this.keyScan.nextLine();
             updateBoard.createdDate = board.createdDate;
-            updateBoard.no = board.no;  
+            updateBoard.no = board.no;
             boardDao.update(updateBoard);
             System.out.println("변경하였습니다.");
         }
@@ -121,3 +121,6 @@ public class BoardController {
     }
     
 }
+
+// ver 14 - BoardDao를 사용하여 게시물 데이터를 관리한다.
+// ver 13 - 게시물 등록할 때 등록일의 문자열을 Date 객체로 만들어 저장.
