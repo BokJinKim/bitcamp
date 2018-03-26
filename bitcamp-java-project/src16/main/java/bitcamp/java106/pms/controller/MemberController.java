@@ -55,7 +55,7 @@ public class MemberController {
         for (int i = 0; i < list.length; i++) {
             if (list[i] == null) continue;
             System.out.printf("%s, %s, %s\n", 
-                    list[i].getId(), list[i].getEmail(), list[i].getPassword());
+                list[i].getId(), list[i].getEmail(), list[i].getPassword());
         }
     }
 
@@ -123,5 +123,6 @@ public class MemberController {
     
 }
 
+//ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
 // ver 15 - MemberDao를 생성자에서 주입 받도록 변경.
 // ver 14 - MemberDao를 사용하여 회원 데이터를 관리한다.

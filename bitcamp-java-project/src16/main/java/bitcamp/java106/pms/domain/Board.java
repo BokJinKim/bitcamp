@@ -37,4 +37,5 @@ public class Board {
     
 }
 
-//ver 13 - 등록일의 데이터 타입을 String에서 Date으로 변경
+// ver 16 - 캡슐화 적용. 겟터, 셋터 추가.
+// ver 13 - 등록일의 데이터 타입을 String에서 Date으로 변경

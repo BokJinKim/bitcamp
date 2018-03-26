@@ -76,6 +76,7 @@ public class TeamMemberController {
 
         System.out.println("[팀 멤버 목록]");
         System.out.print("회원들: ");
+        
         Member[] members = team.getMembers();
         
         for (int i = 0; i < members.length; i++) {
@@ -112,6 +113,7 @@ public class TeamMemberController {
     }
 }
 
+//ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
 // ver 15 - 팀 멤버를 등록, 조회, 삭제할 수 있는 기능 추가. 
 // ver 14 - TeamDao를 사용하여 팀 데이터를 관리한다.
 // ver 13 - 시작일, 종료일을 문자열로 입력 받아 Date 객체로 변환하여 저장.

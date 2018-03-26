@@ -4,11 +4,9 @@ import java.util.Scanner;
 
 import bitcamp.java106.pms.controller.BoardController;
 import bitcamp.java106.pms.controller.MemberController;
-import bitcamp.java106.pms.controller.TaskController;
 import bitcamp.java106.pms.controller.TeamController;
 import bitcamp.java106.pms.controller.TeamMemberController;
 import bitcamp.java106.pms.dao.MemberDao;
-import bitcamp.java106.pms.dao.TaskDao;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.util.Console;
 
@@ -41,7 +39,6 @@ public class App {
         TeamMemberController teamMemberController = new TeamMemberController(keyScan, teamDao, memberDao);
         MemberController memberController = new MemberController(keyScan, memberDao);
         BoardController boardController = new BoardController(keyScan);
-        TaskController taskController = new TaskController(keyScan, teamDao, memberDao);
         
         Console.keyScan = keyScan;
 
@@ -68,8 +65,6 @@ public class App {
                 memberController.service(menu, option);
             } else if (menu.startsWith("board/")) {
                 boardController.service(menu, option);
-            } else if (menu.startsWith("task/")) {
-                taskController.service(menu, option);
             } else {
                 System.out.println("명령어가 올바르지 않습니다.");
             }
