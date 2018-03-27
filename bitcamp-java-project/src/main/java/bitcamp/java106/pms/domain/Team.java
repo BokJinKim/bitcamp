@@ -1,6 +1,7 @@
 package bitcamp.java106.pms.domain;
 
 import java.sql.Date;
+import java.util.Arrays;
 
 // Team 클래스
 // => 팀 정보를 저장할 수 있는 메모리를 구조를 설계한 클래스이다.
@@ -85,6 +86,16 @@ public class Team {
         return 0;
     }
     
+    public Member getMember(String memberId) {
+        for (int i = 0; i < this.members.length; i++) {
+            if (this.members[i] == null) continue;
+            if (this.members[i].getId().equals(memberId)) {
+                return this.members[i];
+            }
+        }
+        return null;
+    }
+    
     public boolean isExist(String memberId) {
         for (int i = 0; i < this.members.length; i++) {
             if (this.members[i] == null) continue;
@@ -94,6 +105,12 @@ public class Team {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Team [name=" + name + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+    }
+    
 }
 
 // ver 15 - 멤버를 저장할 인스턴스 변수를 추가한다.

@@ -4,6 +4,7 @@ public class Member {
     private String id;
     private String email;
     private String password;
+    
     public String getId() {
         return id;
     }
@@ -21,6 +22,11 @@ public class Member {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    @Override
+    public String toString() {
+        return "Member [id=" + id + ", email=" + email + ", password=" + password + "]";
     }
     
 }
