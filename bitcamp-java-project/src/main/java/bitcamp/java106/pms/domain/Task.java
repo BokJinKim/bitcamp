@@ -3,6 +3,7 @@ package bitcamp.java106.pms.domain;
 import java.sql.Date;
 
 public class Task {
+    private static int count = 1; // 한개만 만들어진다
     public static final int READY = 0;
     public static final int WORKING = 1;
     public static final int COMPLETE = 9;
@@ -14,6 +15,10 @@ public class Task {
     private int state;
     private Member worker;
     private Team team;
+    
+    public Task() {
+        this.no = count++;
+    }
     
     public Task(Team team) {
         this.team = team;
