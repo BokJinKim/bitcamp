@@ -40,7 +40,7 @@ public class TeamDao {
     private int getTeamIndex(String name) {
         for (int i = 0; i < this.collection.size(); i++) {
             if (this.collection.get(i) == null) continue;
-            if (name.equals(((Team)this.collection.get(i)).getName().toLowerCase())) {
+            if (name.toLowerCase().equals(((Team)this.collection.get(i)).getName().toLowerCase())) {
                 return i;
             }
         }

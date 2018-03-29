@@ -58,12 +58,11 @@ public class TeamController {
 
     void onTeamList() {
         System.out.println("[팀 목록]");
-        Team[] list = teamDao.list();
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] == null) continue;
+        Team[] teams = teamDao.list();
+        for (Team team : teams) {
             System.out.printf("%s, %d, %s ~ %s\n", 
-                    list[i].getName(), list[i].getMaxQty(), 
-                    list[i].getStartDate(), list[i].getEndDate());
+                    team.getName(), team.getMaxQty(), 
+                    team.getStartDate(), team.getEndDate());
         }
     }
 
@@ -71,7 +70,7 @@ public class TeamController {
         System.out.println("[팀 정보 조회]");
         if (name == null) {
             System.out.println("팀명을 입력하시기 바랍니다.");
-            return; // 값을 리턴하면 안되기 때문에 return 명령만 작성한다.
+            return; // 값을 리턴하면 안되기 때문에 return 명령만 작성한다..,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
                     // 의미? 즉시 메서드 실행을 멈추고 이전 위치로 돌아간다.
         }
         

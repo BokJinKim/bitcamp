@@ -14,8 +14,8 @@ public class TeamMemberDao {
             if (this.teamCollection.get(i) == null) continue;
             if (((String)this.teamCollection.get(i)).toLowerCase().equals(
                     teamName.toLowerCase()) && 
-                    ((String)this.memberCollection.get(i)).toLowerCase().equals(
-                            memberId.toLowerCase())) {
+                    (memberCollection.get(i).toString().toLowerCase().equals(
+                            memberId.toLowerCase()))) {
                 System.out.println(i);
                 return i;
             }
