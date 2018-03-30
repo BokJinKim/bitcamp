@@ -1,10 +1,12 @@
 package bitcamp.java106.pms.dao;
 
+import java.util.LinkedList;
+
+import bitcamp.java106.pms.domain.Board;
 import bitcamp.java106.pms.domain.Team;
-import bitcamp.java106.pms.util.ArrayList;
 
 public class TeamDao {
-    ArrayList collection = new ArrayList();
+    private LinkedList<Team> collection = new LinkedList<>();
     
     public void insert(Team team) {
         // 팀 정보가 담겨있는 객체의 주소를 배열에 보관한다.
@@ -14,7 +16,7 @@ public class TeamDao {
     public Team[] list() {
         Team[] arr = new Team[this.collection.size()];
         for (int i = 0; i < this.collection.size(); i++) 
-            arr[i] = (Team) this.collection.get(i);
+            arr[i] = this.collection.get(i);
         return arr;
     }
     
@@ -22,7 +24,7 @@ public class TeamDao {
         int i = this.getTeamIndex(name);
         if (i == -1)
             return null;
-        return (Team) collection.get(i);
+        return collection.get(i);
     }
     
     public void update(Team team) {
@@ -40,7 +42,7 @@ public class TeamDao {
     private int getTeamIndex(String name) {
         for (int i = 0; i < this.collection.size(); i++) {
             if (this.collection.get(i) == null) continue;
-            if (name.toLowerCase().equals(((Team)this.collection.get(i)).getName().toLowerCase())) {
+            if (name.toLowerCase().equals((this.collection.get(i)).getName().toLowerCase())) {
                 return i;
             }
         }

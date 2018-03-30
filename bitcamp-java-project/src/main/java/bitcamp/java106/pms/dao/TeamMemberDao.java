@@ -1,8 +1,13 @@
 package bitcamp.java106.pms.dao;
 
-import bitcamp.java106.pms.util.ArrayList;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import bitcamp.java106.pms.domain.Member;
 
 public class TeamMemberDao {
+    
+    private HashMap<String, ArrayList<Member>> collection = new HashMap<>();
     ArrayList teamCollection = new ArrayList();
     ArrayList memberCollection = new ArrayList();
     

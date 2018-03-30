@@ -1,46 +1,34 @@
-package step12.ex2;
+package step13.ex2;
 
-public class LinkedList {
+public class LinkedList2<E> {
     
-    // 값을 저장할 바구니 클래스를 만든다.
-    // 그 클래스는 LinkedList에서만 사용할 것이기 때문에
-    // 일반적인 클래스인 패키지 멤버 클래스로 정의하지 않고 
-    // LinkedList 안에 정의한다. 
-    // 이렇게 클래스 안에 정의된 클래스를 "중첩 클래스(nested class)" 또는
-    // "내부 클래스(inner class)"라고 부른다.
     protected class Bucket { 
-        // 이 클래스의 역할은 기차에서 사람이나 물건을 싣는 객차의 역할을 수행한다.
-        public Object value; // 이 변수에 값을 저장한다.
-        public Bucket next; // 이 변수에는 다음 객차 주소를 저장한다.
-        public Bucket prev; // 이 변수에는 이전 객체 주소를 저장한다.
+        public E value; 
+        public Bucket next; 
+        public Bucket prev; 
     }
     
-    protected Bucket head; // 리스트에서 맨 앞 객차의 주소를 저장하는 인스턴스 변수
-    protected Bucket tail; // 리스터에서 맨 뒤 객차의 주소를 저장하는 인스턴스 변수
+    protected Bucket head; 
+    protected Bucket tail; 
     
-    public LinkedList() {
-        // LinkedList를 만들면 일단 맨 앞에 있는 빈 객차를 준비한다.
+    public LinkedList2() {
         head = new Bucket();
         tail = head;
     }
 
-    public void add(Object value) {
-        // 맨 끝 객차에 짐을 싣는다.
+    public void add(E value) {
         tail.value = value;
         
-        // 새 객차를 만들어 맨 뒤에 붙인다.
         Bucket bucket = new Bucket();
         tail.next = bucket;
         
-        // 새 객차에 이전 객차의 주소를 저장한다.
         bucket.prev = tail;
         
-        // 새로 붙인 객체를 맨 끝 객체로 처리한다.
         tail = bucket;
         
     }
 
-    public Object get(int i) {
+    public E get(int i) {
         Bucket cursor = head;
         int count = 0;
         
@@ -64,7 +52,7 @@ public class LinkedList {
         return count;
     }
 
-    public Object remove(int i) {
+    public E remove(int i) {
         Bucket cursor = head;
         
         if (i == 0) {
@@ -92,7 +80,7 @@ public class LinkedList {
         
     }
     
-    public void add(int i, Object value) {
+    public void add(int i, E value) {
         Bucket cursor = head;
         int count = 0;
         
@@ -105,7 +93,7 @@ public class LinkedList {
                 bucket.next = cursor;
                 if (bucket.prev != null) {
                     bucket.prev.next = bucket;
-                } else { // 이전에 다른 객차가 없다면 이 객체를 헤드로 만든다.
+                } else { 
                     head = bucket;
                 }
                 return;
@@ -114,7 +102,7 @@ public class LinkedList {
             cursor = cursor.next;
         }
         
-        if (count == i) { // 맨 끝에 값을 추가하는 것이다.
+        if (count == i) { 
             add(value);
         }
     }
