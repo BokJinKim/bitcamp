@@ -1,9 +1,12 @@
 package bitcamp.java106.pms;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import bitcamp.java106.pms.controller.BoardController;
+import bitcamp.java106.pms.controller.ClassroomController;
+import bitcamp.java106.pms.controller.Controller;
 import bitcamp.java106.pms.controller.MemberController;
 import bitcamp.java106.pms.controller.TaskController;
 import bitcamp.java106.pms.controller.TeamController;
@@ -36,27 +39,38 @@ public class App {
     }
 
     public static void main(String[] args) {
-        // 클래스를 사용하기 전에 필수 값을 설정한다.
         
         TeamDao teamDao = new TeamDao();
         MemberDao memberDao = new MemberDao();
         TaskDao taskDao = new TaskDao();
         TeamMemberDao teamMemberDao = new TeamMemberDao();
         
-        // 테스트용 데이터를 준비
-        prepareMemberDate(memberDao);
-        prepareTeamDate(teamDao, teamMemberDao);
+        // 테스트용 데이터를 준비한다. 
+        prepareMemberData(memberDao);
+        prepareTeamData(teamDao, teamMemberDao);
         
         TeamController teamController = new TeamController(keyScan, teamDao);
         TeamMemberController teamMemberController = new TeamMemberController(
                 keyScan, teamDao, memberDao, teamMemberDao);
-        MemberController memberController = new MemberController(keyScan, memberDao);
+        MemberController memberController = new MemberController(
+                keyScan, memberDao);
         BoardController boardController = new BoardController(keyScan);
         TaskController taskController = new TaskController(
                 keyScan, teamDao, taskDao, teamMemberDao, memberDao);
+        ClassroomController classroomController = new ClassroomController(
+                keyScan);
         
         Console.keyScan = keyScan;
 
+        HashMap<String,Controller> controllerMap = new HashMap<>(); 
+        controllerMap.put("board", boardController);
+        controllerMap.put("classroom", classroomController);
+        controllerMap.put("member", memberController);
+        controllerMap.put("task", taskController);
+        controllerMap.put("team", teamController);
+        controllerMap.put("team/member", teamMemberController);
+        
+        
         while (true) {
             String[] arr = Console.prompt();
 
@@ -72,57 +86,61 @@ public class App {
                 break;
             } else if (menu.equals("help")) {
                 onHelp();
-            } else if (menu.startsWith("team/member/")) {
-                teamMemberController.service(menu, option);
-            } else if (menu.startsWith("team/")) {
-                teamController.service(menu, option);
-            } else if (menu.startsWith("member/")) {
-                memberController.service(menu, option);
-            } else if (menu.startsWith("board/")) {
-                boardController.service(menu, option);
-            } else if (menu.startsWith("task/")) {
-                taskController.service(menu, option);
             } else {
+                int slashIndex = menu.lastIndexOf("/");
+                String controllerKey = menu.substring(0, slashIndex);
+                Controller controller = controllerMap.get(controllerKey);
+                
+                if (controller != null) {
+                    controller.service(menu, option);
+                } else {
                 System.out.println("명령어가 올바르지 않습니다.");
+                }
             }
-
+            
             System.out.println(); 
         }
     }
-    static void prepareMemberDate(MemberDao memberDao) {
+    static void prepareMemberData(MemberDao memberDao) {
         Member member = new Member();
         member.setId("aaa");
-        member.setEmail("aaa@teast.com");
+        member.setEmail("aaa@test.com");
         member.setPassword("1111");
         
         memberDao.insert(member);
+        
         member = new Member();
         member.setId("bbb");
-        member.setEmail("bbb@teast.com");
+        member.setEmail("bbb@test.com");
         member.setPassword("1111");
         
         memberDao.insert(member);
+        
         member = new Member();
         member.setId("ccc");
-        member.setEmail("ccc@teast.com");
+        member.setEmail("ccc@test.com");
         member.setPassword("1111");
         
         memberDao.insert(member);
+        
         member = new Member();
         member.setId("ddd");
-        member.setEmail("ddd@teast.com");
+        member.setEmail("ddd@test.com");
         member.setPassword("1111");
         
         memberDao.insert(member);
+        
         member = new Member();
         member.setId("eee");
-        member.setEmail("eee@teast.com");
+        member.setEmail("eee@test.com");
         member.setPassword("1111");
         
         memberDao.insert(member);
     }
     
-    static void prepareTeamDate(TeamDao teamDao, TeamMemberDao teamMemberDao) {
+    static void prepareTeamData(
+            TeamDao teamDao, 
+            TeamMemberDao teamMemberDao) {
         Team team = new Team();
         team.setName("t1");
         team.setMaxQty(5);
@@ -139,11 +157,19 @@ public class App {
         team.setStartDate(Date.valueOf("2018-2-1"));
         team.setEndDate(Date.valueOf("2018-6-30"));
         teamDao.insert(team);
+        teamMemberDao.addMember("t2", "ccc");
         teamMemberDao.addMember("t2", "ddd");
         teamMemberDao.addMember("t2", "eee");
-        teamMemberDao.addMember("t2", "fff");
+        
     }
 }
 
+//ver 17 - Task 관리 기능 추가
 // ver 15 - TeamDao와 MemberDao 객체 생성. 
 //          팀 멤버를 다루는 메뉴 추가.
+
+
+
+
+
+

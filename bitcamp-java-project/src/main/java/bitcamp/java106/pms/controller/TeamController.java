@@ -8,7 +8,7 @@ import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.util.Console;
 
-public class TeamController {
+public class TeamController implements Controller {
 
     Scanner keyScan;
     TeamDao teamDao;
@@ -53,6 +53,7 @@ public class TeamController {
 
         System.out.print("종료일? ");
         team.setEndDate(Date.valueOf(this.keyScan.nextLine()));
+
         teamDao.insert(team);
     }
 
@@ -70,7 +71,7 @@ public class TeamController {
         System.out.println("[팀 정보 조회]");
         if (name == null) {
             System.out.println("팀명을 입력하시기 바랍니다.");
-            return; // 값을 리턴하면 안되기 때문에 return 명령만 작성한다..,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            return; // 값을 리턴하면 안되기 때문에 return 명령만 작성한다.
                     // 의미? 즉시 메서드 실행을 멈추고 이전 위치로 돌아간다.
         }
         
@@ -131,13 +132,15 @@ public class TeamController {
         } else {
             if (Console.confirm("정말 삭제하시겠습니까?")) {
                 teamDao.delete(team.getName());
-                System.out.println("삭s제하였습니다.");
+                System.out.println("삭제하였습니다.");
             }
         }
     }
     
 }
 
+//ver 18 - ArrayList가 적용된 TeamDao를 사용한다.
+//ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
 // ver 15 - TeamDao를 생성자에서 주입 받도록 변경.
 // ver 14 - TeamDao를 사용하여 팀 데이터를 관리한다.
 // ver 13 - 시작일, 종료일을 문자열로 입력 받아 Date 객체로 변환하여 저장.

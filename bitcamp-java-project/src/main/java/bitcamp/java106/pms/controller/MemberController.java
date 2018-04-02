@@ -7,7 +7,7 @@ import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.util.Console;
 
-public class MemberController {
+public class MemberController implements Controller {
     Scanner keyScan;
 
     MemberDao memberDao;
@@ -54,7 +54,7 @@ public class MemberController {
         Member[] list = memberDao.list();
         for (int i = 0; i < list.length; i++) {
             System.out.printf("%s, %s, %s\n", 
-                    list[i].getId(), list[i].getEmail(), list[i].getPassword());
+                list[i].getId(), list[i].getEmail(), list[i].getPassword());
         }
     }
 
@@ -122,5 +122,8 @@ public class MemberController {
     
 }
 
+//ver 18 - ArrayList가 적용된 MemberDao를 사용한다.
+//         onMemberList()에서 배열의 각 항목에 대해 null 값을 검사하는 부분을 제거한다.
+//ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
 // ver 15 - MemberDao를 생성자에서 주입 받도록 변경.
 // ver 14 - MemberDao를 사용하여 회원 데이터를 관리한다.

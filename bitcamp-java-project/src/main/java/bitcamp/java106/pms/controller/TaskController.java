@@ -12,7 +12,7 @@ import bitcamp.java106.pms.domain.Task;
 import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.util.Console;
 
-public class TaskController {
+public class TaskController implements Controller {
     
     Scanner keyScan;
     TeamDao teamDao;
@@ -34,11 +34,13 @@ public class TaskController {
             System.out.println("팀명을 입력하시기 바랍니다.");
             return; 
         }
+        
         Team team = teamDao.get(option);
         if (team == null) {
             System.out.printf("'%s' 팀은 존재하지 않습니다.", option);
             return;
         }
+        
         if (menu.equals("task/add")) {
             this.onTaskAdd(team);
         } else if (menu.equals("task/list")) {
@@ -55,6 +57,7 @@ public class TaskController {
             System.out.println("명령어가 올바르지 않습니다.");
         }
     }
+
     private void onTaskAdd(final Team team) {
         Task task = new Task(team);
         
@@ -69,7 +72,7 @@ public class TaskController {
         } else {
             Date date = Date.valueOf(str);
             if (date.getTime() < team.getStartDate().getTime()) {
-            task.setStartDate(team.getStartDate());
+                task.setStartDate(team.getStartDate());
             } else {
                 task.setStartDate(date);
             }
@@ -81,7 +84,7 @@ public class TaskController {
         } else {
             Date date = Date.valueOf(str);
             if (date.getTime() > team.getEndDate().getTime()) {
-            task.setEndDate(team.getEndDate());
+                task.setEndDate(team.getEndDate());
             } else {
                 task.setEndDate(date);
             }
@@ -93,23 +96,25 @@ public class TaskController {
             if (!teamMemberDao.isExist(team.getName(), memberId)) {
                 System.out.printf("'%s'는 이 팀의 회원이 아닙니다. 작업자는 비워두겠습니다.", memberId);
             } else {
-            task.setWorker(this.memberDao.get(memberId));
+                task.setWorker(this.memberDao.get(memberId));
             }
         }
         
         taskDao.insert(task);
     }
+
     
     private void onTaskList(final Team team) {
         System.out.println("[팀 작업 목록]");
-
+        
         Task[] tasks = taskDao.list(team.getName());
         
         for (Task task : tasks) {
-            System.out.printf("%d,%s,%s,%s,%s\n",
+            System.out.printf("%d,%s,%s,%s,%s\n", 
                     task.getNo(), task.getTitle(), 
-                    task.getStartDate(), task.getEndDate(), 
-                    (task.getWorker() == null) ? "-" : task.getWorker().getId());   // 삼항 연산자
+                    task.getStartDate(), task.getEndDate(),
+                    (task.getWorker() == null) ? 
+                            "-" : task.getWorker().getId());
         }
         System.out.println();
     }
@@ -120,11 +125,12 @@ public class TaskController {
         int taskNo = Integer.parseInt(keyScan.nextLine());
         
         Task task = taskDao.get(taskNo);
-
         if (task == null) {
-            System.out.printf("'%s'팀의 %d번 작업을 찾을 수 없습니다.\n", team.getName(), taskNo);
+            System.out.printf("'%s'팀의 %d번 작업을 찾을 수 없습니다.\n",
+                    team.getName(), taskNo);
             return;
         }
+        
         System.out.printf("작업명: %s\n", task.getTitle());
         System.out.printf("시작일: %s\n", task.getStartDate());
         System.out.printf("종료일: %s\n", task.getEndDate());
@@ -140,12 +146,13 @@ public class TaskController {
         
         Task originTask = taskDao.get(taskNo);
         if (originTask == null) {
-            System.out.printf("'%s'팀의 %d번 작업을 찾을 수 없습니다.\n", team.getName(), taskNo);
+            System.out.printf("'%s'팀의 %d번 작업을 찾을 수 없습니다.\n",
+                    team.getName(), taskNo);
             return;
         }
         
         Task task = new Task(team);
-        task.setNo(originTask.getNo()); // 방번호를 변경할 작업에 넣어줘야한다
+        task.setNo(originTask.getNo());
         
         System.out.printf("작업명(%s)? ", originTask.getTitle());
         String str = keyScan.nextLine();
@@ -162,7 +169,7 @@ public class TaskController {
         } else {
             Date date = Date.valueOf(str);
             if (date.getTime() < team.getStartDate().getTime()) {
-            task.setStartDate(team.getStartDate());
+                task.setStartDate(team.getStartDate());
             } else {
                 task.setStartDate(date);
             }
@@ -174,7 +181,7 @@ public class TaskController {
         } else {
             Date date = Date.valueOf(str);
             if (date.getTime() > team.getEndDate().getTime()) {
-            task.setEndDate(team.getEndDate());
+                task.setEndDate(team.getEndDate());
             } else {
                 task.setEndDate(date);
             }
@@ -190,7 +197,7 @@ public class TaskController {
             if (!teamMemberDao.isExist(team.getName(), memberId)) {
                 System.out.printf("'%s'는 이 팀의 회원이 아닙니다. 작업자는 비워두겠습니다.", memberId);
             } else {
-            task.setWorker(this.memberDao.get(memberId));
+                task.setWorker(this.memberDao.get(memberId));
             }
         }
         
@@ -200,9 +207,8 @@ public class TaskController {
         } else {
             System.out.println("취소하였습니다.");
         }
-        taskDao.insert(task);
     }
-   
+
     private void onTaskDelete(final Team team) {
         System.out.println("[팀 작업 삭제]");
         System.out.print("삭제할 작업의 번호? ");
@@ -210,7 +216,8 @@ public class TaskController {
         
         Task task = taskDao.get(taskNo);
         if (task == null) {
-            System.out.printf("'%s'팀의 %d번 작업을 찾을 수 없습니다.\n", team.getName(), taskNo);
+            System.out.printf("'%s'팀의 %d번 작업을 찾을 수 없습니다.\n",
+                    team.getName(), taskNo);
             return;
         }
         
@@ -229,26 +236,27 @@ public class TaskController {
         
         Task task = taskDao.get(taskNo);
         if (task == null) {
-            System.out.printf("'%s'팀의 %d번 작업을 찾을 수 없습니다.\n", team.getName(), taskNo);
+            System.out.printf("'%s'팀의 %d번 작업을 찾을 수 없습니다.\n",
+                    team.getName(), taskNo);
             return;
         }
         
-        System.out.printf("'%s' 작업 상태: %s\n", 
+        System.out.printf("'%s' 작업의 상태: %s\n", 
                 task.getTitle(), getStateLabel(task.getState()));
         
         System.out.print("변경할 상태?(0:작업대기, 1:작업중, 9:작업완료) ");
         int state = Integer.parseInt(keyScan.nextLine());
         
-        if (state == Task.READY || 
-            state == Task.WORKING || 
-            state == Task.COMPLETE) {
+        if (state == Task.READY || state == Task.WORKING || 
+                state == Task.COMPLETE) {
             task.setState(state);
-            System.out.printf("작업 상태를 '%s'로 변경하였습니다.\n",
+            System.out.printf("작업 상태를 '%s'로 변경하였습니다.\n", 
                     getStateLabel(state));
         } else {
             System.out.println("올바르지 않은 값입니다. 이전 상태를 유지합니다!");
         }
     }
+    
     // 다음 메서드와 같이 인스턴스 변수를 사용하지 않는 메서드라면,
     // static을 붙여 클래스 메서드로 만들라!
     public static String getStateLabel(int state) {
@@ -262,6 +270,5 @@ public class TaskController {
     }
 }
 
-// ver 15 - 팀 멤버를 등록, 조회, 삭제할 수 있는 기능 추가. 
-// ver 14 - TeamDao를 사용하여 팀 데이터를 관리한다.
-// ver 13 - 시작일, 종료일을 문자열로 입력 받아 Date 객체로 변환하여 저장.
+//ver 18 - ArrayList가 적용된 TaskDao를 사용한다.
+//ver 17 - 클래스 생성
