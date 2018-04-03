@@ -275,5 +275,6 @@ public class TaskController implements Controller {
     }
 }
 
+//ver 22 - TaskDao 변경 사항에 맞춰 이 클래스를 변경한다.
 //ver 18 - ArrayList가 적용된 TaskDao를 사용한다.
 //ver 17 - 클래스 생성

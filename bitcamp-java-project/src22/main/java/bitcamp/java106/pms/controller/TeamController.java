@@ -117,7 +117,7 @@ public class TeamController implements Controller {
             System.out.printf("종료일(%s)? ", team.getEndDate());
             updateTeam.setEndDate(Date.valueOf(this.keyScan.nextLine()));
             
-            int index = teamDao.indexOf(team.getName());
+            int index = teamDao.indexOf(updateTeam.getName());
             teamDao.update(index, updateTeam);
             System.out.println("변경하였습니다.");
         }
@@ -144,6 +144,7 @@ public class TeamController implements Controller {
     
 }
 
+//ver 22 - TaskDao 변경 사항에 맞춰 이 클래스를 변경한다.
 //ver 18 - ArrayList가 적용된 TeamDao를 사용한다.
 //ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
 // ver 15 - TeamDao를 생성자에서 주입 받도록 변경.

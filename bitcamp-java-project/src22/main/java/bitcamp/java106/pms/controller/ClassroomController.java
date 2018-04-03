@@ -2,6 +2,7 @@
 package bitcamp.java106.pms.controller;
 
 import java.sql.Date;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import bitcamp.java106.pms.dao.ClassroomDao;
@@ -53,9 +54,9 @@ public class ClassroomController implements Controller {
 
     void onList() {
         System.out.println("[수업 목록]");
-        IteratorM
-        Classroom[] list = classroomDao.list();
-        for (Classroom classroom : list) {
+        Iterator<Classroom> iterator = classroomDao.list();
+        while (iterator.hasNext()) {
+            Classroom classroom = iterator.next();
             System.out.printf("%d, %s, %s ~ %s, %s\n",
                 classroom.getNo(), classroom.getTitle(), 
                 classroom.getStartDate(), classroom.getEndDate(),
@@ -112,7 +113,8 @@ public class ClassroomController implements Controller {
             updateClassroom.setRoom(str);
         
         if (Console.confirm("변경하시겠습니까?")) {
-            classroomDao.update(updateClassroom);
+            int index = classroomDao.indexOf(classroom.getNo());
+            classroomDao.update(index, updateClassroom);
             System.out.println("변경하였습니다.");
         } else {
             System.out.println("취소하였습니다.");
@@ -144,4 +146,5 @@ public class ClassroomController implements Controller {
 
 }
 
+//ver 22 - ClassroomDao 변경 사항에 맞춰 이 클래스를 변경한다.
 //ver 20 - 클래스 추가
