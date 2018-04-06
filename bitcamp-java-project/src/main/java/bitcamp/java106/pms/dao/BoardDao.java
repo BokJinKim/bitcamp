@@ -1,8 +1,10 @@
 package bitcamp.java106.pms.dao;
 
 
+import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.domain.Board;
 
+@Component
 public class BoardDao extends AbstractDao<Board> {
     public int indexOf(Object key) {
         int no = (Integer) key;
