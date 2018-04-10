@@ -10,11 +10,9 @@ import bitcamp.java106.pms.dao.BoardDao;
 import bitcamp.java106.pms.domain.Board;
 import bitcamp.java106.pms.util.Console;
 
-
 @Component("board")
 public class BoardController implements Controller {
     Scanner keyScan;
-
     BoardDao boardDao;
     
     public BoardController(Scanner scanner, BoardDao boardDao) {
@@ -101,6 +99,7 @@ public class BoardController implements Controller {
             System.out.printf("설명(%s)? ", board.getContent());
             updateBoard.setContent(this.keyScan.nextLine());
             updateBoard.setCreatedDate(board.getCreatedDate());
+            
             int index = boardDao.indexOf(board.getNo());
             boardDao.update(index, updateBoard);
             System.out.println("변경하였습니다.");
@@ -129,6 +128,8 @@ public class BoardController implements Controller {
     
 }
 
+//ver 23 - @Component 애노테이션을 붙인다. BoardDao를 받도록 생성자 변경.
+//ver 22 - BoardDao 변경 사항에 맞춰 이 클래스를 변경한다.
 // ver 18 - BoardDao 변경 사항에 맞춰 이 클래스를 변경한다.
 // ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
 // ver 14 - BoardDao를 사용하여 게시물 데이터를 관리한다.

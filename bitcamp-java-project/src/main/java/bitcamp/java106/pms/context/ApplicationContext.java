@@ -1,10 +1,11 @@
-// 객체 생성할 때 의존 객체가 필요하다면 의존 객체를 생성하여 자동 주입시킨다.
+// 미니 IoC 컨테이너 
 package bitcamp.java106.pms.context;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public class ApplicationContext {
     private HashMap<String,Object> objPool = new HashMap<>();
     
     public ApplicationContext(String packageName, Map<String,Object> beans) throws Exception {
-        
+        // 다른 맵에서 들어있는 객체를 이 컨테이너에 복사한다.
         if (beans != null) {
             objPool.putAll(beans);
         }
@@ -73,7 +74,7 @@ public class ApplicationContext {
     private Object createObject(Class clazz) throws Exception {
         
         if (!isComponent(clazz))
-            return null;  
+            return null;
         
         try {
             // 파라미터가 없는 기본 생성자를 찾는다.
@@ -91,6 +92,7 @@ public class ApplicationContext {
     }
     
     private boolean isComponent(Class clazz) throws Exception {
+        // 애노테이션의 타입을 지정하여 해당 클래스에서 @Component 애노테이션 정보를 추출한다.
         Component anno = (Component) clazz.getAnnotation(Component.class);
         if (anno == null)
             return false;
@@ -158,12 +160,18 @@ public class ApplicationContext {
         return objPool.get(name);
     }
     
-    public void print() {
-        
+    public Object getBean(Class type) {
+        Collection objList = objPool.values();
+        for (Object obj : objList) {
+            if (obj.getClass() == type) 
+                return obj;
+        }
+        return null;
     }
 }
 
-
+//ver 24 - 타입으로 객체를 찾는 getBean() 메서드 추가
+//ver 23 - 클래스 정의
 
 
 

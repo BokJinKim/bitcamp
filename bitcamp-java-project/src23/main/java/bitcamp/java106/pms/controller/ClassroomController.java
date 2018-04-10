@@ -10,12 +10,9 @@ import bitcamp.java106.pms.dao.ClassroomDao;
 import bitcamp.java106.pms.domain.Classroom;
 import bitcamp.java106.pms.util.Console;
 
-//ClassroomController는 Controller 규칙을 이행한다.
-//=> Controller 규칙에 따라 메서드를 만든다.
 @Component("classroom")
 public class ClassroomController implements Controller {
     Scanner keyScan;
-
     ClassroomDao classroomDao;
     
     public ClassroomController(Scanner scanner, ClassroomDao classroomDao) {
@@ -149,4 +146,6 @@ public class ClassroomController implements Controller {
 
 }
 
+//ver 23 - @Component 애노테이션을 붙인다. ClassroomDao를 받도록 생성자 변경.
+//ver 22 - ClassroomDao 변경 사항에 맞춰 이 클래스를 변경한다.
 //ver 20 - 클래스 추가
