@@ -1,9 +1,12 @@
 package bitcamp.java106.pms.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Classroom {
-    private static int count;
+public class Classroom implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    public static int count;
     
     private int no;
     private String title;
@@ -59,4 +62,5 @@ public class Classroom {
     
 }
 
+//ver 27 - java.io.Serializable 인터페이스 구현
 //ver 24 - setNo() 변경 

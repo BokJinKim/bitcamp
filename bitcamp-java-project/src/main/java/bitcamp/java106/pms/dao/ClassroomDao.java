@@ -1,11 +1,12 @@
 package bitcamp.java106.pms.dao;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.sql.Date;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Iterator;
-import java.util.Scanner;
 
 import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.domain.Classroom;
@@ -18,37 +19,42 @@ public class ClassroomDao extends AbstractDao<Classroom> {
     }
     
     public void load() throws Exception {
-        Scanner in = new Scanner(new FileReader("data/classroom.csv"));
-        while (true) {
-            try {
-                String[] arr = in.nextLine().split(",");
-                Classroom classroom = new Classroom();
-                classroom.setNo(Integer.parseInt(arr[0]));
-                classroom.setTitle(arr[1]);
-                classroom.setStartDate(Date.valueOf(arr[2]));
-                classroom.setEndDate(Date.valueOf(arr[3]));
-                classroom.setRoom(arr[4].equals(" ") ? "" : arr[4]);
-                this.insert(classroom);
-            } catch (Exception e) { // 데이터를 모두 읽었거나 파일 형식에 문제가 있다면,
-                //e.printStackTrace();
-                break; // 반복문을 나간다.
+        try (
+                ObjectInputStream in = new ObjectInputStream(
+                               new BufferedInputStream(
+                               new FileInputStream("data/classroom.data")));
+            ) {
+        
+            while (true) {
+                try {
+                    // 수업 데이터를 읽을 때 수업 번호가 가장 큰 것으로 
+                    // 카운트 값을 설정한다.
+                    Classroom classroom = (Classroom) in.readObject();
+                    if (classroom.getNo() >= Classroom.count)
+                        Classroom.count = classroom.getNo() + 1; 
+                        // 다음에 새로 추가할 수업의 번호는 현재 읽은 수업의 번호 보다 
+                        // 1 큰 값이 되게 한다.
+                    this.insert(classroom);
+                } catch (Exception e) { // 데이터를 모두 읽었거나 파일 형식에 문제가 있다면,
+                    //e.printStackTrace();
+                    break; // 반복문을 나간다.
+                }
             }
         }
-        in.close();
     }
     
     public void save() throws Exception {
-        PrintWriter out = new PrintWriter(new FileWriter("data/classroom.csv"));
-        
-        Iterator<Classroom> classrooms = this.list();
-        
-        while (classrooms.hasNext()) {
-            Classroom classroom = classrooms.next();
-            out.printf("%d,%s,%s,%s,%s\n", classroom.getNo(), classroom.getTitle(),
-                    classroom.getStartDate(), classroom.getEndDate(),
-                    classroom.getRoom().equals("") ? " " : classroom.getRoom());
-        }
-        out.close();
+        try (
+                ObjectOutputStream out = new ObjectOutputStream(
+                                new BufferedOutputStream(
+                                new FileOutputStream("data/classroom.data")));
+            ) {
+            Iterator<Classroom> classrooms = this.list();
+            
+            while (classrooms.hasNext()) {
+                out.writeObject(classrooms.next());
+            }
+        } 
     }
     
     public int indexOf(Object key) {

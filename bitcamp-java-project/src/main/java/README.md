@@ -1,1 +1,12 @@
-애플리케이션 자바 소스를 두는 폴더
+# 변경 내역
+- AppServer.java 추가
+- AppClient.java 추가
+- ServerRequest.java 추가
+- ServerResponse.java 추가
+- Controller.java 변경
+- BoardXxxController.java 변경
+- ClassroomXxxController.java 변경
+- MemberXxxController.java 변경
+- TaskXxxController.java 변경
+- TeamXxxController.java 변경
+- TeamMemberController.java 변경
