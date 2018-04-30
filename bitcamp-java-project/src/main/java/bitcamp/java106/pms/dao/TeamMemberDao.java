@@ -1,113 +1,74 @@
 package bitcamp.java106.pms.dao;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import bitcamp.java106.pms.annotation.Component;
 
 @Component
 public class TeamMemberDao {
+
+    SqlSessionFactory sqlSessionFactory;
     
-    private HashMap<String, ArrayList<String>> collection;
- 
-    public TeamMemberDao() throws Exception {
-        load();
+    public TeamMemberDao(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
     }
     
-    @SuppressWarnings("unchecked")
-    public void load() throws Exception {
-        try (
-                ObjectInputStream in = new ObjectInputStream(
-                               new BufferedInputStream(
-                               new FileInputStream("data/teammember.data")));
-            ) {
-        
-            try {
-                collection = (HashMap<String,ArrayList<String>>) in.readObject();
-            } catch (Exception e) {
-                // 데이터를 읽다가 오류가 발생하면 빈 해시맵 객체를 만든다.
-                collection = new HashMap<>();
-            }
+    public int insert(String teamName, String memberId) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            HashMap<String,Object> paramMap = new HashMap<>();
+            paramMap.put("teamName", teamName);
+            paramMap.put("memberId", memberId);
+            
+            int count = sqlSession.insert(
+                    "bitcamp.java106.pms.dao.TeamMemberDao.insert", paramMap);
+            sqlSession.commit();
+            return count;
         }
     }
     
-    public void save() throws Exception {
-        try (
-                ObjectOutputStream out = new ObjectOutputStream(
-                                new BufferedOutputStream(
-                                new FileOutputStream("data/teammember.data")));
-            ) {
+    public int delete(String teamName, String memberId) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            HashMap<String,Object> paramMap = new HashMap<>();
+            paramMap.put("teamName", teamName);
+            paramMap.put("memberId", memberId);
             
-            out.writeObject(collection);
+            int count = sqlSession.delete(
+                    "bitcamp.java106.pms.dao.TeamMemberDao.delete", paramMap);
+            sqlSession.commit();
+            return count;
         } 
     }
     
-    
-    public int addMember(String teamName, String memberId) {
-        String teamNameLC = teamName.toLowerCase();
-        String memberIdLC = memberId.toLowerCase();
-        
-        // 팀 이름으로 멤버 아이디가 들어 있는 ArrayList를 가져온다.
-        ArrayList<String> members = collection.get(teamNameLC);
-        if (members == null) { // 해당 팀의 멤버가 추가된 적이 없다면,
-            members = new ArrayList<>();
-            members.add(memberIdLC);
-            collection.put(teamNameLC, members);
-            return 1;
+    public List<String> selectList(String teamName) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            return sqlSession.selectList(
+                    "bitcamp.java106.pms.dao.TeamMemberDao.selectList", teamName);
         }
-        
-        // ArrayList에 해당 아이디를 가진 멤버가 들어 있다면,
-        if (members.contains(memberIdLC)) {
-            return 0;
+    }
+    
+    public boolean isExist(String teamName, String memberId) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            HashMap<String,Object> paramMap = new HashMap<>();
+            paramMap.put("teamName", teamName);
+            paramMap.put("memberId", memberId);
+            
+            int count = sqlSession.selectOne(
+                    "bitcamp.java106.pms.dao.TeamMemberDao.isExist", paramMap);
+            if (count > 0)
+                return true;
+            else 
+                return false;
         }
-        
-        members.add(memberIdLC);
-        return 1;
-    }
-    
-    public int deleteMember(String teamName, String memberId) {
-        String teamNameLC = teamName.toLowerCase();
-        String memberIdLC = memberId.toLowerCase();
-        
-        ArrayList<String> members = collection.get(teamNameLC);
-        if (members == null || !members.contains(memberIdLC)) 
-            return 0;
-
-        members.remove(memberIdLC);
-        return 1;
-    }
-    
-    public Iterator<String> getMembers(String teamName) {
-        ArrayList<String> members = collection.get(teamName.toLowerCase());
-        if (members == null)
-            return null;
-        return members.iterator();
-    }
-    
-    public boolean isExist(String teamName, String memberId) {
-        String teamNameLC = teamName.toLowerCase();
-        String memberIdLC = memberId.toLowerCase();
-        
-        // 팀 이름으로 멤버 아이디가 들어 있는 ArrayList를 가져온다.
-        ArrayList<String> members = collection.get(teamNameLC);
-        if (members == null || !members.contains(memberIdLC)) 
-            return false;
-        
-        return true;
     }
 }
 
-// 용어 정리!
-// 메서드 시그너처(method signature) = 함수 프로토타입(function prototype)
-// => 메서드의 이름과 파라미터 형식, 리턴 타입에 대한 정보를 말한다.
-
+//ver 33 - Mybatis 적용
+//ver 32 - DB 커넥션 풀 적용
+//ver 31 - JDBC API 적용
 //ver 24 - File I/O 적용
 //ver 23 - @Component 애노테이션을 붙인다.
 //ver 19 - 우리 만든 ArrayList 대신 java.util.LinkedList를 사용하여 목록을 다룬다. 

@@ -1,68 +1,61 @@
 package bitcamp.java106.pms.dao;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.Iterator;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.domain.Member;
 
 @Component
-public class MemberDao extends AbstractDao<Member> {
-    public MemberDao() throws Exception {
-        load();
-    }
+public class MemberDao {
+
+    SqlSessionFactory sqlSessionFactory;
     
-    public void load() throws Exception {
-        try (
-                ObjectInputStream in = new ObjectInputStream(
-                               new BufferedInputStream(
-                               new FileInputStream("data/member.data")));
-            ) {
+    public MemberDao(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
+    }
         
-            while (true) {
-                try {
-                    this.insert((Member) in.readObject());
-                } catch (Exception e) { // 데이터를 모두 읽었거나 파일 형식에 문제가 있다면,
-                    //e.printStackTrace();
-                    break; // 반복문을 나간다.
-                }
-            }
+    public int delete(String id) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession();) {
+            int count = sqlSession.delete("bitcamp.java106.pms.dao.MemberDao.delete", id);
+            sqlSession.commit();
+            return count;
         }
     }
     
-    public void save() throws Exception {
-        try (
-                ObjectOutputStream out = new ObjectOutputStream(
-                                new BufferedOutputStream(
-                                new FileOutputStream("data/member.data")));
-            ) {
-            Iterator<Member> members = this.list();
-            
-            while (members.hasNext()) {
-                out.writeObject(members.next());
-            }
-        } 
-    }
-        
-    public int indexOf(Object key) {
-        String id = (String) key;
-        for (int i = 0; i < collection.size(); i++) {
-            Member originMember = collection.get(i);
-            if (originMember.getId().toLowerCase().equals(id.toLowerCase())) {
-                return i;
-            }
+    public List<Member> selectList() throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession();) {
+            return sqlSession.selectList("bitcamp.java106.pms.dao.MemberDao.selectList");
         }
-        return -1;
     }
-    
-    
+
+    public int insert(Member member) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession();) {
+            int count = sqlSession.insert("bitcamp.java106.pms.dao.MemberDao.insert", member);
+            sqlSession.commit();
+            return count;
+        }
+    }
+
+    public int update(Member member) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession();) {
+            int count = sqlSession.update("bitcamp.java106.pms.dao.MemberDao.update", member);
+            sqlSession.commit();
+            return count;
+        }
+    }
+
+    public Member selectOne(String id) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession();) {
+            return sqlSession.selectOne("bitcamp.java106.pms.dao.MemberDao.selectOne", id);
+        }  
+    }    
 }
 
+//ver 32 - DB 커넥션 풀 적용
+//ver 31 - JDBC API 적용
 //ver 24 - File I/O 적용
 //ver 23 - @Component 애노테이션을 붙인다.
 //ver 22 - 추상 클래스 AbstractDao를 상속 받는다.

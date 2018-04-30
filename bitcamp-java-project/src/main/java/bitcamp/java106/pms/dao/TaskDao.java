@@ -1,88 +1,75 @@
 package bitcamp.java106.pms.dao;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.domain.Task;
 
 @Component
-public class TaskDao extends AbstractDao<Task> {
+public class TaskDao {
+
+    SqlSessionFactory sqlSessionFactory;
     
-    public TaskDao() throws Exception {
-        load();
+    public TaskDao(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
     }
-    
-    public void load() throws Exception {
-        try (
-                ObjectInputStream in = new ObjectInputStream(
-                               new BufferedInputStream(
-                               new FileInputStream("data/task.data")));
-            ) {
-        
-            while (true) {
-                try {
-                    // 작업 데이터를 읽을 때 작업 번호가 가장 큰 것으로 
-                    // 카운트 값을 설정한다.
-                    Task task = (Task) in.readObject();
-                    if (task.getNo() >= Task.count)
-                        Task.count = task.getNo() + 1; 
-                        // 다음에 새로 추가할 작업의 번호는 현재 읽은 작업 번호 보다 
-                        // 1 큰 값이 되게 한다.
-                    this.insert(task);
-                } catch (Exception e) { // 데이터를 모두 읽었거나 파일 형식에 문제가 있다면,
-                    //e.printStackTrace();
-                    break; // 반복문을 나간다.
-                }
-            }
-        }
-    }
-    
-    public void save() throws Exception {
-        try (
-                ObjectOutputStream out = new ObjectOutputStream(
-                                new BufferedOutputStream(
-                                new FileOutputStream("data/task.data")));
-            ) {
-            Iterator<Task> tasks = this.list();
             
-            while (tasks.hasNext()) {
-                out.writeObject(tasks.next());
-            }
+    public int delete(int no) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession();) {
+            int count = sqlSession.delete("bitcamp.java106.pms.dao.TaskDao.delete", no);
+            sqlSession.commit();
+            return count;
         } 
     }
-        
-    // 기존의 list() 메서드로는 작업을 처리할 수 없기 때문에 
-    // 팀명으로 작업을 목록을 리턴해주는 메서드를 추가한다. 
-    // => 오버로딩
-    public Iterator<Task> list(String teamName) {
-        ArrayList<Task> tasks = new ArrayList<>();
-        for (Task task : collection) {
-            if (task.getTeam().getName().equalsIgnoreCase(teamName)) {
-                tasks.add(task);
-            }
-        }
-        return tasks.iterator();
-    }
     
-    public int indexOf(Object key) {
-        int taskNo = (Integer) key;
-        for (int i = 0; i < collection.size(); i++) {
-            Task task = collection.get(i);
-            if (task.getNo() == taskNo) {
-                return i;
-            }
+    public List<Task> selectList(String teamName) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession();) {
+            return sqlSession.selectList("bitcamp.java106.pms.dao.TaskDao.selectList", teamName);
         }
-        return -1;
+    }
+
+    public int insert(Task task) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession();) {
+            int count = sqlSession.insert("bitcamp.java106.pms.dao.TaskDao.insert", task);
+            sqlSession.commit();
+            return count;
+        }
+    }
+
+    public int update(Task task) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession();) {
+            int count = sqlSession.update("bitcamp.java106.pms.dao.TaskDao.update", task);
+            sqlSession.commit();
+            return count;
+        }
+    }
+
+    public Task selectOne(int no) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession();) {
+            return sqlSession.selectOne("bitcamp.java106.pms.dao.TaskDao.selectOne", no);
+        }  
+    }
+
+    public int updateState(int no, int state) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            HashMap<String,Object> paramMap = new HashMap<>();
+            paramMap.put("no", no);
+            paramMap.put("state", state);
+
+            int count = sqlSession.delete(
+                    "bitcamp.java106.pms.dao.TaskDao.updateState", paramMap);
+            sqlSession.commit();
+            return count;
+        }
     }
 }
 
+//ver 32 - DB 커넥션 풀 적용
+//ver 31 - JDBC API 적용
 //ver 24 - File I/O 적용
 //ver 23 - @Component 애노테이션을 붙인다.
 //ver 22 - 추상 클래스 AbstractDao를 상속 받는다.

@@ -1,7 +1,8 @@
+// Runnable 인터페이스 구현 + Thread - 익명 클래스로 구현하기
 package step24.ex3;
 
 public class Exam04 {
-   
+
     public static void main(String[] args) {
         
         new Thread(new Runnable() {
@@ -16,5 +17,7 @@ public class Exam04 {
         for (int i = 0; i < 1000; i++) {
             System.out.println(">>>> " + i);
         }
+
     }
+
 }

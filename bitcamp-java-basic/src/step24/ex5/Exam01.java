@@ -1,7 +1,8 @@
+// 동기화 처리 전 
 package step24.ex5;
 
 public class Exam01 {
-    
+
     public static void main(String[] args) {
         Account account = new Account("111-11-1111-111", 100_0000);
         
@@ -17,5 +18,7 @@ public class Exam01 {
         대전.start();
         광주.start();
         
+
     }
+
 }

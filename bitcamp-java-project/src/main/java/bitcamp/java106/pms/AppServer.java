@@ -7,8 +7,11 @@ public class AppServer {
     ApplicationContainer applicationContainer;
     
     public AppServer(int port) throws Exception {
+        // 서버에서 작업하는데 필요한 객체를 준비한다.
+        // => 클라이언트 요청을 처리할 객체를 준비한다.
         applicationContainer = new DefaultApplicationContainer();
         
+        // => 웹 서버를 준비한다.
         httpServer = new HTTPServer(port, applicationContainer);
     }
     
@@ -21,7 +24,7 @@ public class AppServer {
         appServer.service();
     }
     
-    /* 
+    /*
     void onQuit() {
         System.out.println("안녕히 가세요!");
         BoardDao boardDao = (BoardDao) iocContainer.getBean(BoardDao.class);
@@ -51,9 +54,11 @@ public class AppServer {
         try {teamMemberDao.save();} 
         catch (Exception e) { System.out.println("팀멤버 데이터 저장 중 오류 발생!");}
     }
-*/
+     */
+
 }
 
+//ver 29 - 웹서버와 애플리케이션 실행 기능을 별도의 클래스로 분리한다.
 //ver 28 - 서버 만들기
 
 

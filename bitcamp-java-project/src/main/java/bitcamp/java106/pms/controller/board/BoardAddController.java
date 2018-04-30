@@ -22,18 +22,20 @@ public class BoardAddController implements Controller {
         Board board = new Board();
         board.setTitle(request.getParameter("title"));
         board.setContent(request.getParameter("content"));
-        board.setCreatedDate(new Date(System.currentTimeMillis())); 
-        boardDao.insert(board);
-        
-        for (int i = 0; i < 1000000000; i++) {
-            Math.asin(34.8);
-        }
+        board.setCreatedDate(new Date(System.currentTimeMillis()));
         
         PrintWriter out = response.getWriter();
-        out.println("등록 성공!");
+        try {
+            boardDao.insert(board);
+            out.println("등록 성공!");
+        } catch (Exception e) {
+            out.println("등록 실패!");
+            e.printStackTrace(out);
+        }
     }
 
 }
 
+//ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
 //ver 26 - BoardController에서 add() 메서드를 추출하여 클래스로 정의. 

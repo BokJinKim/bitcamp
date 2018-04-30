@@ -10,8 +10,6 @@ public class Task implements Serializable {
     public static final int WORKING = 1;
     public static final int COMPLETE = 9;
     
-    public static int count = 1;
-
     private int no;
     private String title;
     private Date startDate;
@@ -20,64 +18,54 @@ public class Task implements Serializable {
     private Member worker;
     private Team team;
     
-    public Task(Team team) {
-        this.no = count++;
-        this.team = team;
-    }
-    
-    public Task(Team team, String title, Date startDate, Date endDate) {
-        this(team);
-        this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.state = READY;
-    }
-    
     public int getNo() {
         return no;
     }
-    public void setNo(int no) {
-        // 외부에서 입력 받은 번호가 count 보다 클 때는 count의 값을 증가시켜야 한다.
-        if (no >= count) {
-            count = no + 1;
-        }
+    public Task setNo(int no) {
         this.no = no;
+        return this;
     }
     public int getState() {
         return state;
     }
-    public void setState(int state) {
+    public Task setState(int state) {
         this.state = state;
+        return this;
     }
     public Member getWorker() {
         return worker;
     }
-    public void setWorker(Member worker) {
+    public Task setWorker(Member worker) {
         this.worker = worker;
+        return this;
     }
     public Team getTeam() {
         return team;
     }
-    public void setTeam(Team team) {
+    public Task setTeam(Team team) {
         this.team = team;
+        return this;
     }
     public String getTitle() {
         return title;
     }
-    public void setTitle(String title) {
+    public Task setTitle(String title) {
         this.title = title;
+        return this;
     }
     public Date getStartDate() {
         return startDate;
     }
-    public void setStartDate(Date startDate) {
+    public Task setStartDate(Date startDate) {
         this.startDate = startDate;
+        return this;
     }
     public Date getEndDate() {
         return endDate;
     }
-    public void setEndDate(Date endDate) {
+    public Task setEndDate(Date endDate) {
         this.endDate = endDate;
+        return this;
     }
 
     @Override

@@ -1,66 +1,60 @@
 package bitcamp.java106.pms.dao;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.Iterator;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.domain.Team;
 
 @Component
-public class TeamDao extends AbstractDao<Team> {
+public class TeamDao {
+    SqlSessionFactory sqlSessionFactory;
     
-    public TeamDao() throws Exception {
-        load();
+    public TeamDao(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
     }
     
-    public void load() throws Exception {
-        try (
-                ObjectInputStream in = new ObjectInputStream(
-                               new BufferedInputStream(
-                               new FileInputStream("data/team.data")));
-            ) {
-        
-            while (true) {
-                try {
-                    this.insert((Team) in.readObject());
-                } catch (Exception e) { // 데이터를 모두 읽었거나 파일 형식에 문제가 있다면,
-                    //e.printStackTrace();
-                    break; // 반복문을 나간다.
-                }
-            }
-        }
-    }
-    
-    public void save() throws Exception {
-        try (
-                ObjectOutputStream out = new ObjectOutputStream(
-                                new BufferedOutputStream(
-                                new FileOutputStream("data/team.data")));
-            ) {
-            Iterator<Team> teams = this.list();
-            
-            while (teams.hasNext()) {
-                out.writeObject(teams.next());
-            }
+    public int delete(String name) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            int count = sqlSession.delete("bitcamp.java106.pms.dao.TeamDao.delete", name);
+            sqlSession.commit();
+            return count;
         } 
     }
-        
-    public int indexOf(Object key) {
-        String name = (String) key;
-        for (int i = 0; i < collection.size(); i++) {
-            if (name.equalsIgnoreCase(collection.get(i).getName())) {
-                return i;
-            }
+    
+    public List<Team> selectList() throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            return sqlSession.selectList("bitcamp.java106.pms.dao.TeamDao.selectList");
         }
-        return -1;
     }
+
+    public int insert(Team team) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            int count = sqlSession.insert("bitcamp.java106.pms.dao.TeamDao.insert", team);
+            sqlSession.commit();
+            return count;
+        } 
+    }
+
+    public int update(Team team) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            int count = sqlSession.update("bitcamp.java106.pms.dao.TeamDao.update", team);
+            sqlSession.commit();
+            return count;
+        } 
+    }
+
+    public Team selectOne(String name) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            return sqlSession.selectOne("bitcamp.java106.pms.dao.TeamDao.selectOne", name);
+        }  
+    }    
 }
 
+//ver 32 - DB 커넥션 풀 적용
+//ver 31 - JDBC API 적용
 //ver 24 - File I/O 적용
 //ver 23 - @Component 애노테이션을 붙인다.
 //ver 22 - 추상 클래스 AbstractDao를 상속 받는다.

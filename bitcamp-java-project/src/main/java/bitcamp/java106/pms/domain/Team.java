@@ -12,50 +12,49 @@ public class Team implements Serializable {
     private Date startDate;
     private Date endDate;
 
-    public Team() {}
-    
-    public Team(String name) {
-        this.name = name;
-    }
-    
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Team setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Team setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public int getMaxQty() {
         return maxQty;
     }
 
-    public void setMaxQty(int maxQty) {
+    public Team setMaxQty(int maxQty) {
         this.maxQty = maxQty;
+        return this;
     }
 
     public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public Team setStartDate(Date startDate) {
         this.startDate = startDate;
+        return this;
     }
 
     public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public Team setEndDate(Date endDate) {
         this.endDate = endDate;
+        return this;
     }
     
     @Override
@@ -64,6 +63,7 @@ public class Team implements Serializable {
     }
 }
 
+//ver 31 - 생성자 제거.
 //ver 27 - java.io.Serializable 인터페이스 구현
 //ver 24 - 생성자 추가
 //ver 17 - toString() 오버라이딩.
