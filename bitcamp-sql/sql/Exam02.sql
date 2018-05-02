@@ -14,9 +14,11 @@ create table test1 (
   pstno varchar(5),
   addr varchar(200)
 );
+
 /* PK 컬럼 지정 */
 alter table test1
   add constraint primary key (no);
+
 /* 자동 증가 컬럼 지정 */
 alter table test1
   modify column no int not null auto_increment;
@@ -30,6 +32,7 @@ alter table test1
  * 값을 지정해야 한다.*/
 insert into 테이블명 value(값,....);
 insert into test1 values(null,'aaa','111','222','10101','seoul');
+
 /* 컬럼을 명시할 수 있다. 이때 값을 입력하는 컬럼의 순서를 바꿀 수 있다. */
 insert into 테이블명(컬럼,컬럼,...) values(값,값,...);
 insert into test1(name,fax,tel,no,pstno,addr) 
@@ -63,6 +66,7 @@ insert into test2(name,tel)
 update 테이블명 set 컬럼명=값, 컬럼명=값, ... where 조건...;
 update test1 set pstno='11111', fax='222' where no=3;
 update test1 set tel='3030', fax='1212' where no=2;
+
 /* 조건을 지정하지 않으면, 모든 데이터에 대해 변경한다.*/
 update test1 set fax='333';
 ```
@@ -89,9 +93,13 @@ insert/update/delete을 수행한 후 승인을 해야만 실제 테이블에 �
 insert into test1(name, tel) values('xxx', '1111');
 insert into test1(name, tel) values('yyy', '2222');
 insert into test1(name, tel) values('zzz', '2222');
+
 update test1 set fax='1212' where name='xxx';
+
 delete from test1 where no=1;
+
 rollback; /* 지금까지 작업한 insert, update, delete은 최소된다.*/
+
 ```
 
 연습2:
@@ -99,9 +107,13 @@ rollback; /* 지금까지 작업한 insert, update, delete은 최소된다.*/
 insert into test1(name, tel) values('xxx', '1111');
 insert into test1(name, tel) values('yyy', '2222');
 insert into test1(name, tel) values('zzz', '2222');
+
 update test1 set fax='1212' where name='xxx';
+
 delete from test1 where no=1;
+
 commit; /* 지금까지 한 작업을 테이블에 적용한다.*/
+
 rollback; /* 지금까지 작업한 insert, update, delete은 최소된다.*/
 ```
 
@@ -110,9 +122,18 @@ rollback; /* 지금까지 작업한 insert, update, delete은 최소된다.*/
 ```
 delete from 테이블명 where 조건;
 delete from test1 where no=2 or no=3;
+
 /* 조건을 지정하지 않으면 모든 데이터가 삭제된다. 주의!*/
 delete from test1;
 ```
+
+
+
+
+
+
+
+
 
 
 

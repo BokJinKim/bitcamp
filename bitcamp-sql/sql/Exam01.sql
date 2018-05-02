@@ -353,6 +353,7 @@ create table test1(
   constraint test1_uk unique (name, age),
   fulltext index test1_name_idx (name)
 );
+
 insert into test1(no,name,age,kor,eng,math) values(1,'aaa',20,80,80,80);
 insert into test1(no,name,age,kor,eng,math) values(2,'bbb',21,90,80,80);
 insert into test1(no,name,age,kor,eng,math) values(3,'ccc',20,80,80,80);
@@ -384,12 +385,14 @@ create table test1 (
   sum int,
   aver int
 );
+
 ```
 
 - 테이블에 컬럼 추가
 ```
 alter table test1
   add column no int;
+
 alter table test1
   add column age int;  
 ```
@@ -421,6 +424,7 @@ insert into test1(no,name,age,kor,eng,math,sum,aver)
   
 insert into test1(no,name,age,kor,eng,math,sum,aver)
   values(2,'bbb',21,100,100,100,300,100);
+
 /* 다음은 name과 age의 값이 중복되기 때문에 입력 거절된다.*/  
 insert into test1(no,name,age,kor,eng,math,sum,aver)
   values(3,'bbb',21,100,100,100,300,100);  
@@ -448,6 +452,7 @@ alter table test1
   
 alter table test1
   add constraint primary key (no); /* 일단 no를 pk로 지정한다.*/
+
 alter table test1
   modify column no int not null auto_increment; /* 그런 후 auto_increment를 지정한다.*/
 ```
@@ -472,6 +477,7 @@ create table test1 (
   working char(1) not null,
   tel varchar(20)
 );
+
 insert into test1(name,class,working) values('aaa','java100','Y');
 insert into test1(name,class,working) values('bbb','java100','N');
 insert into test1(name,class,working) values('ccc','java100','Y');
@@ -510,4 +516,5 @@ select * from worker;
 ```
 drop view worker;
 ```
+
 

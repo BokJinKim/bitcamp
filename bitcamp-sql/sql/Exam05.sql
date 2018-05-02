@@ -1,4 +1,6 @@
-    -- 수강생
+# select 테스트 용 테이블 준비
+
+-- 수강생
 DROP TABLE IF EXISTS stnt RESTRICT;
 
 -- 강사
@@ -47,11 +49,6 @@ ALTER TABLE stnt
 -- 수강생 유니크 인덱스
 CREATE UNIQUE INDEX UIX_stnt
     ON stnt ( -- 수강생
-    );
-
--- 수강생 유니크 인덱스2
-CREATE UNIQUE INDEX UIX_stnt2
-    ON stnt ( -- 수강생
         acc_no ASC, -- 통장번호
         bank ASC    -- 은행명
     );
@@ -74,11 +71,6 @@ ALTER TABLE tcher
 
 -- 강사 유니크 인덱스
 CREATE UNIQUE INDEX UIX_tcher
-    ON tcher ( -- 강사
-    );
-
--- 강사 유니크 인덱스2
-CREATE UNIQUE INDEX UIX_tcher2
     ON tcher ( -- 강사
         acc_no ASC, -- 통장번호
         bank ASC    -- 은행명

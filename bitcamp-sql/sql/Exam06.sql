@@ -1,3 +1,5 @@
+# select 테스트 용 데이터 준비
+
 /* 강의실 데이터 준비 */
 insert into room(rno, loc, name, qnty) values(1, '강남', '501', 30);
 insert into room(rno, loc, name, qnty) values(2, '강남', '502', 30);
@@ -12,15 +14,15 @@ insert into room(rno, loc, name, qnty) values(10, '서초', '601', 30);
 
 /* 학생 데이터 입력 */
 insert into memb(mno, name, tel, email, pwd)
-values(100, 's100', '111-1111', 's100@', sha2('1111',224));
+values(100, 's100', '111-1111', 's100@', sha2('1111', 224));
 insert into memb(mno, name, tel, email, pwd)
-values(101, 's101', '111-1111', 's101@', sha2('1111',224));
+values(101, 's101', '111-1111', 's101@', sha2('1111', 224));
 insert into memb(mno, name, tel, email, pwd)
-values(102, 's102', '111-1111', 's102@', sha2('1111',224));
+values(102, 's102', '111-1111', 's102@', sha2('1111', 224));
 insert into memb(mno, name, tel, email, pwd)
-values(103, 's103', '111-1111', 's103@', sha2('1111',224));
+values(103, 's103', '111-1111', 's103@', sha2('1111', 224));
 insert into memb(mno, name, tel, email, pwd)
-values(104, 's104', '111-1111', 's104@', sha2('1111',224));
+values(104, 's104', '111-1111', 's104@', sha2('1111', 224));
 
 insert into stnt(mno, work, acc_no, bank)
 values(100, 'N', '1000', '비트은행');
@@ -35,15 +37,15 @@ values(104, 'N', '1004', '국민은행');
 
 /* 강사 데이터 입력 */
 insert into memb(mno, name, tel, email, pwd)
-values(200, 's200', '111-1111', 's200@', sha2('1111',224));
+values(200, 's200', '111-1111', 's200@', sha2('1111', 224));
 insert into memb(mno, name, tel, email, pwd)
-values(201, 's201', '111-1111', 's201@', sha2('1111',224));
+values(201, 's201', '111-1111', 's201@', sha2('1111', 224));
 insert into memb(mno, name, tel, email, pwd)
-values(202, 's202', '111-1111', 's202@', sha2('1111',224));
+values(202, 's202', '111-1111', 's202@', sha2('1111', 224));
 insert into memb(mno, name, tel, email, pwd)
-values(203, 's203', '111-1111', 's203@', sha2('1111',224));
+values(203, 's203', '111-1111', 's203@', sha2('1111', 224));
 insert into memb(mno, name, tel, email, pwd)
-values(204, 's204', '111-1111', 's204@', sha2('1111',224));
+values(204, 's204', '111-1111', 's204@', sha2('1111', 224));
 
 insert into tcher(mno, hr_pay, acc_no, bank)
 values(200, 10000, '2000', '신한은행');
@@ -58,15 +60,15 @@ values(204, 30000, '2004', '국민은행');
 
 /* 매니저 데이터 입력 */
 insert into memb(mno, name, tel, email, pwd)
-values(300, 'm300', '111-1111', 'm300@', sha2('1111',224));
+values(300, 'm300', '111-1111', 'm300@', sha2('1111', 224));
 insert into memb(mno, name, tel, email, pwd)
-values(301, 'm301', '111-1111', 'm301@', sha2('1111',224));
+values(301, 'm301', '111-1111', 'm301@', sha2('1111', 224));
 insert into memb(mno, name, tel, email, pwd)
-values(302, 'm302', '111-1111', 'm302@', sha2('1111',224));
+values(302, 'm302', '111-1111', 'm302@', sha2('1111', 224));
 insert into memb(mno, name, tel, email, pwd)
-values(303, 'm303', '111-1111', 'm303@', sha2('1111',224));
+values(303, 'm303', '111-1111', 'm303@', sha2('1111', 224));
 insert into memb(mno, name, tel, email, pwd)
-values(304, 'm304', '111-1111', 'm304@', sha2('1111',224));
+values(304, 'm304', '111-1111', 'm304@', sha2('1111', 224));
 
 insert into mgr(mno, dept, posi)
 values(300, '시설관리', '주임');
