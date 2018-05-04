@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- IoC 컨테이너가 생성해야 할 객체에 대한 정보 설정하기 
+         => IoC 컨테이너는 다음 태그를 보고 설정된 정보에 따라 객체를 생성한다.
+    -->
+    
+    <!-- id: 생성된 객체를 컨테이너에 보관할 때 사용할 key
+         class: 생성할 객체에 클래스 정보.
+                  반드시 Fully-qualified class name 이어야 한다. -->
+    <!-- id: 빈의 이름 -->
+    <bean id="c1" class="bitcamp.java106.step02.Car"></bean>
+    <!--  name: 빈의 별명 -->
+    <bean id="c2" name="c3" class="bitcamp.java106.step02.Car"/>
+    
+    <!-- id를 지정하지 않고 name만 지정하면 name이 id로 사용된다. -->
+    <bean name= "c4" class="bitcamp.java106.step02.Car"/>
+    
+    <!-- id를 지정하지 않고 name만 지정하면 name이 id로 사용된다. -->
+    <bean id= "c5" name="c51 c52 c53" class="bitcamp.java106.step02.Car"/>
+    <bean id= "c6" name="c61,c62,c63" class="bitcamp.java106.step02.Car"/>
+    <bean id= "c7" name="c71;c72;c73" class="bitcamp.java106.step02.Car"/>
+    
+    <!-- name 속성에 여러 개의 별명을 입력할 때 공백, 콤마(,), 세미콜론(;)을
+                  사용할 수 있다. 그 외에는 불가하다! -->
+    <bean id= "c8" name="c81:c82:c83" class="bitcamp.java106.step02.Car"/>
+    
+    <!-- id 없이 name에 여러 개의 별명을 지정할 때는 그 중에서 첫 번째 별명이
+         id로 사용된다. -->
+    <bean name= "c91 c92 c93" class="bitcamp.java106.step02.Car"/>
+         
+</beans>
