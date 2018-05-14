@@ -9,21 +9,22 @@
     <bean id="carFactory" class="bitcamp.java106.step06.CarFactory2"/>
     
     <!-- 자바 코드:
-                CarFactory carFactory = new CarFactory();
-                Object obj = carFactory.create("SM5");
-                objPool.put("c1", obj);
+            CarFactory2 carFactory = new CarFactory2();
+            Object obj = carFactory.create("SM5");
+            objPool.put("c1", obj);
      -->
-    <bean id="c1" factory-bean="carFactory" 
+    <bean id="c1" factory-bean="carFactory"
           factory-method="create">
-          <constructor-arg value="SM5"/>
+        <constructor-arg value="SM5"/>
     </bean>
     <!--
-                속성:
-           factory-bean="공장역할을 수행하는 객체이름"
-           factory-method="인스턴스 메서드 이름"
-           => factory-bean 속성을 설정하면 factory-method는 스태틱 메서드가 아니라
-                            인스턴스 메서드를 가리키게 된다.
-    -->
+        속성:
+            factory-bean="공장역할을 수행하는 객체이름"
+            factory-method="인스턴스 메서드 이름"
+            => factory-bean 속성을 설정하면 factory-method는 스태틱 메서드가 아니라 
+               인스턴스 메서드를 가리키게 된다.
+     -->
+    
 </beans>
 
 

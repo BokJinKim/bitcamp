@@ -16,7 +16,7 @@ public class CarFactory2 {
             return c;
         case "SM5":
             c.setMaker("르노삼성자동차");
-            c.setModel("SM5");
+            c.setMaker("SM5");
             c.setCc(1990);
             return c;
         default:

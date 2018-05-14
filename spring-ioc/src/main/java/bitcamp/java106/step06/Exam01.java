@@ -1,4 +1,4 @@
-// 프로퍼티 호출 
+// 팩토리 메서드 호출 - static 메서드 호출
 package bitcamp.java106.step06;
 
 import org.springframework.context.ApplicationContext;

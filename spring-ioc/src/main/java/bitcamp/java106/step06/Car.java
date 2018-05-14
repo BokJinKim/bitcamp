@@ -1,7 +1,5 @@
 package bitcamp.java106.step06;
 
-import java.util.Arrays;
-
 public class Car {
     String model;
     String maker;
@@ -11,7 +9,6 @@ public class Car {
     public String toString() {
         return "Car [model=" + model + ", maker=" + maker + ", cc=" + cc + "]";
     }
-    
     public String getModel() {
         return model;
     }
