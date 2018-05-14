@@ -13,14 +13,14 @@ import javax.servlet.annotation.WebServlet;
 @WebServlet("/step03/exam03")
 public class Exam03 extends GenericServlet {
     private static final long serialVersionUID = 1L;
-    
+
     @Override
     public void service(
             ServletRequest request, 
             ServletResponse response) throws ServletException, IOException {
         
         // HTTP 요청과 관련된 도구는 ServletRequest에 들어있다.
-        // 특히 클라이언트가 보낸 데이터를 꺼낼 때는 getParameter("key")를 사용하라
+        // 특히 클라이언트가 보낸 데이터를 꺼낼 때는 getParameter("key")를 사용하라!
         // => 리턴 값은 String이기 때문에 다른 타입으로 바꾸려면 적절한 형변환을 수행하라!
         String name = request.getParameter("name");
         int age = Integer.parseInt(request.getParameter("age"));
@@ -31,3 +31,9 @@ public class Exam03 extends GenericServlet {
         out.printf("나이=%d\n", age);
     }
 }
+
+
+
+
+
+

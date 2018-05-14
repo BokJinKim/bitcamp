@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebServlet;
 @WebServlet("/step03/exam01")
 public class Exam01 extends GenericServlet {
     private static final long serialVersionUID = 1L;
-    
+
     @Override
     public void service(
             ServletRequest request, 
@@ -35,8 +35,15 @@ public class Exam01 extends GenericServlet {
         // => service() 메서드가 실행되는 동안 출력하는 데이터는 모두 버퍼로 보내진다.
         // => service() 메서드 호출이 끝나면 비로서 버퍼에 보관된 데이터를 
         //    HTTP 프로토콜에 맞춰서 서버에 보낸다.
-        out.println("Hello");
-        out.println("안녕하세요");
+        out.println("Hello!");
+        out.println("안녕하세요!");
     }
-
 }
+
+
+
+
+
+
+
+
