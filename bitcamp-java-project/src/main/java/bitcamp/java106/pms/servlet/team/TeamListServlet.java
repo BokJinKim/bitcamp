@@ -1,21 +1,18 @@
-// Controller 규칙에 따라 메서드 작성
 package bitcamp.java106.pms.servlet.team;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.domain.Team;
-import bitcamp.java106.pms.server.ServerRequest;
-import bitcamp.java106.pms.server.ServerResponse;
 import bitcamp.java106.pms.servlet.InitServlet;
 
 @SuppressWarnings("serial")
@@ -28,28 +25,59 @@ public class TeamListServlet extends HttpServlet {
     public void init() throws ServletException {
         teamDao = InitServlet.getApplicationContext().getBean(TeamDao.class);
     }
-    
+
+
     @Override
     protected void doGet(
-            HttpServletRequest request,
+            HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/plain;charset=UTF-8");
+        
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<meta charset='UTF-8'>");
+        out.println("<title>팀 목록</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>팀 목록</h1>");
         
         try {
             List<Team> list = teamDao.selectList();
+            
+            out.println("<p><a href='form.html'>새 팀</a></p>");
+            out.println("<table border='1'>");
+            out.println("<tr>");
+            out.println("    <th>팀명</th><th>최대인원</th><th>기간</th>");
+            out.println("</tr>");
+            
             for (Team team : list) {
-                out.printf("%s, %d, %s ~ %s\n", 
-                        team.getName(), team.getMaxQty(), 
-                        team.getStartDate(), team.getEndDate());
+                out.println("<tr>");
+                out.printf("    <td><a href='view?name=%s'>%s</a></td><td>%d</td><td>%s~%s</td>\n",
+                        team.getName(),
+                        team.getName(),
+                        team.getMaxQty(), 
+                        team.getStartDate(), 
+                        team.getEndDate());
+                out.println("</tr>");
             }
+            out.println("</table>");
         } catch (Exception e) {
-            out.println("목록 가져오기 실패!");
-            e.printStackTrace(out);
+            RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
+            request.setAttribute("error", e);
+            request.setAttribute("title", "멤버 목록조회 실패!");
+            // 다른 서블릿으로 실행을 위임할 때,
+            // 이전까지 버퍼로 출력한 데이터는 버린다.
+            요청배달자.forward(request, response);
         }
+        out.println("</body>");
+        out.println("</html>");
     }
 }
 
+//ver 37 - 컨트롤러를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
 //ver 26 - TeamController에서 list() 메서드를 추출하여 클래스로 정의.

@@ -3,23 +3,23 @@ package bitcamp.java106.pms.servlet.task;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.sql.Date;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.dao.TaskDao;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.dao.TeamMemberDao;
 import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.domain.Task;
 import bitcamp.java106.pms.domain.Team;
-import bitcamp.java106.pms.server.ServerRequest;
-import bitcamp.java106.pms.server.ServerResponse;
 import bitcamp.java106.pms.servlet.InitServlet;
 
 @SuppressWarnings("serial")
@@ -28,54 +28,115 @@ public class TaskAddServlet extends HttpServlet {
     
     TeamDao teamDao;
     TaskDao taskDao;
-    MemberDao memberDao;
     TeamMemberDao teamMemberDao;
     
     @Override
     public void init() throws ServletException {
-        // 스프링 IoC 컨테이너에서 서블릿 객체를 관리하는 것이 아니기 때문에
-        // 스프링 IoC 컨테이너에 들어 있는 DAO 객체를 자동으로 주입 받을 수 없다.
-        // 서블릿을 생성할 때 스프링 IoC 컨테이너에서 직접 DAO를 꺼내와야 한다.
         teamDao = InitServlet.getApplicationContext().getBean(TeamDao.class);
-        memberDao = InitServlet.getApplicationContext().getBean(MemberDao.class);
         taskDao = InitServlet.getApplicationContext().getBean(TaskDao.class);
         teamMemberDao = InitServlet.getApplicationContext().getBean(TeamMemberDao.class);
+    }
+    
+    @Override
+    protected void doGet(
+            HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        String teamName = request.getParameter("teamName");
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
+        try {
+            Team team = teamDao.selectOne(teamName);
+            if (team == null) {
+                throw new Exception(teamName + " 팀은 존재하지 않습니다.");
+            }
+            List<Member> members = teamMemberDao.selectListWithEmail(teamName);
+            out.println("<form action='add' method='post'>");
+            out.printf("<input type='hidden' name='teamName' value='%s'>\n", teamName);
+            out.println("<table border='1'>");
+            out.println("<tr>");
+            out.println("<th>작업명</th><td><input type='text' name='title'></td>");
+            out.println("</tr>");
+            out.println("<tr>");
+            out.println("<th>시작일</th><td><input type='date' name='startDate'></td>");
+            out.println("</tr>");
+            out.println("<tr>");
+            out.println("<th>종료일</th><td><input type='date' name='endDate'></td>");
+            out.println("</tr>");
+            out.println("<tr>");
+            out.println("   <th>작업자</th>");
+            out.println("   <td>");
+            out.println("       <select name='memberId'>");
+            out.println("           <option value=''>--선택 안함--</option>");
+            
+            for (Member member : members ) {
+                out.printf("           <option>%s</option>\n", member.getId());
+            }
+            out.println("       </select>");
+            out.println("   </td>");
+            out.println("</tr>");
+            out.println("</table>");
+            out.println("<button>등록</button>");
+            out.println("</form>");
+            
+        } catch (Exception e) {
+         // 예외가 발생하면 ErrorServlet으로 예외 내용을 출력하도록 실행을 위임한다.
+            // 1) 실행을 위임할 객체를 준비한다.
+            RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
+            
+            // 2) 다른 서블릿에게 실행을 위임하기 전에 그 서블릿에 전달할 데이터가 있다면,
+            //    ServletRequest 보관소에 담아라.
+            request.setAttribute("error", e);
+            request.setAttribute("title", "작업 등록 실패!");
+            
+            // 3) 다른 서블릿으로 실행을 위임한다.
+            요청배달자.forward(request, response);
+        }
     }
     @Override
     protected void doPost(
             HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/plain;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        Task task = new Task();
-        task.setTitle(request.getParameter("title"));
-        task.setStartDate(Date.valueOf(request.getParameter("startDate")));
-        task.setEndDate(Date.valueOf(request.getParameter("endDate")));
-        task.setTeam(new Team().setName(request.getParameter("teamName")));
-        task.setWorker(new Member().setId(request.getParameter("memberId")));
         
+        String teamName = request.getParameter("teamName");
         try {
+            Task task = new Task();
+            task.setTitle(request.getParameter("title"));
+            task.setStartDate(Date.valueOf(request.getParameter("startDate")));
+            task.setEndDate(Date.valueOf(request.getParameter("endDate")));
+            task.setTeam(new Team().setName(teamName));
+            task.setWorker(new Member().setId(request.getParameter("memberId")));
+            
             Team team = teamDao.selectOne(task.getTeam().getName());
             if (team == null) {
-                out.printf("'%s' 팀은 존재하지 않습니다.\n", task.getTeam().getName());
-                return;
+                throw new Exception(task.getTeam().getName() + " 팀은 존재하지 않습니다.");
             }
             
-            Member member = memberDao.selectOne(task.getWorker().getId());
-            if (member == null) {
-                out.printf("'%s' 회원은 존재하지 않습니다.\n", task.getWorker().getId());
-                return;
-            }
-            
+            if (task.getWorker().getId().length() > 0 &&
+                !teamMemberDao.isExist(
+                    task.getTeam().getName(), task.getWorker().getId())) {
+                throw new Exception(task.getWorker().getId() + "는 이 팀의 회원이 아닙니다.");
+            } 
             taskDao.insert(task);
-            out.println("등록 성공!");
+            response.sendRedirect("list?teamName="+ URLEncoder.encode(teamName, "UTF-8"));
+            
         } catch (Exception e) {
-            out.println("등록 실패!");
-            e.printStackTrace(out);
+            // 예외가 발생하면 ErrorServlet으로 예외 내용을 출력하도록 실행을 위임한다.
+            // 1) 실행을 위임할 객체를 준비한다.
+            RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
+            
+            // 2) 다른 서블릿에게 실행을 위임하기 전에 그 서블릿에 전달할 데이터가 있다면,
+            //    ServletRequest 보관소에 담아라.
+            request.setAttribute("error", e);
+            request.setAttribute("title", "작업 등록 실패!");
+            
+            // 3) 다른 서블릿으로 실행을 위임한다.
+            요청배달자.forward(request, response);
         }
     }
-
 }
 
 //ver 31 - JDBC API가 적용된 DAO 사용
