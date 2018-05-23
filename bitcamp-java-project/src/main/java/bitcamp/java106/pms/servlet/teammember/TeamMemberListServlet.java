@@ -12,9 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContext;
+
+import bitcamp.java106.pms.dao.TaskDao;
 import bitcamp.java106.pms.dao.TeamMemberDao;
 import bitcamp.java106.pms.domain.Member;
-import bitcamp.java106.pms.servlet.InitServlet;
+import support.WebApplicationContextUtils;
 
 @SuppressWarnings("serial")
 @WebServlet("/team/member/list")
@@ -24,7 +27,8 @@ public class TeamMemberListServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        teamMemberDao = InitServlet.getApplicationContext().getBean(TeamMemberDao.class);
+        ApplicationContext iocContainer = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+        teamMemberDao = iocContainer.getBean(TeamMemberDao.class);
     }
     
     @Override
