@@ -1,4 +1,4 @@
-// 자동으로 페이지를 이동하는 방법 - Refresh(HTML 페이지에 삽입)
+// 실행 위임 하는 방법 - forward
 package step08.ex2;
 
 import java.io.IOException;
@@ -21,8 +21,8 @@ public class Exam04 extends HttpServlet {
         
         String op = request.getParameter("op");
         
-        if(!op.equals("/")) {
-            // / 연산자가 아니라면 다음 서블릿에게 실행을 위임한다.
+        if (!op.equals("/")) {
+            // + 연산자가 아니라면 다음 서블릿에게 실행을 위임한다.
             RequestDispatcher 요청배달자 = request.getRequestDispatcher(
                     "/step08/ex2/exam05");
             요청배달자.forward(request, response);
@@ -48,3 +48,10 @@ public class Exam04 extends HttpServlet {
         out.println("</html>");
     }
 }
+
+
+
+
+
+
+

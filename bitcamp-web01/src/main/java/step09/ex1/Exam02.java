@@ -1,4 +1,4 @@
-// 다른 서블릿의 작업을 포함하기 - include
+// 서블릿 실행 
 package step09.ex1;
 
 import java.io.IOException;
@@ -18,9 +18,6 @@ public class Exam02 extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        request.setCharacterEncoding("UTF-8");
-        String name = request.getParameter("name");
-        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
@@ -28,15 +25,22 @@ public class Exam02 extends HttpServlet {
         out.println("<html>");
         out.println("<head>");
         out.println("  <meta charset='UTF-8'>");
-        out.println("  <title>include</title>");
-        
+        out.println("  <title>exam02</title>");
         out.println("</head>");
         out.println("<body>");
-        
-        out.printf("<h1>exam02 실행!</h1>\n");
+        out.println("<h1>exam02 실행!</h1>");
         out.println("</body>");
         out.println("</html>");
         
-        System.out.println("/step09/ex1/exam02 실행");
+        // 콘솔 창에 서블릿이 실행되었음을 표시하기 위해 출력한다.
+        // => 필터의 실행과 서블릿의 실행 순서를 확인하기 위함이다.
+        System.out.println("/step09/ex1/exam02 실행!");
     }
 }
+
+
+
+
+
+
+

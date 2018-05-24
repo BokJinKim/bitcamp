@@ -1,5 +1,6 @@
 package bitcamp.java106.pms.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -55,6 +56,17 @@ public class MemberDao {
         try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
             return sqlSession.selectOne(
                     "bitcamp.java106.pms.dao.MemberDao.selectOne", id);
+        }   
+    }    
+    
+    public Member selectOneWithPassword(String id, String password) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            HashMap<String,String> params = new HashMap<>();
+            params.put("id", id);
+            params.put("password", password);
+            
+            return sqlSession.selectOne( 
+                    "bitcamp.java106.pms.dao.MemberDao.selectOneWithPassword", params);  // sqlSession selectOne이 값을 두개 못넘겨주기 때문에 hashmap에 넣어서 넘긴다. 
         }   
     }    
 }

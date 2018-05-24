@@ -1,4 +1,4 @@
-// 자동으로 페이지를 이동하는 방법 - Refresh(HTML 페이지에 삽입)
+// 실행 위임 하는 방법 - forward
 package step08.ex2;
 
 import java.io.IOException;
@@ -18,9 +18,6 @@ public class Exam05 extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        int a = Integer.parseInt(request.getParameter("a"));
-        int b = Integer.parseInt(request.getParameter("b"));
-        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
@@ -32,8 +29,15 @@ public class Exam05 extends HttpServlet {
         out.println("</head>");
         out.println("<body>");
         out.println("<h1>exam05</h1>");
-        out.println("<p>해당 연산자를 사용할 수 없습니다</p>");
+        out.println("<p>해당 연산자를 사용할 수 없습니다.</p>");
         out.println("</body>");
         out.println("</html>");
     }
 }
+
+
+
+
+
+
+

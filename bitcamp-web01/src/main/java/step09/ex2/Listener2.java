@@ -1,29 +1,35 @@
-// 리스너 = 이벤트 핸들러 : 특정 상태가 되었을 때 실행되는 객체
-//
+// ServletRequestListener: 요청이 들어오고 응답이 완료되었을 때 발생하는 이벤트 처리
+//                    
 package step09.ex2;
-
 
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
 
-// 리스너
-// => 특정 상태가 되었을 때 특정 작업을 수행하는 객체
-//
-// 서블릿 컨테이너에서 발생하는 이벤트 
-//
 @WebListener
 public class Listener2 implements ServletRequestListener {
     @Override
     public void requestInitialized(ServletRequestEvent sre) {
+        // 요청이 들어올 때 호출된다. 필터가 수행되기 전에 호출된다. 
         HttpServletRequest request = (HttpServletRequest)sre.getServletRequest();
         System.out.println("Listener2.requestInitialized()");
-        System.out.printf("[%s] %s\n", request.getRemoteAddr(), request.getPathInfo());
+        System.out.printf("[%s] %s\n", 
+                request.getRemoteAddr(),
+                request.getServletPath());
     }
-
+    
     @Override
     public void requestDestroyed(ServletRequestEvent sre) {
+        // 필터까지 모두 수행한 후 응답을 완료했을 때 호출된다.
         System.out.println("Listener2.requestDestroyed()");
     }
 }
+
+
+
+
+
+
+
+

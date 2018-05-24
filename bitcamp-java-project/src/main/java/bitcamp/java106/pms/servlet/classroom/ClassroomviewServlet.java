@@ -2,7 +2,6 @@
 package bitcamp.java106.pms.servlet.classroom;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,76 +32,24 @@ public class ClassroomviewServlet extends HttpServlet {
     protected void doGet(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
-
-        int no = Integer.parseInt(request.getParameter("no"));
-        
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<title>강의 보기</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>강의 보기</h1>");
         
         try {
+            int no = Integer.parseInt(request.getParameter("no"));
             Classroom classroom = classroomDao.selectOne(no);
-    
             if (classroom == null) {
                 throw new Exception("유효하지 않은 강의입니다.");
             }
+            request.setAttribute("classroom", classroom);
             
-            out.println("<form action='update' method='post'>");
-            out.printf("<input type='hidden' name='no' value='%d'>\n", no);
-            out.println("<table border='1'>");
+            response.setContentType("text/html;charset=UTF-8");
+            request.getRequestDispatcher("/classroom/view.jsp").include(request, response);
             
-            out.println("<tr>");
-            out.println("   <th>강의명</th>");
-            out.printf("   <td><input type='text' name='title' value='%s'></td>\n", 
-                    classroom.getTitle());
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("   <th>시작일</th>");
-            out.printf("   <td><input type='date' name='startDate' value='%s'></td>\n", 
-                    classroom.getStartDate());
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("   <th>종료일</th>");
-            out.printf("   <td><input type='date' name='endDate' value='%s'></td>\n", 
-                    classroom.getEndDate());
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("   <th>강의실</th>");
-            out.printf("   <td><input type='text' name='room' value='%s'></td>\n", 
-                    classroom.getRoom());
-            out.println("</tr>");
-            out.println("</table>");
-            
-            out.println("<p>");
-            out.println("<a href='list'>목록</a>");
-            out.println("<button>변경</button>");
-            out.printf("<a href='delete?no=%d'>삭제</a>\n", no);
-            out.println("</p>");
-            out.println("</form>");
-           
         } catch (Exception e) {
-         // 예외가 발생하면 ErrorServlet으로 예외 내용을 출력하도록 실행을 위임한다.
-            // 1) 실행을 위임할 객체를 준비한다.
             RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
-            
-            // 2) 다른 서블릿에게 실행을 위임하기 전에 그 서블릿에 전달할 데이터가 있다면,
-            //    ServletRequest 보관소에 담아라.
             request.setAttribute("error", e);
             request.setAttribute("title", "강의 뷰 실패!");
-            
-            // 3) 다른 서블릿으로 실행을 위임한다.
             요청배달자.forward(request, response);
         }
-        out.println("</body>");
-        out.println("</html>");
     }
 }
 

@@ -1,4 +1,4 @@
-// 자동으로 페이지를 이동하는 방법 - Refresh(HTML 페이지에 삽입)
+// 실행 위임 하는 방법 - forward
 package step08.ex2;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class Exam01 extends HttpServlet {
         
         String op = request.getParameter("op");
         
-        if(!op.equals("+")) {
+        if (!op.equals("+")) {
             // + 연산자가 아니라면 다음 서블릿에게 실행을 위임한다.
             RequestDispatcher 요청배달자 = request.getRequestDispatcher(
                     "/step08/ex2/exam02");
@@ -30,11 +30,14 @@ public class Exam01 extends HttpServlet {
         }
         
         // 주의!
-        // => + 문자를 다음과 같이 URL에 파라미터 값으로 보내면
+        // => + 문자를 다음과 같이 URL에 파라미터 값으로 보내면 
         //    서버에서는 공백 문자로 간주한다.
-        //    예) http://localhost:8888/bitcamp-web01/step08/ex2/exam01?op=+&a=20&b=15
+        //    예) http://localhost:8888/java106-web01/step08/ex2/exam01?op=+&a=20&b=15
         // => 즉 URL에서 '+' 문자는 공백을 표시할 때 사용하는 특수 기호이다.
-        // => URL 파라미터 값으로 '+' 문자를 서버에 보내고 싶다면 URL 인코딩 값을 보내라. 
+        // => URL 파라미터 값으로 '+' 문자를 서버에 보내고 싶다면 URL 인코딩 값을 보내라 
+        //    '+' ===> %2B (%2b)
+        //
+        
         int a = Integer.parseInt(request.getParameter("a"));
         int b = Integer.parseInt(request.getParameter("b"));
         
@@ -54,3 +57,10 @@ public class Exam01 extends HttpServlet {
         out.println("</html>");
     }
 }
+
+
+
+
+
+
+
