@@ -10,12 +10,10 @@
 </head>
 <body>
 
-<%request.getRequestDispatcher("/header.jsp").include(request, response);%>
+<jsp:include page="/header.jsp"/>
 
 <h1>게시물 보기(MVC)</h1>
-<%
-Board board = (Board)request.getAttribute("board");
-%>
+<jsp:useBean id="board" class="bitcamp.java106.pms.domain.Board" scope="request"/>
 <form action='update' method='post'>
 <table border='1'>
 <tr><th>번호</th><td>

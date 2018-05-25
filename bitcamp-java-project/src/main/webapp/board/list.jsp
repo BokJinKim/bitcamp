@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<%request.getRequestDispatcher("/header.jsp").include(request, response);%>
+<jsp:include page="/header.jsp"/>
 
 <h1>게시물 목록(MVC)</h1>
 <p><a href='form.html'>새 글</a></p>
@@ -19,8 +19,10 @@
 <tr>
     <th>번호</th><th>제목</th><th>등록일</th>
 </tr>
+<jsp:useBean id="list" 
+            type="java.util.List<Board>" 
+            class="java.util.ArrayList" scope="request"/>
 <%
-List<Board> list = (List<Board>)request.getAttribute("list");
 for (Board board : list) {
 %>
 <tr>
