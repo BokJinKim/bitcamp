@@ -1,7 +1,7 @@
 <%@ page language="java" 
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>      
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,16 +12,16 @@
 
 <jsp:include page="/header.jsp"/>
 
-<h1>게시물 목록(MVC + JSP 전용 태그 + EL)</h1>
+<h1>게시물 목록(MVC + JSP 전용 태그 + EL + JSTL)</h1>
 <p><a href='form.html'>새 글</a></p>
 <table border='1'>
 <tr>
     <th>번호</th><th>제목</th><th>등록일</th>
 </tr>
-<c:forEach items="${list}" var="board">
+<c:forEach items="${list}" var="board">            
 <tr>
     <td>${board.no}</td>
-    <td><a href='view?no=${board.no}'>${board.title}</a></td>
+    <td><a href='view.do?no=${board.no}'>${board.title}</a></td>
     <td>${board.createdDate}</td>
 </tr>
 </c:forEach>

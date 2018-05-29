@@ -1,7 +1,7 @@
 <%@ page language="java" 
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +11,7 @@
 <body>
 <jsp:include page="/header.jsp"/>
 <h1>작업 보기(MVC + JSP 전용 태그 + EL + JSTL)</h1>
-<form action='update' method='post'>
+<form action='update.do' method='post'>
 <input type='hidden' name='no' value='${param.no}'>
 <table border='1'>
 <tr>
@@ -33,7 +33,7 @@
     <td>
         <select name='memberId'>
             <option value=''>--선택 안함--</option>
-<c:forEach items="${members}" var="member">
+<c:forEach items="${members}" var="member">            
             <option ${member.id == task.worker.id ? "selected" : ""}>${member.id}</option>
 </c:forEach>
         </select>
@@ -43,12 +43,12 @@
     <th>작업상태</th><td><select name='state'>
         <option value='0' ${task.state == 0 ? "selected" : ""}>작업대기</option>
         <option value='1' ${task.state == 1 ? "selected" : ""}>작업중</option>
-        <option value='9' ${task.state == 2 ? "selected" : ""}>작업완료</option>
+        <option value='9' ${task.state == 9 ? "selected" : ""}>작업완료</option>
     </select></td>
 </tr>
 </table>
 <button>변경</button> 
-<a href='delete?no=${param.no}&teamName=${task.team.name}'>삭제</a>
+<a href='delete.do?no=${param.no}&teamName=${task.team.name}'>삭제</a>
 </form>
 </body>
 </html>
