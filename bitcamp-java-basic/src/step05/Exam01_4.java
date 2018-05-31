@@ -1,8 +1,6 @@
 // 흐름 제어문 - if ~ else 문
 package step05;
 
-import javax.lang.model.util.ElementScanner6;
-
 public class Exam01_4 {
     public static void main(String[] args) {
         int age = 17;

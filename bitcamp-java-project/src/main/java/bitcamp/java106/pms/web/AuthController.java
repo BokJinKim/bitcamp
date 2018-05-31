@@ -1,18 +1,22 @@
 // 로그인 폼 출력과 사용자 인증처리 서블릿
 package bitcamp.java106.pms.web;
 
+import java.util.HashMap;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.domain.Member;
-import bitcamp.java106.pms.web.RequestMapping;
 
-@Component("/auth")
+@Controller
+@RequestMapping("/auth")
 public class AuthController {
     
     MemberDao memberDao;
@@ -25,7 +29,7 @@ public class AuthController {
     public String login(
             @RequestParam("id") String id,
             @RequestParam("password") String password,
-            @RequestParam("saveId") String saveId,
+            @RequestParam(value="saveId", required=false) String saveId,
             HttpServletRequest request,
             HttpServletResponse response,
             HttpSession session) throws Exception {
@@ -43,7 +47,11 @@ public class AuthController {
         }
         response.addCookie(cookie);
         
-        Member member = memberDao.selectOneWithPassword(id, password);
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("password", password);
+        
+        Member member = memberDao.selectOneWithPassword(params);
         
         if (member != null) { // 로그인 성공!
             session.setAttribute("loginUser", member);
@@ -51,9 +59,11 @@ public class AuthController {
             // 로그인 하기 전의 페이지로 이동한다.
             String refererUrl = (String)session.getAttribute("refererUrl");
             
-            if (refererUrl == null) { 
+            if (refererUrl == null || 
+                refererUrl.contains("login.do") ||
+                refererUrl.endsWith("/auth/form.jsp")) { 
                 // 이전 페이지가 없다면 메인 화면으로 이동시킨다.
-                return "redirect:" + request.getContextPath(); // => "/java106-java-project"
+                return "redirect:/"; // => "/java106-java-project"
             } else { 
                 // 이전 페이지가 있다면 그 페이지로 이동시킨다.
                 return "redirect:" + refererUrl;
@@ -74,7 +84,7 @@ public class AuthController {
         session.invalidate();
         
         // 웹 애플리케이션의 시작 페이지로 가라고 웹브라우저에게 얘기한다.
-        return "redirect:" + request.getContextPath(); // ==> "/java106-java-project"
+        return "redirect:/"; // ==> "/java106-java-project"
     }
 }
 
