@@ -8,7 +8,9 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
     
-    <context:component-scan base-package="bitcamp.java106.mvc"/>
+    <context:component-scan base-package="bitcamp.mvc">
+        <context:exclude-filter type="regex" expression="bitcamp.mvc.web.*"/>
+    </context:component-scan>
 </beans>
 
 
