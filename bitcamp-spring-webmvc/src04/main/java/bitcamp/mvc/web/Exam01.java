@@ -9,8 +9,7 @@ public class Exam01 {
     
     @RequestMapping("/exam01/m1")
     @ResponseBody // 리턴 값이 View URL이 아니라 콘텐트임을 가리킨다. 
-    public String test1() {
-        return "hello!";
+    public String m1() {
+        return "Hello!";
     }
-    
 }
