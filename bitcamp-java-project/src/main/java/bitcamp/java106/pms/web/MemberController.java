@@ -20,6 +20,10 @@ public class MemberController {
         this.memberDao = memberDao;
     }
     
+    @RequestMapping("/form")
+    public void form() {
+    }
+    
     @RequestMapping("/add")
     public String add(Member member) throws Exception {
           
@@ -38,11 +42,10 @@ public class MemberController {
     }
     
     @RequestMapping("/list")
-    public String list(Map<String, Object> map) throws Exception {
+    public void list(Map<String, Object> map) throws Exception {
         
         List<Member> list = memberDao.selectList();
         map.put("list", list);
-        return "/member/list.jsp";
     }
     
     @RequestMapping("/update")
@@ -56,7 +59,7 @@ public class MemberController {
     }
     
     @RequestMapping("/view")
-    public String view(
+    public void view(
             @RequestParam("id") String id,
             Map<String,Object> map) throws Exception {
 
@@ -65,7 +68,6 @@ public class MemberController {
             throw new Exception("유효하지 않은 멤버 아이디입니다.");
         }
         map.put("member", member);
-        return "/member/view.jsp";
     }
 }
 

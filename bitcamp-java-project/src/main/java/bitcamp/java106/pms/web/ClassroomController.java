@@ -20,6 +20,10 @@ public class ClassroomController {
         this.classroomDao = classroomDao;
     }
     
+    @RequestMapping("/form")
+    public void form() {
+    }
+    
     @RequestMapping("/add")
     public String add(Classroom classroom) throws Exception {
         
@@ -38,11 +42,10 @@ public class ClassroomController {
     }
     
     @RequestMapping("/list")
-    public String list(Map<String,Object> map) throws Exception {
+    public void list(Map<String,Object> map) throws Exception {
      
         List<Classroom> list = classroomDao.selectList();
         map.put("list", list);
-        return "/classroom/list.jsp";
     }
     
     @RequestMapping("/update")
@@ -56,7 +59,7 @@ public class ClassroomController {
     }
     
     @RequestMapping("/view")
-    public String view(
+    public void view(
             @RequestParam("no") int no, 
             Map<String,Object> map) throws Exception {
      
@@ -66,7 +69,6 @@ public class ClassroomController {
             throw new Exception("유효하지 않은 강의입니다.");
         }
         map.put("classroom", classroom);
-        return "/classroom/view.jsp";
     }
     /*
     @InitBinder
