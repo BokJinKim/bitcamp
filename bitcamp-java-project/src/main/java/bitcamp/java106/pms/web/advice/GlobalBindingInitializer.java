@@ -17,7 +17,6 @@ public class GlobalBindingInitializer {
     
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        System.out.println("GlobalBindingInitializer.initBinder()");
         binder.registerCustomEditor(
                 java.sql.Date.class,
                 new PropertyEditorSupport() {

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -30,18 +31,18 @@ public class TeamController {
         this.taskDao = taskDao;
     }
     
-    @RequestMapping("/form")
+    @RequestMapping("form")
     public void form() {
     }
     
-    @RequestMapping("/add")
+    @RequestMapping("add")
     public String add(Team team) throws Exception {
         
         teamDao.insert(team);
-        return "redirect:list.do";
+        return "redirect:list";
     }
     
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     public String delete(@RequestParam("name") String name) throws Exception {
         
         HashMap<String,Object> params = new HashMap<>();
@@ -55,29 +56,29 @@ public class TeamController {
         if (count == 0) {
             throw new Exception ("해당 팀이 없습니다.");
         }
-        return "redirect:list.do";
+        return "redirect:list";
     }
     
-    @RequestMapping("/list")
+    @RequestMapping("list")
     public void list(Map<String,Object> map) throws Exception {
         
         List<Team> list = teamDao.selectList();
         map.put("list", list);
     }
     
-    @RequestMapping("/update")
+    @RequestMapping("update")
     public String update(Team team) throws Exception {
         
         int count = teamDao.update(team);
         if (count == 0) {
             throw new Exception("<p>해당 팀이 존재하지 않습니다.</p>");
         }
-        return "redirect:list.do";
+        return "redirect:list";
     }
     
-    @RequestMapping("/view")
-    public void view(
-            @RequestParam("name") String name,
+    @RequestMapping("{name}")
+    public String view(
+            @PathVariable String name,
             Map<String,Object> map) throws Exception {
         
         Team team = teamDao.selectOneWithMembers(name);
@@ -85,9 +86,10 @@ public class TeamController {
             throw new Exception("유효하지 않은 팀입니다.");
         }
         map.put("team", team);
+        return "team/view";
     }
     /*
-    @InitBinder
+    @InitBinder 
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(
                 java.sql.Date.class,

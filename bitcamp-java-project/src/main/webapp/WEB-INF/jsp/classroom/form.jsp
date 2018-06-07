@@ -11,7 +11,7 @@
 <body>
 <jsp:include page="../header.jsp"/>
 <h1>강의 등록</h1>
-<form action='add.do' method='post'>
+<form action='add' method='post'>
 <table border='1'>
 <tr>
     <th>강의명</th><td><input type='text' name='title'></td>

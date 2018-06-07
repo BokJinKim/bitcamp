@@ -1,11 +1,11 @@
 package bitcamp.java106.pms.web;
 
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,7 +17,7 @@ import bitcamp.java106.pms.domain.Task;
 import bitcamp.java106.pms.domain.Team;
 
 @Controller
-@RequestMapping("/task")
+@RequestMapping("/team/{teamName}/task")
 public class TaskController {
     
     TeamDao teamDao;
@@ -32,10 +32,10 @@ public class TaskController {
         this.teamMemberDao = teamMemberDao;
     }
     
-    @RequestMapping("/add")
+    @RequestMapping("add")
     public String add(
             Task task,
-            @RequestParam("teamName") String teamName,
+            @PathVariable String teamName,
             @RequestParam("memberId") String memberId) throws Exception {
         
         task.setTeam(new Team().setName(teamName));
@@ -55,30 +55,30 @@ public class TaskController {
         }
         
         taskDao.insert(task);
-        return "redirect:list.do?teamName=" + URLEncoder.encode(teamName, "UTF-8");
+        return "redirect:list";
         // 응답 헤더의 값으로 한글을 포함할 때는 
         // 서블릿 컨테이너가 자동으로 URL 인코딩 하지 않는다.
         // 위와 같이 개발자가 직접 URL 인코딩 해야 한다.
     }
     
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     public String delete(
             @RequestParam("no") int no,
-            @RequestParam("teamName") String teamName) throws Exception {
+            @PathVariable String teamName) throws Exception {
         
         int count = taskDao.delete(no);
         if (count == 0) {
             throw new Exception("해당 작업이 존재하지 않습니다.");
         }
-        return "redirect:list.do?teamName=" + URLEncoder.encode(teamName, "UTF-8");
+        return "redirect:list";
         // 응답 헤더의 값으로 한글을 포함할 때는 
         // 서블릿 컨테이너가 자동으로 URL 인코딩 하지 않는다.
         // 위와 같이 개발자가 직접 URL 인코딩 해야 한다.
     }
     
-    @RequestMapping("/form")
-    public void form(
-            @RequestParam("teamName") String teamName,
+    @RequestMapping("form")
+    public String form(
+            @PathVariable String teamName,
             Map<String,Object> map) throws Exception {
         
         Team team = teamDao.selectOne(teamName);
@@ -87,11 +87,13 @@ public class TaskController {
         }
         List<Member> members = teamMemberDao.selectListWithEmail(teamName);
         map.put("members", members);
+        map.put("teamName", teamName);
+        return "task/form";
     }
     
-    @RequestMapping("/list")
-    public void list(
-            @RequestParam("teamName") String teamName,
+    @RequestMapping("list")
+    public String list(
+            @PathVariable String teamName,
             Map<String,Object> map) throws Exception {
         
         Team team = teamDao.selectOne(teamName);
@@ -100,12 +102,14 @@ public class TaskController {
         }
         List<Task> list = taskDao.selectList(team.getName());
         map.put("list", list);
+        map.put("teamName", teamName);
+        return "task/list";
     }
     
-    @RequestMapping("/update")
+    @RequestMapping("update")
     public String update(
             Task task,
-            @RequestParam("teamName") String teamName,
+            @PathVariable String teamName,
             @RequestParam("memberId") String memberId) throws Exception {
         
         task.setTeam(new Team().setName(teamName));
@@ -115,15 +119,16 @@ public class TaskController {
         if (count == 0) {
             throw new Exception("<p>해당 작업이 없습니다.</p>");
         }
-        return "redirect:list.do?teamName=" + URLEncoder.encode(teamName, "UTF-8");
+        return "redirect:list";
             // 응답 헤더의 값으로 한글을 포함할 때는 
             // 서블릿 컨테이너가 자동으로 URL 인코딩 하지 않는다.
             // 위와 같이 개발자가 직접 URL 인코딩 해야 한다.
     }
     
-    @RequestMapping("/view")
-    public void view(
-            @RequestParam("no") int no,
+    @RequestMapping("{no}")
+    public String view(
+            @PathVariable String teamName,
+            @PathVariable int no,
             Map<String,Object> map) throws Exception {
         
         Task task = taskDao.selectOne(no);
@@ -136,6 +141,8 @@ public class TaskController {
         
         map.put("task", task);
         map.put("members", members);
+        map.put("teamName", teamName);
+        return "task/view";
     }
     /*
     @InitBinder

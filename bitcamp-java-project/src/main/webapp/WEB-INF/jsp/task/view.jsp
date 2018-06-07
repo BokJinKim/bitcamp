@@ -11,12 +11,12 @@
 <body>
 <jsp:include page="../header.jsp"/>
 <h1>작업 보기</h1>
-<form action='update.do' method='post'>
-<input type='hidden' name='no' value='${param.no}'>
+<form action='update' method='post'>
+<input type='hidden' name='no' value='${no}'>
 <table border='1'>
 <tr>
-    <th>팀명</th>
-    <td><input type='text' name='teamName' value='${task.team.name}' readOnly></td>
+    <th>팀명</th> 
+    <td><input type='text' value='${task.team.name}' readOnly></td>
 </tr>
 <tr>
     <th>작업명</th>
@@ -47,8 +47,9 @@
     </select></td>
 </tr>
 </table>
+<a href='list'>목록</a>
 <button>변경</button> 
-<a href='delete.do?no=${param.no}&teamName=${task.team.name}'>삭제</a>
+<a href='delete?no=${task.no}'>삭제</a>
 </form>
 </body>
 </html>
