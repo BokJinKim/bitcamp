@@ -6,13 +6,14 @@ import java.util.Map;
 import bitcamp.java106.pms.domain.Board;
 
 public interface BoardDao {
-    public int delete(int no);
-    public List<Board> selectList(Map<String,Object> params);
-    public int insert(Board board);
-    public int update(Board board);
-    public Board selectOne(int no);
+    int delete(int no) ;
+    List<Board> selectList(Map<String,Object> params);
+    int insert(Board board);
+    int update(Board board);
+    Board selectOne(int no);
 }
 
+//ver 52 - 페이지 단위로 데이터 가져오기
 //ver 50 - 클래스를 인터페이스로 변경
 //ver 33 - Mybatis 적용 
 //ver 32 - DB 커넥션 풀 적용

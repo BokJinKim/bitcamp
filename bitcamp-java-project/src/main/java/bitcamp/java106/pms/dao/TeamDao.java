@@ -1,21 +1,21 @@
 package bitcamp.java106.pms.dao;
 
 import java.util.List;
-
-import org.springframework.stereotype.Component;
+import java.util.Map;
 
 import bitcamp.java106.pms.domain.Team;
 
-@Component
 public interface TeamDao {
-    public int delete(String name);
-    public List<Team> selectList();
-    public int insert(Team team);
-    public int update(Team team);
-    public Team selectOne(String name);
-    public Team selectOneWithMembers(String name);
+    int delete(String name);
+    List<Team> selectList(Map<String,Object> params);
+    int insert(Team team);
+    int update(Team team);
+    Team selectOne(String name);
+    Team selectOneWithMembers(String name);
 }
 
+//ver 52 - 페이지 단위로 데이터 가져오기
+//ver 50 - 클래스를 인터페이스로 전환
 //ver 42 - JSP 적용에 따라 Team 정보를 가져올 때 그 팀의 Member 정보도 함께 가져온다.
 //         selectOneWithMembers() 추가
 //ver 33 - Mybatis 적용 

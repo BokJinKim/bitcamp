@@ -9,7 +9,8 @@
 <title>작업 등록</title>
 </head>
 <body>
-<h1><a href='list'>'${teamName}'팀의 작업 </a> 등록 </h1>
+<jsp:include page="../header.jsp"/>
+<h1><a href='list'>'${teamName}' 팀의 작업</a> 등록</h1>
 <form action='add' method='post'>
 <table border='1'>
 <tr>

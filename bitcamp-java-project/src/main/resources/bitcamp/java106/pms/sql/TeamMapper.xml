@@ -21,7 +21,8 @@
           resultMap="TeamMap" parameterType="map">
     select name, sdt, edt, max_qty 
     from pms2_team
-    <!--  limit #{startIndex}, #{pageSize} -->
+    order by name asc
+    limit #{startRowNo}, #{pageSize}
   </select>
   <!-- 
     ArrayList<Task> list = new new ArrayList<>();
@@ -48,16 +49,16 @@
   
   <select id="selectOneWithMembers" parameterType="string" resultMap="TeamMap">
     select 
-    t.name, 
-    t.dscrt, 
-    t.sdt, 
-    t.edt, 
-    t.max_qty,
-    tm.mid,
-    m.email
+        t.name, 
+        t.dscrt, 
+        t.sdt, 
+        t.edt, 
+        t.max_qty,
+        tm.mid,
+        m.email
     from pms2_team t 
-    left outer join pms2_team_member tm on t.name=tm.tnm
-    left outer join pms2_member m on tm.mid=m.mid
+         left outer join pms2_team_member tm on t.name=tm.tnm
+         left outer join pms2_member m on tm.mid=m.mid
     where t.name=#{value}
   </select>
   

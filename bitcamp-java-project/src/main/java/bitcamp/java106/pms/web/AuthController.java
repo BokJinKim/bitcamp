@@ -20,7 +20,7 @@ import bitcamp.java106.pms.domain.Member;
 public class AuthController {
     
     MemberDao memberDao;
-    
+     
     public AuthController(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
@@ -28,12 +28,12 @@ public class AuthController {
     @RequestMapping("/form")
     public void form() {
     }
-    
+            
     @RequestMapping("/login")
     public String login(
             @RequestParam("id") String id,
             @RequestParam("password") String password,
-            @RequestParam(value="saveId", required=false) String saveId,
+            @RequestParam(value="saveId",required=false) String saveId,
             HttpServletRequest request,
             HttpServletResponse response,
             HttpSession session) throws Exception {
@@ -64,7 +64,7 @@ public class AuthController {
             String refererUrl = (String)session.getAttribute("refererUrl");
             
             if (refererUrl == null || 
-                refererUrl.contains("login") ||
+                refererUrl.contains("login.do") ||
                 refererUrl.endsWith("/auth/form.jsp")) { 
                 // 이전 페이지가 없다면 메인 화면으로 이동시킨다.
                 return "redirect:/"; // => "/java106-java-project"
@@ -75,7 +75,7 @@ public class AuthController {
             
         } else { // 로그인 실패!
             session.invalidate();
-            return "/auth/fail";
+            return "auth/fail";
         }
     }
     
@@ -101,6 +101,8 @@ public class AuthController {
 //                                                       <=== 응답: index.html
 // 메인화면 출력!
 
+//ver 51 - redirect URL 변경
+//ver 50 - DAO 변경에 따른 메서드 호출 변경
 //ver 49 - 요청 핸들러의 파라미터 값 자동으로 주입받기
 //ver 48 - CRUD 기능을 한 클래스에 합치기
 //ver 47 - 애노테이션을 적용하여 요청 핸들러 다루기

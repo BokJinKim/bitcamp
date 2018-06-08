@@ -9,6 +9,7 @@
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
+
 <h1>게시물 보기</h1>
 
 <form action='update' method='post'>

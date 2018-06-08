@@ -30,7 +30,7 @@
     select bno, titl, cdt 
     from pms2_board
     order by bno desc
-      limit #{startRowNo}, #{pageSize} 
+    limit #{startRowNo}, #{pageSize}
   </select>
   
   <insert id="insert" parameterType="Board"

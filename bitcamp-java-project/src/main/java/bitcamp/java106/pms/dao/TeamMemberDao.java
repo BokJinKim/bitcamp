@@ -3,19 +3,17 @@ package bitcamp.java106.pms.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
-
 import bitcamp.java106.pms.domain.Member;
 
-@Component
 public interface TeamMemberDao {
-    public int insert(Map<String,Object> params);
-    public int delete(Map<String,Object> params);
-    public List<String> selectList(String teamName);
-    public List<Member> selectListWithEmail(String teamName);
-    public boolean isExist(Map<String,Object> params);
+    int insert(Map<String,Object> params);
+    int delete(Map<String,Object> params);
+    List<String> selectList(String teamName);
+    List<Member> selectListWithEmail(String teamName);
+    boolean isExist(Map<String,Object> params);
 }
 
+//ver 50 - 클래스를 인터페이스로 전환
 //ver 37 - selectListWithEmail() 추가 
 //ver 33 - Mybatis 적용
 //ver 32 - DB 커넥션 풀 적용

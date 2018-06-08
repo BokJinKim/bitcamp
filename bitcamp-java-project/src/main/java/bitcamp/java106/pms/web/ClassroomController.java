@@ -1,9 +1,11 @@
 package bitcamp.java106.pms.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,18 +23,18 @@ public class ClassroomController {
         this.classroomDao = classroomDao;
     }
     
-    @RequestMapping("/form")
-    public void form() {
+    @RequestMapping("form")
+    public void form(){
     }
     
-    @RequestMapping("/add")
+    @RequestMapping("add")
     public String add(Classroom classroom) throws Exception {
         
         classroomDao.insert(classroom);
         return "redirect:list";
     }
     
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     public String delete(@RequestParam("no") int no) throws Exception {
      
         int count = classroomDao.delete(no);
@@ -42,14 +44,21 @@ public class ClassroomController {
         return "redirect:list";
     }
     
-    @RequestMapping("/list")
-    public void list(Map<String,Object> map) throws Exception {
-     
-        List<Classroom> list = classroomDao.selectList();
+    @RequestMapping("list{page}")
+    public void list(
+            @MatrixVariable(defaultValue="1") int pageNo,
+            @MatrixVariable(defaultValue="3") int pageSize,
+            Map<String,Object> map) throws Exception {        
+        
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("startRowNo", (pageNo - 1) * pageSize);
+        params.put("pageSize", pageSize);
+        
+        List<Classroom> list = classroomDao.selectList(params);
         map.put("list", list);
     }
     
-    @RequestMapping("/update")
+    @RequestMapping("update")
     public String update(Classroom classroom) throws Exception {
      
         int count = classroomDao.update(classroom);
@@ -72,11 +81,13 @@ public class ClassroomController {
         map.put("classroom", classroom);
         return "classroom/view";
     }
+    
+    // GlobalBindingInitializer 에 등록했기 때문에 이 클래스에서는 제외한다.
     /*
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(
-                java.sql.Date.class,
+                java.sql.Date.class, 
                 new PropertyEditorSupport() {
                     @Override
                     public void setAsText(String text) throws IllegalArgumentException {
@@ -87,6 +98,10 @@ public class ClassroomController {
     */
 }
 
+//ver 52 - InternalResourceViewResolver 적용
+//         *.do 대신 /app/* 을 기준으로 URL 변경
+//         페이지 관련 파라미터에 matrix variable 적용
+//ver 51 - Spring WebMVC 적용
 //ver 49 - 요청 핸들러의 파라미터 값 자동으로 주입받기
 //ver 48 - CRUD 기능을 한 클래스에 합치기
 //ver 47 - 애노테이션을 적용하여 요청 핸들러 다루기
