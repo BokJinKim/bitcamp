@@ -45,6 +45,14 @@ public class BoardServiceImpl implements BoardService {
     
     @Override
     public int delete(int no) {
-        return boardDao.delete(no); 
+        return boardDao.delete(no);
     }
 }
+
+//ver 53 - 클래스 추가
+
+
+
+
+
+

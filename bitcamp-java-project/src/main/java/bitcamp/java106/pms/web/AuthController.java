@@ -1,8 +1,6 @@
 // 로그인 폼 출력과 사용자 인증처리 서블릿
 package bitcamp.java106.pms.web;
 
-import java.util.HashMap;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,11 +47,6 @@ public class AuthController {
             // 즉 유효기간을 0으로 설정함으로써 "id"라는 이름의 쿠키를 무효화시키는 것이다.
         }
         response.addCookie(cookie);
-        
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("id", id);
-        params.put("password", password);
-        
         
         if (memberService.isExist(id, password)) { // 로그인 성공!
             session.setAttribute("loginUser", memberService.get(id));

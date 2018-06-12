@@ -45,6 +45,14 @@ public class ClassroomServiceImpl implements ClassroomService {
     
     @Override
     public int delete(int no) {
-        return classroomDao.delete(no); 
+        return classroomDao.delete(no);
     }
 }
+
+//ver 53 - 클래스 추가
+
+
+
+
+
+

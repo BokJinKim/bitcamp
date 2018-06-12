@@ -15,6 +15,7 @@ public interface MemberDao {
     int count(Map<String,Object> params);
 }
 
+//ver 53 - count() 메서드 추가
 //ver 52 - 페이지 단위로 데이터 가져오기
 //ver 50 - 클래스를 인터페이스로 변경
 //ver 41 - 로그인을 위한 selectOneWithPassword(id, password) 메서드 추가

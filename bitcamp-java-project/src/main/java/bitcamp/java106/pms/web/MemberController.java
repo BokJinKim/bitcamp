@@ -45,7 +45,7 @@ public class MemberController {
     @RequestMapping("list{page}")
     public void list(
             @MatrixVariable(defaultValue="1") int pageNo,
-            @MatrixVariable(defaultValue="10") int pageSize,
+            @MatrixVariable(defaultValue="3") int pageSize,
             Map<String,Object> map) throws Exception {        
         
         map.put("list", memberService.list(pageNo, pageSize));
@@ -75,6 +75,7 @@ public class MemberController {
     }
 }
 
+//ver 53 - DAO 대신 Service 객체 사용
 //ver 52 - InternalResourceViewResolver 적용
 //         *.do 대신 /app/* 을 기준으로 URL 변경
 //         페이지 관련 파라미터에 matrix variable 적용 
@@ -98,5 +99,5 @@ public class MemberController {
 //ver 18 - ArrayList가 적용된 MemberDao를 사용한다.
 //         onMemberList()에서 배열의 각 항목에 대해 null 값을 검사하는 부분을 제거한다.
 //ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
-// ver 15 - MemberDao를 생성자에서 주입 받도록 변경.
-// ver 14 - MemberDao를 사용하여 회원 데이터를 관리한다.
+//ver 15 - MemberDao를 생성자에서 주입 받도록 변경.
+//ver 14 - MemberDao를 사용하여 회원 데이터를 관리한다.

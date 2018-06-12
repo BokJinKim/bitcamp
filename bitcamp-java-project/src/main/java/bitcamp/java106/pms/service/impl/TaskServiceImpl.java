@@ -46,6 +46,14 @@ public class TaskServiceImpl implements TaskService {
     
     @Override
     public int delete(int no) {
-        return taskDao.delete(no); 
+        return taskDao.delete(no);
     }
 }
+
+//ver 53 - 클래스 추가
+
+
+
+
+
+

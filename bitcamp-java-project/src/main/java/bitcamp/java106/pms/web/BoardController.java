@@ -22,7 +22,7 @@ public class BoardController {
     }
 
     @RequestMapping("form")
-    public void form(/*Model model*/) {
+    public void form() {
     }
     
     @RequestMapping("add")
@@ -44,8 +44,8 @@ public class BoardController {
     @RequestMapping("list{page}")
     public void list(
             @MatrixVariable(defaultValue="1") int pageNo,
-            @MatrixVariable(defaultValue="10") int pageSize,
-            Map<String,Object> map) {
+            @MatrixVariable(defaultValue="3") int pageSize,
+            Map<String,Object> map) {        
         
         map.put("list", boardService.list(pageNo, pageSize));
     }
@@ -75,6 +75,7 @@ public class BoardController {
 
 }
 
+//ver 53 - DAO 대신 Service 객체 사용
 //ver 52 - InternalResourceViewResolver 적용
 //         *.do 대신 /app/* 을 기준으로 URL 변경
 //         페이지 관련 파라미터에 matrix variable 적용

@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
         params.put("id", id);
         params.put("password", password);
         
-        return memberDao.count(params) > 0 ? true : false; 
+        return memberDao.count(params) > 0 ? true : false;
     }
     
     @Override
@@ -54,7 +54,14 @@ public class MemberServiceImpl implements MemberService {
     
     @Override
     public int delete(String id) {
-        return memberDao.delete(id); 
+        return memberDao.delete(id);
     }
-    
 }
+
+//ver 53 - 클래스 추가
+
+
+
+
+
+

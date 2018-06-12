@@ -20,8 +20,10 @@ public class TaskController {
     
     TaskService taskService;
     TeamService teamService;
-    
-    public TaskController(TaskService taskService, TeamService teamService) {
+
+    public TaskController(
+            TaskService taskService,
+            TeamService teamService) {
         this.taskService = taskService;
         this.teamService = teamService;
     }
@@ -62,7 +64,7 @@ public class TaskController {
         if (teamService.get(teamName) == null) {
             throw new Exception(teamName + " 팀은 존재하지 않습니다.");
         }
-        
+
         map.put("teamName", teamName);
         map.put("members", teamService.getMembersWithEmail(teamName));
         
@@ -73,7 +75,7 @@ public class TaskController {
     public String list(
             @PathVariable String teamName,
             @MatrixVariable(defaultValue="1") int pageNo,
-            @MatrixVariable(defaultValue="10") int pageSize,
+            @MatrixVariable(defaultValue="3") int pageSize,
             Map<String,Object> map) throws Exception {        
         
         if (teamService.get(teamName) == null) {
@@ -115,6 +117,7 @@ public class TaskController {
         map.put("teamName", teamName);
         map.put("members", teamService.getMembersWithEmail(teamName));
         map.put("task", task);
+        
         return "task/view";
     }
     
@@ -134,6 +137,7 @@ public class TaskController {
     */
 }
 
+//ver 53 - DAO 대신 Service 객체 사용
 //ver 52 - InternalResourceViewResolver 적용
 //         *.do 대신 /app/* 을 기준으로 URL 변경
 //         페이지 관련 파라미터에 matrix variable 적용

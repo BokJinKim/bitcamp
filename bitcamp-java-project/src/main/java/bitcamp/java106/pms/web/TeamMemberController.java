@@ -15,11 +15,14 @@ import bitcamp.java106.pms.service.TeamService;
 public class TeamMemberController {
     
     TeamService teamService;
-    MemberService memberSerivce;
+    MemberService memberService;
     
-    public TeamMemberController(TeamService teamService, MemberService memberSerivce) {
+    public TeamMemberController(
+            TeamService teamService,
+            MemberService memberService) {
+        
         this.teamService = teamService;
-        this.memberSerivce = memberSerivce;
+        this.memberService = memberService;
     }
     
     @RequestMapping("add")
@@ -31,7 +34,8 @@ public class TeamMemberController {
         if (teamService.get(teamName) == null) {
             throw new Exception(teamName + " 팀은 존재하지 않습니다.");
         }
-        if (memberSerivce.get(memberId) == null) {
+
+        if (memberService.get(memberId) == null) {
             map.put("message", "해당 회원이 없습니다!");
             return "team/member/fail";
         }
@@ -50,7 +54,7 @@ public class TeamMemberController {
             @RequestParam("teamName") String teamName,
             @RequestParam("memberId") String memberId,
             Map<String,Object> map) throws Exception {
-        
+         
         int count = teamService.deleteMember(teamName, memberId);
         if (count == 0) {
             map.put("message", "해당 회원이 없습니다!");
@@ -66,11 +70,11 @@ public class TeamMemberController {
     public void list(
             @RequestParam("name") String teamName,
             Map<String,Object> map) throws Exception {
-       
         map.put("members", teamService.getMembersWithEmail(teamName));
     }
 }
 
+//ver 53 - DAO 대신 Service 객체 사용
 //ver 52 - InternalResourceViewResolver 적용
 //         *.do 대신 /app/* 을 기준으로 URL 변경
 //ver 51 - Spring WebMVC 적용
