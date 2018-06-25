@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex07</title>
+</head>
+<body>
+<div id="header"></div>
+
+<h1>AJAX - 응용 I : HTML 일부분 가져오기 + 익명함수 즉시 호출</h1>
+
+<div id="footer"></div>
+<script>
+"use strict"
+
+var header = document.querySelector("#header"),
+    footer = document.querySelector("#footer");
+
+(function() { // 머리말 가져오기
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == 4) {
+        	if (xhr.status == 200) {
+        	    header.innerHTML = xhr.responseText;
+        	}
+        }
+    };
+    xhr.open("GET", "../../jsp/test5.jsp", true);
+    xhr.send();
+})();
+
+(function() { // 꼬리말 가져오기
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                footer.innerHTML = xhr.responseText;
+            }
+        }
+    };
+    xhr.open("GET", "footer.html", true);
+    xhr.send();
+})();
+
+</script>
+</body>
+</html>
+
+
+
+
+
