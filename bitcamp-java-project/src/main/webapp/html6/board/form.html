@@ -2,9 +2,12 @@
 <html>
 <head>
 <meta charset='UTF-8'>
-<title>게시물 보기</title>
+<title>게시물 보기</title>.
+<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/common.css">
 </head>
 <body>
+<div class="container"> 
 <div id='header'></div>
 
 <h1 class="detail-view">게시물 보기</h1>
@@ -23,16 +26,16 @@
 </tbody>
 </table>
 <p>
-<a href='list.html'>목록</a>
-<button id="addBtn" type="button" class="input-view">등록</button>
-<button id="resetBtn" type="reset" class="input-view">초기화</button>
-<button id="updBtn" type="button" class="detail-view">변경</button>
-<button id="delBtn" type="button" class="detail-view">삭제</button>
+<a href='list.html' class="btn btn-primary btn-sm">목록</a>
+<button id="addBtn" type="button" class="input-view btn btn-primary btn-sm">등록</button>
+<button id="resetBtn" type="reset" class="input-view btn btn-primary btn-sm">초기화</button>
+<button id="updBtn" type="button" class="detail-view btn btn-primary btn-sm">변경</button>
+<button id="delBtn" type="button" class="detail-view btn btn-primary btn-sm">삭제</button>
 </p>
 </form>
 
 
-<script src="../js/bitcamp.min.js"></script>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../header.js"></script>
 <script>
 
@@ -83,7 +86,7 @@ if (location.href.split("?").length > 1) {
 }
 
 </script>
-
+</div>
 </body>
 </html>
     
