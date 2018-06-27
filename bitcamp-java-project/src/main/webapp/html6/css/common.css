@@ -1,5 +1,73 @@
 @charset "UTF-8";
 
-.container {
-    width: 700px;
+.container1 {
+    color: white;
+    width: 1000px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+} 
+.container2 {
+    color: white;
+    width: 1000px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+} 
+.container3 {
+    border-top: 1px solid #dfdfdf;
+    border-bottom: 1px solid #dfdfdf;
+    color: white;
+    width: 1000px;
+    margin-right: auto;
+    margin-left: auto;
+} 
+.container4 {
+    border-top: 1px solid #dfdfdf;
+    border-bottom: 1px solid #dfdfdf;
+    color: white;
+    width: 1000px;
+    margin-right: auto;
+    margin-left: auto;
+} 
+.navbar1 {
+	
+	color: white;
+	font-size: 15px;
+	padding: 10px;
+}
+
+.navbar2 {
+    
+    color: white;
+    font-size: 15px;
+    padding: 10px;
+}
+
+
+.title1 {
+    float: left;
+    color: black;
+    font-size: 30px;
+    padding: 10px;
+}
+.title2 {
+    float: left;
+    color: black;
+    font-size: 20px;
+    padding: 10px;
+}
+.title3 {
+	float: right   ;
+    color: black;
+    font-size: 20px;
+    padding: 10px;
+}
+.title4 {
+    float: right   ;
+    color: black;
+    font-size: 10px;
+    padding: 10px;
 }
