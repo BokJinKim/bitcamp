@@ -32,6 +32,7 @@
     margin-right: auto;
     margin-left: auto;
 } 
+
 .navbar1 {
 	
 	color: white;
@@ -70,4 +71,37 @@
     color: black;
     font-size: 10px;
     padding: 10px;
+}
+
+.btnn {
+	    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: #6c757d;
+    autocomplete: off;
+    width: 300px;
+    height: 200px;
+    
+	
+}
+.btnn-group-toggle>.btnn input[type=checkbox], .btnn-group-toggle>.btnn input[type=radio], .btnn-group-toggle>.btnn-group>.btnn input[type=checkbox], .btnn-group-toggle>.btnn-group>.btnn input[type=radio] {
+	
+    position: absolute;
+    clip: rect(0,0,0,0);
+    pointer-events: none;
+}
 }

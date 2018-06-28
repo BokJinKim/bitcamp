@@ -15,14 +15,27 @@ color: white;
 .navbar1 {
 float:left;
 }
-.btn{
-    float:right;
+.btn11{
+    display: block;
+    height: 45px;
+    color: #fff;
+    background-color:#1E90FF;
+        float:right;
+    padding:9px;
+}
+.btn {
+}
+.navbar{
+padding:0;
 }
 .navbar2 {
-       float:right; 
+       float:right;
 }
-.img_01{background-image:"C:\Users\Bit\git\bitcamp\bitcamp-java-project\src\main\webapp\html6\img\03.jpg"; width:800px; height:600px;
+.img_01{background-image:"C:\Users\Bit\git\bitcamp\bitcamp-java-project\src\main\webapp\html6\img\03.jpg"; width:1200px; height:800px;
 
+}
+.btnn{
+  background:url("../img/03.jpg");width:100px; height:80px;background-size: cover;
 }
 </style>
 </head>
@@ -31,7 +44,7 @@ float:left;
 <div class="container1">
     <a class="navbar1" href="#">공지사항</a>
     <a class="navbar1" href="#">사이트맵</a>
-      <button class="btn btn-primary" type="submit" >Language</button>
+      <a class="btn11" href="#">Language</a>
       <a class="navbar2" href="#">로그인</a>
 </div>
 </nav>
@@ -50,7 +63,8 @@ float:left;
 
 </div>
 </div>
-<div class="container3"> 
+<div class="navbar">
+<div class="container3">
 <form class="form-inline">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -59,16 +73,30 @@ float:left;
   <a class="title4" href="#">여행카페</a>
   </form>
 </div>
-
+</div>
+<div class="navbar">
 <div class="container4">
 <img src="../img/03.jpg"/>
 </div>
-  
+</div>
+
+<div class="navbar">
+<div class="container3">
+<div class="btnn-group btnn-group-toggle" data-toggle="buttons">
+  <label class="btnn">
+    <input type="radio" name="options" autocomplete="off" width="100px" height="100px" > 추천일정
+  </label>
+  <label class="btnn">
+    <input type="radio" name="options" autocomplete="off"> 동행찾기
+  </label>
+  <label class="btnn">
+    <input type="radio" name="options" autocomplete="off"> 여행플레너
+  </label>
+  <label class="btnn">
+    <input type="radio" name="options" autocomplete="off"> 교통정보
+  </label>
+</div>
+  </div>
+  </div>
 </body>
 </html>
-
-
-
-
-
-
