@@ -5,7 +5,7 @@ import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class Board implements Serializable {
+public class Notice implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int no;
@@ -19,7 +19,7 @@ public class Board implements Serializable {
     // 개발하는 동안 객체의 내용을 확인하기 위해서 toString()을 오버라이딩 한다.
     @Override
     public String toString() {
-        return "Board [no=" + no + ", title=" + title + ", content=" + content + ", createdDate=" + createdDate + "]";
+        return "Notice [no=" + no + ", title=" + title + ", content=" + content + ", createdDate=" + createdDate + "]";
     }
     
     public int getNo() {
