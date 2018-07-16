@@ -17,7 +17,7 @@ class Exam01 {
         System.out.println("Hello, world!");
         
     }
-}
+} 
 
 // 1) 컴파일
 // > javac 소스파일명
