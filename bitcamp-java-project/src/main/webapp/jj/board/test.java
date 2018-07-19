@@ -5,7 +5,7 @@ import java.net.URLEncoder;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class ApiExplorer {
+public class test {
     public static void main(String[] args) throws IOException {
         StringBuilder urlBuilder = new StringBuilder("http://openapi.jejutour.go.kr:8080/openapi/service/TourSpotInfoService/getTourSpotGallery"); /*URL*/
         urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=kuQLts2epFkXcRYSn4ewIw4AWjBuCDkLZI1rz8m86Ije%2B3j%2BkZslvFlLjg695tkJKLlOAVE94OIqEnncw0QmUQ%3D%3D"); /*Service Key*/
@@ -30,4 +30,12 @@ public class ApiExplorer {
         conn.disconnect();
         System.out.println(sb.toString());
     }
+    private void printList(ArrayList<String> sb){
+        for(String entity : sb){
+            System.out.println(entity);
+        }
+        
+        
+    }
+    
 }
