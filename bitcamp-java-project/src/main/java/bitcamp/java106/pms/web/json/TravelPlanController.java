@@ -1,5 +1,7 @@
 package bitcamp.java106.pms.web.json;
 
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import bitcamp.java106.pms.domain.Planner;
-import bitcamp.java106.pms.service.PlannerService;
+import bitcamp.java106.pms.domain.TravelPlan;
+import bitcamp.java106.pms.service.TravelPlanService;
 
 @RestController
-@RequestMapping("/planner")
-public class PlannerController {
+@RequestMapping("/travelPlan")
+public class TravelPlanController {
     
-    PlannerService plannerService;
+    TravelPlanService travelPlanService;
     
-    public PlannerController(PlannerService plannerService) {
-        this.plannerService = plannerService;
+    public TravelPlanController(TravelPlanService travelPlanService) {
+        this.travelPlanService = travelPlanService;
     }
 
     @RequestMapping("form")
@@ -27,35 +29,32 @@ public class PlannerController {
     
     @RequestMapping("add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(Planner planner) throws Exception {
-        plannerService.add(planner);
+    public void add(TravelPlan travelPlan) throws Exception {
+        travelPlanService.add(travelPlan);
     }
     
     @RequestMapping("delete")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@RequestParam("no") int no) throws Exception {
-        plannerService.delete(no);
+        travelPlanService.delete(no);
     }
     
-    @RequestMapping("list{page}")
+    @RequestMapping("{plno}")
     public Object list(
+            @PathVariable int plno,
             @MatrixVariable(defaultValue="1") int pageNo,
-            @MatrixVariable(defaultValue="3") int pageSize) {
+            @MatrixVariable(defaultValue="3") int pageSize,
+            Map<String,Object>map) {
         
-        return plannerService.list(pageNo, pageSize);
+        return travelPlanService.list(plno, pageNo, pageSize);
     }
     
     @RequestMapping("update")
     @ResponseStatus(HttpStatus.OK) // 기본 값이 OK 이다.
-    public void update(Planner planner) throws Exception {
-        plannerService.update(planner);
+    public void update(TravelPlan travelPlan) throws Exception {
+        travelPlanService.update(travelPlan);
     }
     
-    @RequestMapping("{no}")
-    public Planner view(@PathVariable int no) throws Exception {
-        return plannerService.get(no);
-        
-    }
 }
 
 //ver 53 - DAO 대신 Service 객체 사용
@@ -72,12 +71,12 @@ public class PlannerController {
 //ver 40 - 필터 적용
 //ver 39 - forward 적용
 //ver 38 - redirect 적용
-//ver 37 - PlannerAddController 클래스를 서블릿으로 변경
+//ver 37 - TravelPlanAddController 클래스를 서블릿으로 변경
 //         출력 결과를 HTML로 변경
 //         자동 Refresh 태그 추가
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
-//ver 26 - PlannerController에서 add() 메서드를 추출하여 클래스로 정의. 
+//ver 26 - TravelPlanController에서 add() 메서드를 추출하여 클래스로 정의. 
 
 
 

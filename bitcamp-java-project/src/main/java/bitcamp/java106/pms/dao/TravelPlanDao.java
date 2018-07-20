@@ -3,18 +3,14 @@ package bitcamp.java106.pms.dao;
 import java.util.List;
 import java.util.Map;
 
-import bitcamp.java106.pms.domain.Planner;
 import bitcamp.java106.pms.domain.TravelPlan;
 
-public interface PlannerDao {
+public interface TravelPlanDao {
     int delete(int no) ;
-    List<Planner> selectList(Map<String,Object> params);
-    int insert(Planner planner);
-    int update(Planner planner);
-    Planner selectOne(int no);
-    TravelPlan selectOneWithTravelPlans(int no);
-    Planner selectOneWithHashtags(int no);
-    
+    List<TravelPlan> selectList(Map<String,Object> params);
+    int insert(TravelPlan travelPlan);
+    int update(TravelPlan travelPlan);
+    TravelPlan selectOne(int no);
 }
 
 //ver 52 - 페이지 단위로 데이터 가져오기
@@ -28,7 +24,7 @@ public interface PlannerDao {
 //ver 19 - 우리 만든 ArrayList 대신 java.util.LinkedList를 사용하여 목록을 다룬다. 
 //ver 18 - ArrayList를 이용하여 인스턴스(의 주소) 목록을 다룬다. 
 // ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
-// ver 14 - PlannerController로부터 데이터 관리 기능을 분리하여 PlannerDao 생성.
+// ver 14 - TravelPlanController로부터 데이터 관리 기능을 분리하여 TravelPlanDao 생성.
 
 
 

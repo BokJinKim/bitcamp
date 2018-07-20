@@ -2,7 +2,6 @@ package bitcamp.java106.pms.domain;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -13,28 +12,13 @@ public class Planner implements Serializable {
     private int num; // 인원
     private String people; // 일행
     private String theme; // 테마
-    private String tag; // 태그
-    //private String time;
-    //private String memo;
-    //private String tno;
-    private List<tamlaTravelPlan> tamlaTravelPlans;
-     
 
-    public List<tamlaTravelPlan> getTamlaTravelPlans() {
-        return tamlaTravelPlans;
-    }
-
-
-    public void setTamlaTravelPlans(List<tamlaTravelPlan> tamlaTravelPlans) {
-        this.tamlaTravelPlans = tamlaTravelPlans;
-    }
     
     
-
     @Override
     public String toString() {
-        return "Planner [no=" + no + ", num=" + num + ", people=" + people + ", theme=" + theme + ", tag=" + tag
-                + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+        return "Planner [no=" + no + ", num=" + num + ", people=" + people + ", theme=" + theme + ", startDate="
+                + startDate + ", endDate=" + endDate + "]";
     }
 
 
@@ -83,16 +67,6 @@ public class Planner implements Serializable {
 
     public void setTheme(String theme) {
         this.theme = theme;
-    }
-
-
-    public String getTag() {
-        return tag;
-    }
-
-
-    public void setTag(String tag) {
-        this.tag = tag;
     }
 
 

@@ -7,7 +7,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import bitcamp.java106.pms.dao.PlannerDao;
+import bitcamp.java106.pms.dao.TravelPlanDao;
 import bitcamp.java106.pms.domain.Planner;
+import bitcamp.java106.pms.domain.TravelPlan;
 import bitcamp.java106.pms.service.PlannerService;
 
 @Service
@@ -32,7 +34,7 @@ public class PlannerServiceImpl implements PlannerService {
     public Planner get(int no) {
         return plannerDao.selectOne(no);
     }
-    
+     
     @Override
     public int add(Planner planner) {
         return plannerDao.insert(planner);
