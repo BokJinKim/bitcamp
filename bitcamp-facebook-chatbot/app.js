@@ -193,6 +193,12 @@ function handlePostback(sender_psid, received_postback) {
     response = { "text": "Thanks!" }
   } else if (payload === 'no') {
     response = { "text": "Oops, try sending another image." }
+  } else if (payload === 'menu01') {
+	  response = { "text": "그렇죠. 역시 치킨, 소주가 최고죠! 이슬 한방울"}
+  } else if (payload === 'menu02') {
+	  response = { "text": "그렇죠. 역시 불금에는 불고기, 소주가 최고죠! 이슬 한방울"}
+  } else if (payload === 'menu03') {
+	  response = { "text": "그렇죠. 역시 ?, 소주가 최고죠! 이슬 한방울"}
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
