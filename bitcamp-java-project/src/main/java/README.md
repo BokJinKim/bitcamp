@@ -1,5 +1,5 @@
 # 변경 내역
-- build.gradle 변경
+- build.gradle 변경 
     - servlet 라이브러리 추가
     - 의존 라이브러리를 외부 폴더에 복사하는 task 추가 
     - "gradle eclipse" 실행 및 프로젝트 갱신
