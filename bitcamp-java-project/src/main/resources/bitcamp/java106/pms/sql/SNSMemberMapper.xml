@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bitcamp.java106.pms.dao.SNSMemberDao">
+
+  <resultMap type="SNSMember" id="SNSMemberMap">
+    <id column="MID" property="id"/>
+    <result column="EMAIL" property="email"/>
+    <result column="NAME" property="name"/>
+    <result column="PIMG" property="profileImg"/>
+    <result column="GEN" property="gender"/>
+  </resultMap>
+  
+  <insert id="insert" parameterType="SNSMember">
+    insert into TAMLA_MEMBER(MID,NAME,EMAIL,PIMG,GEN) 
+    values(#{id},#{name},#{email},#{profileImg},#{gender})
+  </insert>
+  
+  <select id="selectOne" parameterType="String" resultMap="SNSMemberMap">
+    select MID, NAME, EMAIL, PIMG, GEN
+    from TAMLA_MEMBER 
+    where MID = #{id}
+  </select>
+  
+<!--   <update id="update" parameterType="SNSMember">
+    update TAMLA_MEMBER set 
+        EMAIL=#{email},
+        PIMG=#{profileImg}, 
+        GEN=#{gender},
+        HP=#{phone},
+    where MID=#{id}
+  </update> -->
+  
+  <!-- <delete id="delete" parameterType="String">
+    delete from TAMLA_MEMBER where MID=#{value}
+  </delete> -->
+</mapper>
+
+
+
+
+
+
+

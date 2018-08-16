@@ -6,19 +6,20 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import bitcamp.java106.pms.dao.PartnerDao;
 import bitcamp.java106.pms.dao.PlannerDao;
-import bitcamp.java106.pms.dao.TravelPlanDao;
 import bitcamp.java106.pms.domain.Planner;
-import bitcamp.java106.pms.domain.TravelPlan;
 import bitcamp.java106.pms.service.PlannerService;
 
 @Service
 public class PlannerServiceImpl implements PlannerService {
     
     PlannerDao plannerDao;
+    PartnerDao partnerDao;
     
-    public PlannerServiceImpl(PlannerDao plannerDao) {
+    public PlannerServiceImpl(PlannerDao plannerDao, PartnerDao partnerDao) {
         this.plannerDao = plannerDao;
+        this.partnerDao = partnerDao;
     }
     
     @Override
@@ -27,7 +28,21 @@ public class PlannerServiceImpl implements PlannerService {
         params.put("startRowNo", (pageNo - 1) * pageSize);
         params.put("pageSize", pageSize);
         
-        return plannerDao.selectList(params);
+        List<Planner> planners = plannerDao.selectList(params);
+        
+        for(Planner p : planners)
+        	p.setPartners(partnerDao.selectListWithNo(p.getNo()));
+        
+        return planners;
+    }
+    
+    @Override
+    public List<Planner> listwithPage(int pageNo, int pageSize) {
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("startRowNo", (pageNo - 1) * pageSize);
+        params.put("pageSize", pageSize);
+        
+        return plannerDao.selectListwithPage(params);
     }
     
     @Override
@@ -52,9 +67,3 @@ public class PlannerServiceImpl implements PlannerService {
 }
 
 //ver 53 - 클래스 추가
-
-
-
-
-
-

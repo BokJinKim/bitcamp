@@ -11,63 +11,69 @@ public class TravelPlan implements Serializable {
 
     private int plno; // 플랜번호
     private int tno; // 여행지번호
-    private String memo; // 일행
-    private List<Travel> travels;
+    private int ttype; // 여행지타입
+    private String memo; // 메모
+    private String pltime; // 플랜시간값
+    private int ttpno; // 여행지 플랜 연동번호
+    private int plday; // 여행 날짜 번호
+    private String descr;
     
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date pltime;
     
-    
-    
-
     @Override
     public String toString() {
-        return "TravelPlan [plno=" + plno + ", tno=" + tno + ", memo=" + memo + ", travels=" + travels + ", pltime="
-                + pltime + "]";
+        return "TravelPlan [plno=" + plno + ", tno=" + tno + ", ttype=" + ttype + ", memo=" + memo + ", pltime="
+                + pltime + ", ttpno=" + ttpno + ", plday=" + plday + ", descr=" + descr + "]";
     }
-
     public int getPlno() {
+        
         return plno;
     }
-
     public void setPlno(int plno) {
         this.plno = plno;
     }
-
     public int getTno() {
         return tno;
     }
-
     public void setTno(int tno) {
         this.tno = tno;
     }
-
+    public int getTtype() {
+        return ttype;
+    }
+    public void setTtype(int ttype) {
+        this.ttype = ttype;
+    }
     public String getMemo() {
         return memo;
     }
-
     public void setMemo(String memo) {
         this.memo = memo;
     }
-
-    public List<Travel> getTravels() {
-        return travels;
-    }
-
-    public void setTravels(List<Travel> travels) {
-        this.travels = travels;
-    }
-
-    public Date getPltime() {
+    public String getPltime() {
         return pltime;
     }
-
-    public void setPltime(Date pltime) {
+    public void setPltime(String pltime) {
         this.pltime = pltime;
     }
+    public int getTtpno() {
+        return ttpno;
+    }
+    public void setTtpno(int ttpno) {
+        this.ttpno = ttpno;
+    }
+    public int getPlday() {
+        return plday;
+    }
+    public void setPlday(int plday) {
+        this.plday = plday;
+    }
+    public String getDescr() {
+        return descr;
+    }
+    public void setDescr(String descr) {
+        this.descr = descr;
+    }
     
-    
-
     
     
 }
@@ -78,6 +84,13 @@ public class TravelPlan implements Serializable {
 //ver 18 - 게시물 객체의 고유 번호(no)를 static 변수(count)를 이용하여 자동 설정한다. 
 // ver 16 - 캡슐화 적용. 겟터, 셋터 추가.
 // ver 13 - 등록일의 데이터 타입을 String에서 Date으로 변경
+
+
+
+
+
+
+
 
 
 

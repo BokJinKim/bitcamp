@@ -9,6 +9,7 @@ import bitcamp.java106.pms.domain.TravelPlan;
 public interface PlannerDao {
     int delete(int no) ;
     List<Planner> selectList(Map<String,Object> params);
+    List<Planner> selectListwithPage(Map<String,Object> params);
     int insert(Planner planner);
     int update(Planner planner);
     Planner selectOne(int no);
@@ -16,6 +17,7 @@ public interface PlannerDao {
     Planner selectOneWithHashtags(int no);
     
 }
+
 
 //ver 52 - 페이지 단위로 데이터 가져오기
 //ver 50 - 클래스를 인터페이스로 변경

@@ -14,7 +14,6 @@
     <context:component-scan base-package="bitcamp.java106.pms.web">
         <context:exclude-filter type="regex" expression="bitcamp.java106.pms.web.json.*"/>
     </context:component-scan>
-    
     <mvc:annotation-driven enable-matrix-variables="true"/>
     
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -31,7 +30,6 @@
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>
-
 
 
 

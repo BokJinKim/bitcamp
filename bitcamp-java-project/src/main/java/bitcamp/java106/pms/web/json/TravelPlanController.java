@@ -1,6 +1,6 @@
 package bitcamp.java106.pms.web.json;
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.MatrixVariable;
@@ -33,26 +33,52 @@ public class TravelPlanController {
         travelPlanService.add(travelPlan);
     }
     
+    @RequestMapping("add2")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void add2(TravelPlan travelPlan) throws Exception {
+        travelPlanService.add2(travelPlan);
+    }
+    
     @RequestMapping("delete")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@RequestParam("no") int no) throws Exception {
         travelPlanService.delete(no);
     }
     
-    @RequestMapping("{plno}")
+    @RequestMapping("list{page}")
     public Object list(
-            @PathVariable int plno,
             @MatrixVariable(defaultValue="1") int pageNo,
-            @MatrixVariable(defaultValue="3") int pageSize,
-            Map<String,Object>map) {
+            @MatrixVariable(defaultValue="3") int pageSize) {
         
-        return travelPlanService.list(plno, pageNo, pageSize);
+        return travelPlanService.list(pageNo, pageSize);
     }
     
     @RequestMapping("update")
     @ResponseStatus(HttpStatus.OK) // 기본 값이 OK 이다.
-    public void update(TravelPlan travelPlan) throws Exception {
-        travelPlanService.update(travelPlan);
+    public void update(@RequestParam(value="plday", defaultValue="0") int plday, 
+    				   @RequestParam(value="tno", defaultValue="0")int tno, 
+    				   String descr) throws Exception {
+        System.out.println("asd");
+        travelPlanService.update(plday, tno, descr);
+    }
+     
+    @RequestMapping("{planno}/{no}")
+    public List<TravelPlan> view(@PathVariable int planno, @PathVariable int no) throws Exception {
+       System.out.printf("plno:%d, dayno:%d\n", planno, no);
+        return travelPlanService.get(planno, no);
+        
+    }
+    @RequestMapping("day/{planno}")
+    public int titleView(@PathVariable int planno) throws Exception {
+       System.out.printf("plno:%d\n", planno);
+        return travelPlanService.get2(planno);
+        
+    }
+
+    @RequestMapping("{no}")
+    public List<TravelPlan> selectOne(@PathVariable int no) throws Exception {
+        return travelPlanService.selectOne(no);
+        
     }
     
 }
@@ -77,6 +103,14 @@ public class TravelPlanController {
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
 //ver 26 - TravelPlanController에서 add() 메서드를 추출하여 클래스로 정의. 
+
+
+
+
+
+
+
+
 
 
 
