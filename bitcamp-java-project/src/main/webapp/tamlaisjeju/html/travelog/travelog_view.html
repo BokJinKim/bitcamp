@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <!-- meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>탐라는제주 - 숨어 있던 진짜 hot한 제주</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+    <meta property="og:title" content="탐라는제주">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="탐라는제주 - 숨어 있던 진짜 hot한 제주">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <!-- css -->
+    <link rel="stylesheet" href="../../css/common.css" />
+    <link rel="stylesheet" href="../../css/layout.css" />
+    <!-- sub08 -->
+    <link rel="stylesheet" type="text/css" href="../../css/sub08.css">
+    <style type="text/css">
+        @import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
+    </style>
+
+
+
+
+</head>
+
+<body>
+    <div id="header"></div>
+    <div id="sub08" class="sub08 container">
+        <div id="visual">
+            <img src="../../img/sub08/travelLogBackgroundImg.jpg" alt="대표이미지" style='display: none'>
+            <div class='visual_inner_box'>
+                <div id='title_div'></div>
+
+
+                <div id='hashTag_div'></div>
+                <div id='date_div'></div>
+                <div id='partner_div'></div>
+                <div id='delete_div'></div>
+                <!-- <h5 id='top_date'>여행일: 2018년 4월 20일 - 2018년 4월 30일</h5> -->
+                <span class="visual_bg"></span>
+            </div>
+        </div>
+        <!-- visual end -->
+        <!-- '1': '혼자',
+        '2': '부모님',
+        '3': '아이',
+        '4': '커플',
+        '5': '친구',
+        '6': '단체' -->
+        <div id="content">
+
+
+            <!-- 좋아요 탭 -->
+            <div class="content_wrap">
+
+
+                <!-- 지도 -->
+
+                <!-- <div class=map_bb style="width: 100%;height: 400px;background-color: teal;margin-bottom:84px;" style="overflow: hidden;z-index:2; "></div> -->
+                <div id="map" style="width:100%;height:400px;margin-bottom:84px; margin-top: 42px;"></div>
+            </div>
+
+            <!-- 타임라인 -->
+
+            <div class="t_timeline">
+
+                <nav class="action">
+                    <div id="nav_day_bar"></div>
+
+
+                    <div class="nav_menu">
+
+                        <div id="tree_menu" class="treemenu"></div>
+
+                    </div>
+
+
+                    <div class="context_writer">
+                        <!-- <div class="profile large">
+                            <div class="cover">
+                                <img src="https://source.unsplash.com/random/700x300" />
+                                <div class="layer">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                            <div class="user-info">
+                                <div class="profile-pic">
+                                    <img src="../../img/sub08/img4.jpg" />
+                                    <a class="image-wrapper" href="#">
+                                        <form id="profilePictureForm" action="#">
+                                            <input class="hidden-input" id="changePicture" type="file" />
+                                            <label class="edit glyphicon glyphicon-pencil" for="changePicture" type="file" title="Change picture"></label>
+                                        </form>
+                                    </a>
+                                </div>
+                                <div class="username">
+                                    <div class="name">
+                                        <span class="verified"></span>
+                                        <a href="#">@zx3620</a>
+                                    </div>
+                                    <div class="about">모든 제주도를 클리어해보자!!</div>
+                                </div>
+                                <div class="social-btns">
+                                    <a class="btn facebook" href="#">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                    <a class="btn twitter" href="#">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                    <a class="btn google" href="#">
+                                        <i class="fa fa-google"></i>
+                                    </a>
+                                </div>
+                                <div class="prifile_bottom_msg">
+                                    <p>퍼가기</p>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="auther_post">
+                            <div class="post_section">
+                                <div class="post_topbox clear">
+                                    <div class="post_text">
+                                        <b id='recommendation'></b>
+                                        <b id='recommendation_name'></b>의 추천 여행기</div>
+                                    <a href="#">모두보기</a>
+                                </div>
+                                <div class="post_content">
+                                    <div class="post_content_imgbox">
+                                        <a href="#">
+                                            <img src="https://source.unsplash.com/random/700x500" />
+                                        </a>
+                                    </div>
+                                    <div class="post_dscrt">
+                                        <a href="#">
+                                            <div class="post_dscrt_text">한여름의 제주도</div>
+                                        </a>
+                                        <a>좋아요 : 142,094</a>
+                                    </div>
+                                </div>
+                                <div class="post_content">
+                                    <div class="post_content_imgbox">
+                                        <a href="#">
+                                            <img src="https://source.unsplash.com/random/700x600" />
+                                        </a>
+                                    </div>
+                                    <div class="post_dscrt">
+                                        <a href="#">
+                                            <div class="post_dscrt_text">애월탐방기</div>
+                                        </a>
+                                        <a>좋아요 : 215,112</a>
+                                    </div>
+                                </div>
+                                <div class="post_content">
+                                    <div class="post_content_imgbox">
+                                        <a href="#">
+                                            <img src="https://source.unsplash.com/random/700x700" />
+                                        </a>
+                                    </div>
+                                    <div class="post_dscrt">
+                                        <a href="#">
+                                            <div class="post_dscrt_text">이국적인 서귀포시</div>
+                                        </a>
+                                        <a>좋아요 : 18,112</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <div id="travel_cont"></div>
+
+                <!-- 라이브리 시티 설치 코드 -->
+                <div id='livecity'></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div id="footer"></div>
+
+
+    <script src="../../js/common/common.js"></script>
+    <!-- handlebars -->
+    <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+    <!-- logo font -->
+    <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- jQuery -->
+    <script type="text/javascript" src="../../node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- daum map -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=619a7dc4f7d23963aa128663f464c8d5&libraries=services"></script>
+    <!-- 카카오로그인 -->
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <!-- travelog_view.js -->
+    <script src='travelog_view.js'></script>
+
+</body>
+
+
+</html>

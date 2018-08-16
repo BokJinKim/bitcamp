@@ -1,0 +1,116 @@
+<div class="inner_header">
+    <h1>
+        <a href="../../index.html">탐라는제주</a>
+    </h1>
+    <div class="menu_area">
+        <h2 class="hide">주메뉴영역</h2>
+        <div class="nav_area topnav clear" id="myTopnav">
+            <div class="depth_1">
+                <a href="../tourspot/tourist.html">관광지</a>
+            </div>
+            <div class="depth_1">
+                <button class="dropbtn">커뮤니티
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="../planner/planner_list.html">여행 일정 추천</a>
+                    <a href="../travelog/travelog_list.html">내가 쓰는 여행기</a>
+                    <a href="../travelmate/travelmate_list.html">설레는 동행</a>
+                    <a href="../curation/curation_list.html">여행큐레이션</a>
+                </div>
+            </div>
+            <div class="depth_1">
+                <button class="dropbtn">제주여행꿀팁
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="../tourinfo/tourinfo_all.html">전체</a>
+                    <a href="../tourinfo/tourinfo_weather.html">날씨</a>
+                    <a href="../tourinfo/tourinfo_traffic.html">교통정보</a>
+                    <a href="../tourinfo/tourinfo_facilities.html">편의시설</a>
+                    <a href="../tourinfo/tourinfo_tourinquiry.html">관광문의</a>
+                    <a href="../tourinfo/tourinfo_notice.html">공지</a>
+                </div>
+            </div>
+            <div class="depth_1">
+                <button class="dropbtn">나의 여행
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="../mytrip/mytrip_all.html">전체</a>
+                    <a href="../mytrip/mytrip_myschedule.html">나의 여행일정</a>
+                    <a href="../mytrip/mytrip_travelog.html">나의 여행기</a>
+                    <a href="../mytrip/mytrip_travelmate.html">나의 동행</a>
+                    <a href="../mytrip/mytrip_myreview.html">나의 리뷰</a>
+                    <a href="../mytrip/mytrip_zzim.html">찜한여행</a>
+                    <a href="../mytrip/mytrip_accounts.html">정보수정</a>
+                </div>
+            </div>
+            <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+        </div>
+        <!-- topnav end -->
+    </div>
+    <!-- menu_area end-->
+    <div class="ico_wrap">
+        <a id="login" class="login" href="#">
+        </a>
+        <a class="sitemap" href="#" onclick="openNav()">
+            <i class="fas fa-bars"></i>
+            <sapn class="ico_txt">사이트맵</sapn>
+        </a>
+        <a class="search" href="#" onclick="openSearch()">
+            <i class="fas fa-search"></i>
+            <sapn class="ico_txt">검색</sapn>
+        </a>
+
+    </div>
+    <!-- ico_wrap end-->
+
+    <div id="myNav" class="nav_overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="nav_overlay-content">
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+
+
+
+
+    <div id="myOverlay" class="srh_overlay">
+        <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
+        <div class="srh_overlay-content">
+            <form action="/action_page.php">
+                <input type="text" placeholder="Search.." name="search">
+                <button type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+
+</div>
+<!-- inner_header end -->
+
+
+
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+</script>
+<script>
+        $(document).ready(function () {
+            $("#login").load("/bitcamp-java-project/tamlaisjeju/html/include/login.html")
+        });
+</script>

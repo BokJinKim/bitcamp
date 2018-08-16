@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<!-- meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>탐라는제주 - 숨어 있던 진짜 hot한 제주</title>
+	<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+	<meta property="og:title" content="탐라는제주">
+	<meta property="og:type" content="website">
+	<meta property="og:description" content="탐라는제주 - 숨어 있던 진짜 hot한 제주">
+	<!-- font -->
+	<link rel="stylesheet" href="//cdn.rawgit.com/hiun/NanumSquare/master/nanumsquare.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+	    crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- css -->
+	<link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../css/common.css" />
+	<link rel="stylesheet" href="../../css/layout.css" />
+	<link rel="stylesheet" href="../../node_modules/slick-carousel/slick/slick.css">
+	<link rel="stylesheet" href="../../node_modules/slick-carousel/slick/slick-theme.css">
+
+</head>
+
+<body>
+
+	<header id="header"></header>
+	<div id="container" class="container">
+		<div id="visual">
+			<img src="../../img/sub01/sub01_visual.jpg" alt="대표이미지">
+		</div>
+		<!-- visual end -->
+		<div id="content" class="content wrapper">
+			<div id="tourspot_view">
+
+
+				<div id="travelContents">
+				</div>
+				<!-- travelContents end-->
+				<div id="detailIntro" class="clear">
+				</div>
+				<!-- detailIntro end -->
+				<div id="tourist_area" class="clear">
+					<h4>주변관광지</h4>
+					<div id="tourist_item" class="clear">
+						<ul>
+
+						</ul>
+					</div>
+					<!-- location end -->
+				</div>
+				<!-- tourist_area end-->
+			</div>
+			<!-- tourspot_view end -->
+		</div>
+		<!-- content end -->
+	</div>
+	<!-- container end-->
+
+	<footer id="footer"></footer>
+
+	<!-- js -->
+	<script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+	<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="../../js/common/common.js"></script>
+	<script src="tourapi.js"></script>
+	<!-- <script src="list.js"></script> -->
+
+	<script>
+		$(document).ready(function () {
+			$("#header").load("../include/sub_header.html")
+			$("#footer").load("../include/sub_footer.html")
+			/* id 지정을 통해서도 가능합니다. 
+			 $("#header").load("header.html #navbar")
+			 */
+		});
+	</script>
+
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8dfe4ef61743ed1851a59061fe320e0d"></script>
+	<script>
+		$.urlParam = function (name) {
+			var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			if (results == null) {
+				return null;
+			} else {
+				return results[1] || 0;
+			}
+		}
+		$(function (data) {
+			var id = $.urlParam('id');
+			var item = $.urlParam('item');
+			var mapx = $.urlParam('mapx');
+			var mapy = $.urlParam('mapy');
+
+
+			common.getInfo('get', 'detailIntro', "contentTypeId=" + item + "&contentId=" + id +
+				"&MobileOS=ETC&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&transGuideYN=Y",
+				parsing.detailPageIntroInfoDraw);
+			common.getInfo('get', 'detailCommon', "contentTypeId=" + item + "&contentId=" + id +
+				"&MobileOS=ETC&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&transGuideYN=Y",
+				parsing.contentsParsing);
+			common.getInfo('get', 'detailImage', "contentTypeId=" + item + 
+				"&MobileOS=ETC&MobileApp=AppTest&contentId=" + id +"&imageYN=Y",
+				parsing.contentsImgParsing);
+			common.getInfo('get', 'locationBasedList', "contentTypeId=" + item + "&mapX=" + mapx +
+				"&mapY=" + mapy + "&radius=20000" + //radius 거리반경(단위:m) , Max값 20000m=20Km
+				"&pageNo=1&numOfRows=10&listYN=Y&arrange=P&MobileOS=ETC&MobileApp=AppTesting",
+				parsing.contentsLocationParsing);
+		})
+
+
+
+
+		var parsing = {
+			contentsParsing: function (data) {
+				var InfoElements;
+				var list = data.response.body.items.item
+				InfoElements =
+					"<h3>" + list.title + "</h3>" +
+					"<div class='view_intro clear'>" +
+					"<div id='view_gallery'>" +
+					"<ul>" +
+
+					"<li>" + "<img src=" + "'" + list.firstimage + "'" + "onError=" +
+					"this.onerror=null;this.src='../../img/common/no-image-icon.jpg';" + ">" + "</li>" +
+
+					"</ul>" +
+					"</div>" + // view_gallery
+					"<div class='view_info'>" +
+					"<h4>기본정보</h4>" +
+					"<ul>" +
+					"<li>" +
+					"<b>우편번호</b>" +
+					"<span> " + list.zipcode + "</span>" +
+					"</li>" +
+					"<li>" +
+					"<b>위치</b>" +
+					"<span> " + list.addr1 + "</span>" +
+					"</li>"
+
+				if (list.addr2 != undefined) {
+					"<li>" +
+					"<b>상세주소</b>" +
+					"<span> " + list.addr2 + "</span>" + "</li>";
+				}
+
+				if (list.homepage != undefined) {
+					InfoElements = InfoElements + "<li><b>홈페이지</b><span>" + list.homepage +
+						"</span></li>";
+				}
+				InfoElements +=
+
+					"</ul>" +
+					"</div>" +
+					"</div>" +
+
+					"<div class='detail_info clear'>" +
+					"<h4>개요</h4>" +
+					"<p class='mb30'>" + list.overview + "</p>" +
+					"<h4>위치정보</h4>" +
+					"<div class='mb30' id='map' style='width:100%; height:300px;'></div>" +
+					"</div>" // detail_info end
+
+
+				$("#travelContents").append(InfoElements)
+				var mapContainer = document.getElementById('map'),
+					mapOption = {
+						center: new daum.maps.LatLng(list.mapy, list.mapx),
+						level: 4
+					};
+				var map = new daum.maps.Map(mapContainer, mapOption);
+				var mapTypeControl = new daum.maps.MapTypeControl(); // 맵 타입컨트롤러 추가 
+				var zoomControl = new daum.maps.ZoomControl(); // 줌 컨트롤러 추가 
+				var markerPosition = new daum.maps.LatLng(list.mapy, list.mapx); // 마커 position SET 
+				var marker = new daum.maps.Marker({
+					position: markerPosition
+				});
+				map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+				map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+				marker.setMap(map);
+			},
+
+			contentsImgParsing: function (data) {
+				for (var i = 0; i < 1; i++) {
+					var list = data.response.body.items.item[i]
+					var imgurl = list.originimgurl
+
+					if (imgurl == null || imgurl == "undefined") { //이미지가 없거나 찾지 못했을때
+						return false;
+					} else {
+						var gallery =
+							"<li>" + "<img src=" + data.response.body.items.item[i].originimgurl + ">" + "</li>"
+							$("#view_gallery ul").append(gallery)
+					}
+					
+				}
+				
+				$('#view_gallery ul').slick({
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					autoplay: true,
+					autoplaySpeed: 4000,
+				})
+			},
+
+			detailPageIntroInfoDraw: function (data) {
+				var detailIntro;
+				var list = data.response.body.items.item
+				var ref = list.contenttypeid
+				if (ref === 12) { //관광지
+					detailIntro =
+						"<h4>상세정보</h4>" +
+						"<ul class='detail_list'>"
+					if (list.infocenter != "" && list.infocenter != null) {
+						detailIntro = detailIntro + "<li><strong>문의 및 안내 : </strong><span><a href='tel://" + list.infocenter +
+							"'>" + list.infocenter + "</a></span></li>";
+					}
+					if (list.accomcount != "" && list.accomcount != null) {
+						detailIntro = detailIntro + "<li><strong>수용인원 : </strong><span>" + list.accomcount + "</span></li>";
+					}
+					if (list.restdate != "" && list.restdate != null) {
+						detailIntro = detailIntro + "<li><strong>쉬는날 : </strong><span>" + list.restdate + "</span></li>";
+					}
+					if (list.opendate != "" && list.opendate != null) {
+						detailIntro = detailIntro + "<li><strong>개장일 : </strong><span>" + list.opendate + "</span></li>";
+					}
+					if (list.useseason != "" && list.useseason != null) {
+						detailIntro = detailIntro + "<li><strong>이용시기 : </strong><span>" + list.useseason + "</span></li>";
+					}
+					if (list.usetime != "" && list.usetime != null) {
+						detailIntro = detailIntro + "<li><strong>이용시간 : </strong><span>" + list.usetime + "</span></li>";
+					}
+					if (list.expguide != "" && list.expguide != null) {
+						detailIntro = detailIntro + "<li><strong>체험안내 : </strong><span>" + list.expguide + "</span></li>";
+					}
+					if (list.expagerange != "" && list.expagerange != null) {
+						detailIntro = detailIntro + "<li><strong>체험가능연령 : </strong><span>" + list.expagerange + "</span></li>";
+					}
+					if (list.chkbabycarriage != "" && list.chkbabycarriage != null) {
+						detailIntro = detailIntro + "<li><strong>유모차대여여부 : </strong><span>" + list.chkbabycarriage + "</span></li>";
+					}
+					if (list.parking != "" && list.parking != null) {
+						detailIntro = detailIntro + "<li><strong>주차가능 여부 : </strong><span>" + list.parking + "</span></li>";
+					}
+					"</ul>"
+
+					$("#detailIntro").html(detailIntro)
+				} else if (ref === 14) { // 문화시설
+					detailIntro =
+						"<h4>상세정보</h4>" +
+						"<ul class='detail_list'>"
+					if (list.infocenterculture != "" && list.infocenterculture != null) {
+						detailIntro = detailIntro + "<li><strong>문의 및 안내 : </strong><span>" + list.infocenterculture + "</span></li>";
+					}
+					if (list.spendtime != "" && list.spendtime != null) {
+						detailIntro = detailIntro + "<li><strong>관람소요시간 : </strong><span>" + list.spendtime + "</span></li>";
+					}
+					if (list.scale != "" && list.scale != null) {
+						detailIntro = detailIntro + "<li><strong>규모 : </strong><span>" + list.scale + "</span></li>";
+					}
+					if (list.discountinfo != "" && list.discountinfo != null) {
+						detailIntro = detailIntro + "<li><strong>할인정보 : </strong><span>" + list.discountinfo + "</span></li>";
+					}
+					if (list.usetimeculture != "" && list.usetimeculture != null) {
+						detailIntro = detailIntro + "<li><strong>이용시간 : </strong><span>" + list.usetimeculture + "</span></li>";
+					}
+					if (list.usefee != "" && list.usefee != null) {
+						detailIntro = detailIntro + "<li><strong>이용요금 : </strong><span>" + list.usefee + "</span></li>";
+					}
+					if (list.restdateculture != "" && list.restdateculture != null) {
+						detailIntro = detailIntro + "<li><strong>쉬는날 : </strong><span>" + list.restdateculture + "</span></li>";
+					}
+					if (list.chkbabycarriageculture != "" && list.chkbabycarriageculture != null) {
+						detailIntro = detailIntro + "<li><strong>유모차대여여부 : </strong><span>" + list.chkbabycarriageculture +
+							"</span></li>";
+					}
+					if (list.parkingculture != "" && list.parkingculture != null) {
+						detailIntro = detailIntro + "<li><strong>주차시설 : </strong><span>" + list.parkingculture + "</span></li>";
+					}
+					if (list.parkingfee != "" && list.parkingfee != null) {
+						detailIntro = detailIntro + "<li><strong>주차요금 : </strong><span>" + list.parkingfee + "</span></li>";
+					}
+					"</ul>"
+
+					$("#detailIntro").html(detailIntro)
+				} else if (ref === 15) { // 축제정보
+					detailIntro =
+						"<h4>상세정보</h4>" +
+						"<div>" + list.program + "</div>" +
+						"<div>" + list.subevent + "</div>" +
+						"<ul class='detail_list'>"
+					if (list.eventplace != "" && list.eventplace != null) {
+						detailIntro = detailIntro + "<li><strong>행사장소 : </strong><span>" + list.eventplace + "</span></li>";
+					}
+					if (list.placeinfo != "" && list.placeinfo != null) {
+						detailIntro = detailIntro + "<li><strong>행사장위치안내 : </strong><span>" + list.placeinfo + "</span></li>";
+					}
+					if (list.usetimefestival != "" && list.usetimefestival != null) {
+						detailIntro = detailIntro + "<li><strong>이용요금 : </strong><span>" + list.usetimefestival + "</span></li>";
+					}
+					if (list.discountinfofestival != "" && list.discountinfofestival != null) {
+						detailIntro = detailIntro + "<li><strong>할인정보 : </strong><span>" + list.discountinfofestival + "</span></li>";
+					}
+					if (list.bookingplace != "" && list.bookingplace != null) {
+						detailIntro = detailIntro + "<li><strong>예매처 : </strong><span>" + list.bookingplace + "</span></li>";
+					}
+					if (list.eventstartdate != "" && list.eventstartdate != null) {
+						detailIntro = detailIntro + "<li><strong>행사시작일 : </strong><span>" + list.eventstartdate + "</span></li>";
+					}
+					if (list.eventenddate != "" && list.eventenddate != null) {
+						detailIntro = detailIntro + "<li><strong>행사종료일 : </strong><span>" + list.eventenddate + "</span></li>";
+					}
+					if (list.agelimit != "" && list.agelimit != null) {
+						detailIntro = detailIntro + "<li><strong>관람가능연령 : </strong><span>" + list.agelimit +
+							"</span></li>";
+					}
+					if (list.spendtimefestival != "" && list.spendtimefestival != null) {
+						detailIntro = detailIntro + "<li><strong>관람소요시간 : </strong><span>" + list.spendtimefestival + "</span></li>";
+					}
+					if (list.playtime != "" && list.playtime != null) {
+						detailIntro = detailIntro + "<li><strong>공연시간 : </strong><span>" + list.playtime + "</span></li>";
+					}
+					if (list.sponsor1 != "" && list.sponsor1 != null) {
+						detailIntro = detailIntro + "<li><strong>주최자 : </strong><span>" + list.sponsor1 + "</span></li>";
+					}
+					if (list.sponsor1tel != "" && list.sponsor1tel != null) {
+						detailIntro = detailIntro + "<li><strong>주최자연락처 : </strong><span>" + list.sponsor1tel + "</span></li>";
+					}
+					"</ul>"
+					$("#detailIntro").html(detailIntro)
+				} else if (ref === 25) { // 여행코스
+					detailIntro =
+						"<h4>상세정보</h4>" +
+						"<ul class='detail_list'>"
+					if (list.infocentertourcourse != "" && list.infocentertourcourse != null) {
+						detailIntro = detailIntro + "<li><strong>문의 및 안내 : </strong><span>" + list.infocentertourcourse +
+							"</span></li>";
+					}
+					if (list.theme != "" && list.theme != null) {
+						detailIntro = detailIntro + "<li><strong>코스테마 : </strong><span>" + list.theme + "</span></li>";
+					}
+					if (list.schedule != "" && list.schedule != null) {
+						detailIntro = detailIntro + "<li><strong>코스일정 : </strong><span>" + list.schedule + "</span></li>";
+					}
+					if (list.distance != "" && list.distance != null) {
+						detailIntro = detailIntro + "<li><strong>코스총거리 : </strong><span>" + list.distance + "</span></li>";
+					}
+					if (list.taketime != "" && list.taketime != null) {
+						detailIntro = detailIntro + "<li><strong>코스총소요시간 : </strong><span>" + list.taketime + "</span></li>";
+					}
+					"</ul>"
+					$("#detailIntro").html(detailIntro)
+				} else if (ref === 28) { //레포츠
+					detailIntro =
+						"<h4>상세정보</h4>" +
+						"<ul class='detail_list'>"
+					if (list.infocenterleports != "" && list.infocenterleports != null) {
+						detailIntro = detailIntro + "<li><strong>문의 및 안내 : </strong><span>" + list.infocenterleports +
+							"</span></li>";
+					}
+					if (list.reservation != "" && list.reservation != null) {
+						detailIntro = detailIntro + "<li><strong>예약 안내 : </strong><span>" + list.reservation + "</span></li>";
+					}
+					if (list.usefeeleports != "" && list.usefeeleports != null) {
+						detailIntro = detailIntro + "<li><strong>입장료 : </strong><span>" + list.usefeeleports + "</span></li>";
+					}
+					if (list.accomcountleports != "" && list.accomcountleports != null) {
+						detailIntro = detailIntro + "<li><strong>수용인원 : </strong><span>" + list.accomcountleports + "</span></li>";
+					}
+					if (list.openperiod != "" && list.openperiod != null) {
+						detailIntro = detailIntro + "<li><strong>개장기간 : </strong><span>" + list.openperiod + "</span></li>";
+					}
+					if (list.openperiod != "" && list.openperiod != null) {
+						detailIntro = detailIntro + "<li><strong>개장시간 : </strong><span>" + list.openperiod + "</span></li>";
+					}
+					if (list.usetimeleports != "" && list.usetimeleports != null) {
+						detailIntro = detailIntro + "<li><strong>이용시간 : </strong><span>" + list.usetimeleports + "</span></li>";
+					}
+					if (list.restdateleports != "" && list.restdateleports != null) {
+						detailIntro = detailIntro + "<li><strong>쉬는날 : </strong><span>" + list.restdateleports + "</span></li>";
+					}
+					if (list.parkingleports != "" && list.parkingleports != null) {
+						detailIntro = detailIntro + "<li><strong>주차시설 : </strong><span>" + list.parkingleports + "</span></li>";
+					}
+					if (list.parkingleports != "" && list.parkingleports != null) {
+						detailIntro = detailIntro + "<li><strong>주차요금 : </strong><span>" + list.parkingleports + "</span></li>";
+					}
+					if (list.chkbabycarriageleports != "" && list.chkbabycarriageleports != null) {
+						detailIntro = detailIntro + "<li><strong>유모차대여여부 : </strong><span>" + list.chkbabycarriageleports +
+							"</span></li>";
+					}
+					if (list.chkcreditcardleports != "" && list.chkcreditcardleports != null) {
+						detailIntro = detailIntro + "<li><strong>신용카드가능여부 : </strong><span>" + list.chkcreditcardleports +
+							"</span></li>";
+					}
+					if (list.chkpetleports != "" && list.chkpetleports != null) {
+						detailIntro = detailIntro + "<li><strong>애완동물가능여부 : </strong><span>" + list.chkpetleports + "</span></li>";
+					}
+					"</ul>"
+					$("#detailIntro").html(detailIntro)
+				} else if (ref === 32) { // 숙박정보 
+
+					detailIntro =
+						"<h4>상세정보</h4>" +
+						"<ul class='detail_list'>"
+					if (list.infocenterlodging != "" && list.infocenterlodging != null) {
+						detailIntro = detailIntro + "<li><strong>문의 및 안내 : </strong><span>" + list.infocenterlodging +
+							"</span></li>";
+					}
+					if (list.reservationlodging != "" && list.reservationlodging != null) {
+						detailIntro = detailIntro + "<li><strong>예약 안내 : </strong><span>" + list.reservationlodging + "</span></li>";
+					}
+					if (list.reservationurl != "" && list.reservationurl != null) {
+						detailIntro = detailIntro + "<li><strong>예약 안내홈페이지 : </strong><span>" + list.reservationurl + "</span></li>";
+					}
+					if (list.subfacility != "" && list.subfacility != null) {
+						detailIntro = detailIntro + "<li><strong>부대시설 : </strong><span>" + list.subfacility + "</span></li>";
+					}
+					if (list.parkinglodging != "" && list.parkinglodging != null) {
+						detailIntro = detailIntro + "<li><strong>주차가능 여부 : </strong><span>" + list.parkinglodging + "</span></li>";
+					}
+					if (list.chkcooking != "" && list.chkcooking != null) {
+						detailIntro = detailIntro + "<li><strong>객실내취사여부 : </strong><span>" + list.chkcooking + "</span></li>";
+					}
+					if (list.foodplace != "" && list.foodplace != null) {
+						detailIntro = detailIntro + "<li><strong>식음료장 : </strong><span>" + list.foodplace + "</span></li>";
+					}
+					if (list.roomcount != "" && list.roomcount != null) {
+						detailIntro = detailIntro + "<li><strong>객실수 : </strong><span>" + list.roomcount + "</span></li>";
+					}
+					if (list.accomcountlodging != "" && list.accomcountlodging != null) {
+						detailIntro = detailIntro + "<li><strong>수용가능인원 : </strong><span>" + list.accomcountlodging + "</span></li>";
+					}
+					if (list.checkintime != "" && list.checkintime != null) {
+						detailIntro = detailIntro + "<li><strong>체크인 시간 : </strong><span>" + list.checkintime + "</span></li>";
+					}
+					if (list.checkouttime != "" && list.checkouttime != null) {
+						detailIntro = detailIntro + "<li><strong>체크아웃 시간 : </strong><span>" + list.checkouttime + "</span></li>";
+					}
+					if (list.parkinglodging != "" && list.parkinglodging != null) {
+						detailIntro = detailIntro + "<li><strong>주차가능 여부 : </strong><span>" + list.parkinglodging + "</span></li>";
+					}
+					"</ul>"
+					$("#detailIntro").html(detailIntro)
+				} else if (ref === 38) { // 쇼핑
+					detailIntro =
+						"<h4>상세정보</h4>" +
+						"<ul class='detail_list'>"
+					if (list.shopguide != "" && list.shopguide != null) {
+						detailIntro = detailIntro + "<li><strong>매장안내 : </strong><span>" + list.shopguide +
+							"</span></li>";
+					}
+					if (list.infocentershopping != "" && list.infocentershopping != null) {
+						detailIntro = detailIntro + "<li><strong>문의 및 안내 : </strong><span>" + list.infocentershopping + "</span></li>";
+					}
+					if (list.opentime != "" && list.opentime != null) {
+						detailIntro = detailIntro + "<li><strong>영업시간 : </strong><span>" + list.opentime + "</span></li>";
+					}
+					if (list.restdateshopping != "" && list.restdateshopping != null) {
+						detailIntro = detailIntro + "<li><strong>쉬는날 : </strong><span>" + list.restdateshopping + "</span></li>";
+					}
+					if (list.scaleshopping != "" && list.scaleshopping != null) {
+						detailIntro = detailIntro + "<li><strong>규모 : </strong><span>" + list.scaleshopping + "</span></li>";
+					}
+					if (list.fairday != "" && list.fairday != null) {
+						detailIntro = detailIntro + "<li><strong>장서는날 : </strong><span>" + list.fairday + "</span></li>";
+					}
+					if (list.culturecenter != "" && list.culturecenter != null) {
+						detailIntro = detailIntro + "<li><strong>문화센터바로가기 : </strong><span>" + list.culturecenter + "</span></li>";
+					}
+					if (list.restroom != "" && list.restroom != null) {
+						detailIntro = detailIntro + "<li><strong>화장실 : </strong><span>" + list.restroom + "</span></li>";
+					}
+					if (list.chkbabycarriageshopping != "" && list.chkbabycarriageshopping != null) {
+						detailIntro = detailIntro + "<li><strong>유모차대여 정보 : </strong><span>" + list.chkbabycarriageshopping +
+							"</span></li>";
+					}
+					if (list.chkcreditcardshopping != "" && list.chkcreditcardshopping != null) {
+						detailIntro = detailIntro + "<li><strong>신용카드가능여부 : </strong><span>" + list.chkcreditcardshopping +
+							"</span></li>";
+					}
+					if (list.chkpetshopping != "" && list.chkpetshopping != null) {
+						detailIntro = detailIntro + "<li><strong>애완동물가능여부 : </strong><span>" + list.chkpetshopping + "</span></li>";
+					}
+					if (list.parkingshopping != "" && list.parkingshopping != null) {
+						detailIntro = detailIntro + "<li><strong>주차시설 : </strong><span>" + list.parkingshopping + "</span></li>";
+					}
+					if (list.saleitemcost != "" && list.saleitemcost != null) {
+						detailIntro = detailIntro + "<li><strong>판매품목별가격 : </strong><span>" + list.saleitemcost + "</span></li>";
+					}
+					"</ul>"
+					$("#detailIntro").html(detailIntro)
+				} else if (ref === 39) { // 음식점
+
+					detailIntro =
+						"<h4>상세정보</h4>" +
+						"<ul class='detail_list'>"
+					if (list.firstmenu != "" && list.firstmenu != null) {
+						detailIntro = detailIntro + "<li><strong>대표메뉴 : </strong><span>" + list.firstmenu +
+							"</span></li>";
+					}
+					if (list.treatmenu != "" && list.treatmenu != null) {
+						detailIntro = detailIntro + "<li><strong>취급메뉴 : </strong><span>" + list.treatmenu + "</span></li>";
+					}
+					if (list.infocenterfood != "" && list.infocenterfood != null) {
+						detailIntro = detailIntro + "<li><strong>문의 및 안내 : </strong><span>" + list.infocenterfood + "</span></li>";
+					}
+					if (list.opentimefood != "" && list.opentimefood != null) {
+						detailIntro = detailIntro + "<li><strong>영업시간 : </strong><span>" + list.opentimefood + "</span></li>";
+					}
+					if (list.parkingfood != "" && list.parkingfood != null) {
+						detailIntro = detailIntro + "<li><strong>주차가능 여부 : </strong><span>" + list.parkingfood + "</span></li>";
+					}
+					if (list.smoking != "" && list.smoking != null) {
+						detailIntro = detailIntro + "<li><strong>급연/흡연 여부 : </strong><span>" + list.smoking + "</span></li>";
+					}
+					if (list.packing != "" && list.packing != null) {
+						detailIntro = detailIntro + "<li><strong>포장가능 여부 : </strong><span>" + list.packing + "</span></li>";
+					}
+					if (list.restdatefood != "" && list.restdatefood != null) {
+						detailIntro = detailIntro + "<li><strong>쉬는날 : </strong><span>" + list.restdatefood + "</span></li>";
+					}
+					if (list.chkcreditcardfood != "" && list.chkcreditcardfood != null) {
+						detailIntro = detailIntro + "<li><strong>신용카드가능여부 : </strong><span>" + list.chkcreditcardfood + "</span></li>";
+					}
+					"</ul>"
+					$("#detailIntro").html(detailIntro)
+				}
+
+			},
+			contentsLocationParsing: function (data) {
+				var LocationElements;
+				var list = data.response.body.items.item
+
+				if (list != undefined) {
+					$.each(list, function (i, item) {
+						if (item.contenttypeid === 12) { //관광지
+							LocationElements =
+								"<li>" +
+								"<a href='view.html?id=" + item.contentid + "&item=" + item.contenttypeid + "&mapx=" + item.mapx + "&mapy=" +
+								item.mapy + "'>" +
+								"<img src=" + "'" + item.firstimage + "'" + "onError=" +
+								"this.onerror=null;this.src='../../img/common/no-image-icon.jpg';" + ">" +
+								"<b>" + item.title + "</b>" +
+								"<span class='addr'>" + item.addr1 + "</span>" +
+								"<span id='cate'>" + "관광지" + "</span>" +
+								"</a>" +
+								"</li>"
+						} else if (item.contenttypeid === 14) { // 문화시설
+							LocationElements =
+								"<li>" +
+								"<a href='view.html?id=" + item.contentid + "&item=" + item.contenttypeid + "&mapx=" + item.mapx + "&mapy=" +
+								item.mapy + "'>" +
+								"<img src=" + "'" + item.firstimage + "'" + "onError=" +
+								"this.onerror=null;this.src='../../img/common/no-image-icon.jpg';" + ">" +
+								"<b>" + item.title + "</b>" +
+								"<span class='addr'>" + item.addr1 + "</span>" +
+								"<span id='cate'>" + "문화시설" + "</span>" +
+								"</a>" +
+								"</li>"
+
+						} else if (item.contenttypeid === 15) { // 축제정보
+							LocationElements =
+								"<li>" +
+								"<a href='view.html?id=" + item.contentid + "&item=" + item.contenttypeid + "&mapx=" + item.mapx + "&mapy=" +
+								item.mapy + "'>" +
+								"<img src=" + "'" + item.firstimage + "'" + "onError=" +
+								"this.onerror=null;this.src='../../img/common/no-image-icon.jpg';" + ">" +
+								"<b>" + item.title + "</b>" +
+								"<span class='addr'>" + item.addr1 + "</span>" +
+								"<span id='cate'>" + "축제정보" + "</span>" +
+								"</a>" +
+								"</li>"
+						} else if (item.contenttypeid === 25) { // 여행코스
+							LocationElements =
+								"<li>" +
+								"<a href='view.html?id=" + item.contentid + "&item=" + item.contenttypeid + "&mapx=" + item.mapx + "&mapy=" +
+								item.mapy + "'>" +
+								"<img src=" + "'" + item.firstimage + "'" + "onError=" +
+								"this.onerror=null;this.src='../../img/common/no-image-icon.jpg';" + ">" +
+								"<b>" + item.title + "</b>" +
+								"<span class='addr'>" + item.addr1 + "</span>" +
+								"<span id='cate'>" + "여행코스" + "</span>" +
+								"</a>" +
+								"</li>"
+						} else if (item.contenttypeid === 28) { //레포츠
+							LocationElements =
+								"<li>" +
+								"<a href='view.html?id=" + item.contentid + "&item=" + item.contenttypeid + "&mapx=" + item.mapx + "&mapy=" +
+								item.mapy + "'>" +
+								"<img src=" + "'" + item.firstimage + "'" + "onError=" +
+								"this.onerror=null;this.src='../../img/common/no-image-icon.jpg';" + ">" +
+								"<b>" + item.title + "</b>" +
+								"<span class='addr'>" + item.addr1 + "</span>" +
+								"<span id='cate'>" + "레포츠" + "</span>" +
+								"</a>" +
+								"</li>"
+						} else if (item.contenttypeid === 32) { // 숙박정보 
+							LocationElements =
+								"<li>" +
+								"<a href='view.html?id=" + item.contentid + "&item=" + item.contenttypeid + "&mapx=" + item.mapx + "&mapy=" +
+								item.mapy + "'>" +
+								"<img src=" + "'" + item.firstimage + "'" + "onError=" +
+								"this.onerror=null;this.src='../../img/common/no-image-icon.jpg';" + ">" +
+								"<b>" + item.title + "</b>" +
+								"<span class='addr'>" + item.addr1 + "</span>" +
+								"<span id='cate'>" + "숙박정보" + "</span>" +
+								"</a>" +
+								"</li>"
+						} else if (item.contenttypeid === 38) { // 쇼핑
+							LocationElements =
+								"<li>" +
+								"<a href='view.html?id=" + item.contentid + "&item=" + item.contenttypeid + "&mapx=" + item.mapx + "&mapy=" +
+								item.mapy + "'>" +
+								"<img src=" + "'" + item.firstimage + "'" + "onError=" +
+								"this.onerror=null;this.src='../../img/common/no-image-icon.jpg';" + ">" +
+								"<b>" + item.title + "</b>" +
+								"<span class='addr'>" + item.addr1 + "</span>" +
+								"<span id='cate'>" + "쇼핑" + "</span>" +
+								"</a>" +
+								"</li>"
+						} else if (item.contenttypeid === 39) { // 음식점
+							LocationElements =
+								"<li>" +
+								"<a href='view.html?id=" + item.contentid + "&item=" + item.contenttypeid + "&mapx=" + item.mapx + "&mapy=" +
+								item.mapy + "'>" +
+								"<img src=" + "'" + item.firstimage + "'" + "onError=" +
+								"this.onerror=null;this.src='../../img/common/no-image-icon.jpg';" + ">" +
+								"<b>" + item.title + "</b>" +
+								"<span class='addr'>" + item.addr1 + "</span>" +
+								"<span id='cate'>" + "음식점" + "</span>" +
+								"</a>" +
+								"</li>"
+						}
+						$("#tourist_item ul").append(LocationElements)
+					})
+				} else {
+					$(".text-right").css("display", "none");
+				}
+				$('#tourist_item ul').slick({
+					slidesToShow: 4,
+					//slidesToScroll: 1,
+					//autoplay: true,
+					//autoplaySpeed: 4000,
+				});
+
+
+			}
+
+		}
+	</script>
+
+
+
+	<script src="../../node_modules/slick-carousel/slick/slick.min.js"></script>
+
+	<style type="text/css">
+		#travelContents {}
+
+		#travelContents h3 {
+			text-align: center;
+		}
+
+
+
+		.detail_info {
+			margin-bottom: 30px;
+
+		}
+
+		.detail_info ul {
+			padding: 0 20px;
+		}
+
+		.detail_info ul li {
+			overflow: hidden;
+			margin: 20px 0;
+
+		}
+
+		.detail_info ul li b {
+			display: block;
+			float: left;
+			width: 25%;
+		}
+
+		.detail_info ul li span {
+			display: block;
+			float: left;
+			width: 75%;
+
+		}
+
+		#tourspot_view h4 {
+			padding-bottom: 15px;
+			border-bottom: 1px solid #e5e5e5;
+			padding-left: 33px;
+			color: #000;
+			line-height: 25px;
+			letter-spacing: -1px;
+		}
+
+		#tourspot_view h4::before {
+			content: "";
+			position: absolute;
+			left: 9px;
+			top: 5px;
+			display: block;
+			width: 10px;
+			height: 10px;
+			background: url('../../img/common/tour_content_bul.png') no-repeat;
+		}
+
+
+
+
+		#travelContents .view_intro {
+			margin-bottom: 30px;
+			border: 1px solid #e5e5e5;
+		}
+
+		#travelContents #view_gallery {
+			float: left;
+			width: 50%
+		}
+
+		#travelContents .view_info {
+			float: left;
+			width: 48%;
+			margin-left: 2%;
+		}
+
+		#travelContents .view_info h4 {
+			padding: 0 0 15px 33px;
+			margin: 15px 0 15px 0;
+			text-align: left;
+			border-bottom: 1px solid #e5e5e5;
+
+		}
+
+		#travelContents .view_info h4::before {}
+
+		#travelContents .view_info ul {}
+
+		#travelContents .view_info ul li {
+			margin: 10px 0;
+		}
+
+		#travelContents .view_info ul li b {
+			display: inline-block;
+			width: 30%;
+		}
+
+		#travelContents .view_info ul li span {
+			display: inline-block;
+			width: 70%;
+		}
+
+
+
+
+		#detailIntro {
+			margin: 30px 0;
+		}
+
+		#detailIntro .detail_list {}
+
+		#detailIntro .detail_list li {}
+
+		#detailIntro .detail_list li strong {
+			display: block;
+			float: left;
+			width: 20%;
+
+		}
+
+		#detailIntro .detail_list li span {
+			display: block;
+			float: left;
+			width: 80%;
+
+		}
+
+
+		#view_gallery img {
+			display: block;
+			width: 100%;
+			height: 333px;
+		}
+
+		#view_gallery button {
+			z-index: 9999;
+			width: 47px;
+			height: 47px;
+		}
+
+		#view_gallery .slick-prev {
+			left: 10px;
+		}
+
+		#view_gallery .slick-next {
+			right: 10px;
+		}
+
+
+		#view_gallery .slick-prev:before,
+		#view_gallery .slick-next:before {
+			font-size: 50px;
+		}
+
+
+
+		#tourist_item {}
+
+		#tourist_item ul {
+			padding: 0 5%;
+		}
+
+		#tourist_item ul li {
+			float: left;
+			width: 20%;
+			margin: 0 10px;
+			border: 1px solid #e5e5e5;
+			min-height: 300px;
+		}
+
+
+		#tourist_item .slick-slider {}
+
+		#tourist_item .slick-slider button {
+			width: 51px;
+			height: 51px;
+		}
+
+		#tourist_item .slick-slider button::before {
+			display: none;
+		}
+
+		#tourist_item .slick-slider .slick-prev {
+			background: url('../../img/common/gallery_prev.png') no-repeat;
+			left: 0;
+		}
+
+		#tourist_item .slick-slider .slick-next {
+			background: url('../../img/common/gallery_next.png') no-repeat;
+			right: 0;
+		}
+
+
+		#tourist_item ul li a {
+			display: block;
+			text-align: center;
+		}
+
+
+		#tourist_item ul li b {
+			display: block;
+			text-align: center;
+			padding: 15px 0 0;
+			font-weight: 500;
+			font-size: 20px;
+			overflow: hidden;
+			white-space: nowrap;
+			word-wrap: break-word;
+			text-overflow: ellipsis;
+		}
+
+		#tourist_item ul li .addr {
+			display: block;
+			font-size: 15px;
+			margin: 5px;
+			text-align: center;
+			overflow: hidden;
+			white-space: nowrap;
+			word-wrap: break-word;
+			text-overflow: ellipsis;
+		}
+
+		#tourist_item ul li #cate {
+			display: inline-block;
+			margin: 10px 0;
+			padding: 7px 20px;
+			text-align: center;
+			border: 1px solid #0050a1;
+			color: #0050a1;
+			border-radius: 25px;
+
+		}
+
+
+
+
+		#tourist_item ul li a img {
+			display: block;
+			width: 100%;
+			height: 165px;
+
+
+
+
+		}
+	</style>
+
+
+
+	<script>
+	</script>
+
+
+</body>
+
+</html>
