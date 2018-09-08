@@ -12,13 +12,13 @@ public class Partner implements Serializable {
     private String title; // 제목
     private String gender; // 성별
     private String capa; // 인원
-    private String memberno; // 회원번호
+    private String memberId; // 회원번호
     private int plno;
     
 	@Override
 	public String toString() {
 		return "Partner [ptno=" + ptno + ", title=" + title + ", gender=" + gender + ", capa=" + capa + ", memberno="
-				+ memberno + ", plno=" + plno + "]";
+				+ memberId + ", plno=" + plno + "]";
 	}
 	public int getPtno() {
 		return ptno;
@@ -45,10 +45,10 @@ public class Partner implements Serializable {
 		this.capa = capa;
 	}
 	public String getMemberno() {
-		return memberno;
+		return memberId;
 	}
 	public void setMemberno(String memberno) {
-		this.memberno = memberno;
+		this.memberId = memberno;
 	}
 	public int getPlno() {
 		return plno;

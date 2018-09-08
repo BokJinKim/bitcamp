@@ -15,7 +15,7 @@ module.exports = (passport) => {
             clientID: "",
             clientSecret: "",
             profileFields: ['id', 'displayName', 'photos'],
-            callbackURL: 'http://localhost:8888/bitcamp-java-project/tamlaisjeju/auth/facebook/callback'
+            callbackURL: 'http://kimbokjin.com:8888/pms/tamlaisjeju/auth/facebook/callback'
         },
 
         function (accessToken, refreshToken, profile, done) {
@@ -30,7 +30,7 @@ module.exports = (passport) => {
     passport.use(new GoogleStrategy({
             clientID: "",
             clientSecret: "",
-            callbackURL: 'http://localhost:8888/bitcamp-java-project/tamlaisjeju/auth/google/callback',
+            callbackURL: 'http://kimbokjin.com:8888/pms/tamlaisjeju/auth/google/callback',
             scope: ['https://www.googleapis.com/auth/plus.me']
         }, function (accessToken, refreshToken, profile, done) {
             const socialId = profile.id;

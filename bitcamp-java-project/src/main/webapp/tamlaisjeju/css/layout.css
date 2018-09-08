@@ -61,7 +61,8 @@
   font-size: 0;
   line-height: 0;
   text-indent: -9999px;
-  width: 206px;
+  width: 180px;
+  /* width: 206px; */
   height: 46px;
 }
 
@@ -71,11 +72,12 @@
   width: 100%;
   height: 46px;
   background: url('../img/common/logo.png') no-repeat;
-  background-size: cover;
+  background-size: 100%;
 }
 
 #header.active h1 a {
   background: url('../img/common/logo_active.png') no-repeat;
+  background-size: 100%;
 }
 
 .menu_area {
@@ -204,6 +206,7 @@
   display: inline-block;
   color: #fff;
   margin: 0 5px;
+  vertical-align: middle;
 }
 
 #header.active .ico_wrap a {
@@ -3528,7 +3531,8 @@ mytrip  - 마이페이지
 .mytrip_wrap {}
 
 .mytrip_wrap .myinfo_box {
-  background: #f4f4f4;
+  border:1px solid #e5e5e5;
+  /* background: #f4f4f4; */
   margin-bottom: 30px;
 }
 
@@ -3563,6 +3567,7 @@ mytrip  - 마이페이지
   margin: 0 auto;
   border-radius: 100%;
   text-align: center;
+  border:1px solid #f4f4f4;
 }
 
 .mytrip_wrap .myinfo_box .photo_zone .porfile_photo i {
@@ -3602,7 +3607,7 @@ mytrip  - 마이페이지
 
 .mytrip_wrap .mytrip_box_wrap .mytrip_box {
   float: left;
-  width: 23%;
+  width: 31%;
   margin: 0 1%;
 }
 

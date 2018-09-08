@@ -211,7 +211,8 @@
 }
 #sub09 .content .cont_wrap .plan-info-top .plan-detail-txt {
     padding: 15px;
-    box-shadow: 0 1px 1px rgba(125,125,125,.2);
+    border:1px solid #e5e5e5;
+    /* box-shadow: 0 1px 1px rgba(125,125,125,.2); */
 }
 #sub09 .content .cont_wrap .plan-info-top h2.plan-tit {
     color: #333;
@@ -608,7 +609,7 @@
   align-items: center;
   -ms-flex-pack: end;
   justify-content: flex-end;
-  padding: 1rem;
+  padding: 1rem; 
   border-top: 1px solid #e9ecef;
 }
 
@@ -627,3 +628,28 @@
   height: 50px;
   overflow: scroll;
 }
+#sub09 .spot-note-box p{
+	margin-left: 49%;
+    margin-top: 2%;
+}
+
+.customoverlay {
+    position: relative;
+    text-align: center;
+    bottom: 38px;
+    border-radius: 6px;
+    float: left;
+    background-color: #1a7ad9;
+    color: white;
+    max-width: 205px;
+    overflow: hidden;
+    line-height: 1;
+}
+
+
+.customoverlay div {
+    padding: 4px    ; overflow : hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    text-align: center;
+} 

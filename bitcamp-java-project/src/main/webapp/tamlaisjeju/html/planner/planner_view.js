@@ -1,5 +1,4 @@
  var link = document.location.href.split("?")[1];
- console.log(link);
  var viewDate = null;
  //템플릿 엔진이 사용할 템플릿 데이터 가져오기
  var trTemplateSrc = $("#tr-template").html();
@@ -12,6 +11,7 @@
 
 	    $.get(serverRoot + "/json/auth/islogin", {}, user => {
 	        memberId = decodeURIComponent(user.id);
+	        
 	    })
  
  
@@ -21,12 +21,11 @@
  	   trHTML = templateFn(data);
        $(trHTML).appendTo('#tableBody');
        dayCal();
+       hashTag();
 });
  
 
 $.getJSON(serverRoot + "/json/content/"+link, (data2) => {
-	console.log(memberId)
-	console.log(data2);
     $('.plan_title')[0].textContent = data2.title,
     $('#delete_div').append(
             "<button id='list' type='button' class='btn btn-primary' OnClick='location.href'='planner_list.html'>목록으로</button>"
@@ -34,18 +33,72 @@ $.getJSON(serverRoot + "/json/content/"+link, (data2) => {
     if (memberId == data2.id) {
              $('#delete_div').append(
             		 "<button id='update' type='button' class='btn btn-primary'>수정하기</button>" +
-                 "<button type='button' class='btn btn-primary'>삭제하기</button>"
+                 "<button type='button' class='btn btn-primary' id='planDelete'>삭제하기</button>"
              )
          }
     $('#list').click(function () {
         location.href = 'planner_list.html'
     })
+    $('#planDelete').click(function () {
+   	 $.ajax({
+            type: "POST",
+            url: serverRoot + "/json/travelPlan/delete?no="+link,
+            success: function (data) {
+           	 planDelete();
+            },
+            error: function (data) {
+                alert("빈 칸을 채워주세요.");
+            }
+
+        });
+   	 function planDelete() {
+   	 $.ajax({
+            type: "POST",
+            url: serverRoot + "/json/planner/delete?no="+link,
+            success: function (data) {
+           	 hashDelete();
+            },
+            error: function (data) {
+                alert("빈 칸을 채워주세요.");
+            }
+
+        });
+   	 }
+   	 function hashDelete() {
+   		 $.ajax({
+   	         type: "POST",
+   	         url: serverRoot + "/json/hashTag/delete?no="+link,
+   	         success: function (data) {
+   	        	 contentDelete();
+   	         },
+   	         error: function (data) {
+   	             alert("빈 칸을 채워주세요.");
+   	         }
+
+   	     });
+   		 }
+   	 function contentDelete() {
+   	 $.ajax({
+            type: "POST",
+            url: serverRoot + "/json/content/delete?no="+link,
+            success: function (data) {
+                location.href = "planner_list.html";
+            },
+            error: function (data) {
+                alert("빈 칸을 채워주세요.");
+            }
+
+        });
+    
+   	 }
+    });
 });
+ });
+ function hashTag() {
  $.getJSON(serverRoot + "/json/hashTag/"+link, (data3) => {
-	console.log(data3);
 	for (var h = 0; h < data3.length; h++) {
 	$('#hashTag').append(
-			"<div class='hashTagCont'>"+data3[h].content+"</div>"
+			"<a style='z-index:9999;font-weight: bold;' target='_blank' href=../../search.html?"+data3[h].content+">"+data3[h].content+" <a>"
 			)
 	}
 			/*	
@@ -54,4 +107,6 @@ $.getJSON(serverRoot + "/json/content/"+link, (data2) => {
 	}*/
 
 });
-});
+ }
+ 
+ 

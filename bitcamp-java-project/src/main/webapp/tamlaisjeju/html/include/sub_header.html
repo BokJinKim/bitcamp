@@ -1,6 +1,6 @@
 <div class="inner_header">
     <h1>
-        <a href="../../index.html">탐라는제주</a>
+        <a href="http://kimbokjin.com:8888/pms/tamlaisjeju/index.html">탐라는제주</a>
     </h1>
     <div class="menu_area">
         <h2 class="hide">주메뉴영역</h2>
@@ -9,17 +9,18 @@
                 <a href="../tourspot/tourist.html">관광지</a>
             </div>
             <div class="depth_1">
-                <button class="dropbtn">커뮤니티
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="../planner/planner_list.html">여행 일정 추천</a>
-                    <a href="../travelog/travelog_list.html">내가 쓰는 여행기</a>
-                    <a href="../travelmate/travelmate_list.html">설레는 동행</a>
-                    <a href="../curation/curation_list.html">여행큐레이션</a>
-                </div>
+                <a href="../planner/planner_list.html">플래너</a>
             </div>
             <div class="depth_1">
+                <a href="../travelog/travelog_list.html">여행기</a>
+            </div>
+            <div class="depth_1">
+                <a href="../travelmate/travelmate_list.html">동행</a>
+            </div>
+            <div class="depth_1">
+                <a href="../tourinfo/tourinfo_all.html">제주여행꿀팁</a>
+            </div>
+            <!-- <div class="depth_1">
                 <button class="dropbtn">제주여행꿀팁
                     <i class="fa fa-caret-down"></i>
                 </button>
@@ -31,9 +32,11 @@
                     <a href="../tourinfo/tourinfo_tourinquiry.html">관광문의</a>
                     <a href="../tourinfo/tourinfo_notice.html">공지</a>
                 </div>
-            </div>
+            </div> -->
             <div class="depth_1">
-                <button class="dropbtn">나의 여행
+                <a href="../mytrip/mytrip_all.html">나의 여행</a>
+            </div>
+            <!-- <button class="dropbtn">
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
@@ -44,8 +47,8 @@
                     <a href="../mytrip/mytrip_myreview.html">나의 리뷰</a>
                     <a href="../mytrip/mytrip_zzim.html">찜한여행</a>
                     <a href="../mytrip/mytrip_accounts.html">정보수정</a>
-                </div>
-            </div>
+                </div> 
+        </div>-->
             <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
         </div>
         <!-- topnav end -->
@@ -106,11 +109,11 @@
             x.className += " responsive";
         } else {
             x.className = "topnav";
-        }
+        } 
     }
 </script>
 <script>
-        $(document).ready(function () {
-            $("#login").load("/bitcamp-java-project/tamlaisjeju/html/include/login.html")
-        });
+    $(document).ready(function () {
+        $("#login").load("/pms/tamlaisjeju/html/include/login.html")
+    });
 </script>

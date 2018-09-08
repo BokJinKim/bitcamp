@@ -7,7 +7,6 @@ $.get(serverRoot + "/json/auth/islogin", {}, user => {
 
   if (user != 'n') {
     $("#writer").click(function () {
-      console.log("aaa");
       location.href = 'planner_form.html'
     })
   } else {
@@ -27,7 +26,6 @@ $.ajax({
 	   dataType: "json", 
 	   success: function (data2) {
 		   travel_data = data2.response.body.items.item
-		   console.log(travel_data)
 		   planSchedule();
 }
 });
@@ -39,7 +37,6 @@ $.ajax({
 		 (function(p)
 		 {$.getJSON(serverRoot+"/json/travelPlan/"+planDate[p].no, (data) => {
 			 travel_schedule = data;
-			 console.log(travel_schedule)
 			 var mark ='';
 			   for (var s = 0; s < travel_schedule.length; s++) {
 				   for (var t = 0; t < travel_data.length; t++) {
@@ -63,12 +60,10 @@ $.ajax({
 		 (function(h)
 		 {$.getJSON(serverRoot+"/json/hashTag/"+planDate[h].no, (data) => {
 			 travel_hash = data;
-			 console.log(travel_hash.length)
 			   for (var s = 0; s < travel_hash.length; s++) {
 					   if (travel_hash.length != 0) {
-						   console.log(travel_hash[s].content)
 						   $("#hashtag"+travel_hash[s].cno+"").append(
-								   "<a href='#'>"+travel_hash[s].content+"</a>"
+								   "<a target='_blank' href=../../search.html?"+travel_hash[s].content+">"+travel_hash[s].content+"</a>"
 								   )  
 					   }
 			   }
@@ -136,9 +131,7 @@ $.ajax({
 
        success: function (data) {
     	   planDate = data;
-    	   console.log(planDate);
          $('.box_wrap').empty();
-         console.log(data);
 
          for (let i = 0; i < data.length; i++) {
         	 $('.box_wrap').append(

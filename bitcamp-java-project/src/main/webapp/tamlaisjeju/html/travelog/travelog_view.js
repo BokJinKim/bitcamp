@@ -31,27 +31,37 @@ $.ajax({
             };
 
         var map2 = new daum.maps.Map(mapContainer2, mapOption); // 지도를 생성합니다
-
+        var imageOption = null;
         var marker2 = null;
         var line = null;
         var paths = []
         imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
-
+        var mapOverlay = [];
         for (var i = 0; i < data.length; i++) {
 
             // 마커 이미지의 이미지 크기 입니다
             imageSize = new daum.maps.Size(24, 35);
-
+            imageOption = {
+                offset: new daum.maps.Point(15, 25)
+            }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다
             // 마커 이미지를 생성합니다    
-            markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
+            markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
             console.log(markerImage)
 
             // 마커를 생성합니다
+            console.log(data)
             marker2 = new daum.maps.Marker({
                 position: new daum.maps.LatLng(data[i].lotd, data[i].latd), // 마커를 표시할 위치
                 image: markerImage // 마커 이미지 
             });
+            var content1 = '<div class="customoverlay">' + '<div>' + data[i].place +
+                '</div>' + '</div>';
+            mapOverlay = new daum.maps.CustomOverlay({
+                content: content1,
+                position: new daum.maps.LatLng(data[i].lotd, data[i].latd)
+            });
+            mapOverlay.setMap(map2);
 
             paths.push(new daum.maps.LatLng(data[i].lotd, data[i].latd))
 
@@ -68,6 +78,8 @@ $.ajax({
         });
         polyline.setMap(map2);
         map2.setZoomable();
+        var zoomControl = new daum.maps.ZoomControl();
+        map2.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
         // 지도에 표시할 선을 생성합니다
 
         // 지도에 선을 표시합니다 
@@ -103,8 +115,8 @@ $(document).ready(function () {
 
         dataType: "JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
 
-        success: function (data) { 
-           
+        success: function (data) {
+
 
         }
     })
@@ -176,7 +188,9 @@ $(document).ready(function () {
                     "<h5 id='top_hashTag'>" + data[i].content + "</h5>"
                 )
             }
-
+            $('#top_hashTag').click(function() {
+            	location=serverRoot+"/tamlaisjeju/search.html?"+this.textContent
+            })
         }
     })
     $.ajax({
@@ -566,7 +580,13 @@ $(document).ready(function () {
 
         error: function (xhr, status, error) {
 
-            alert("에러발생");
+            swal({
+                type: 'error',
+                title: '페이지에러',
+                text: '다시 시도해주세요',
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
     });
 });

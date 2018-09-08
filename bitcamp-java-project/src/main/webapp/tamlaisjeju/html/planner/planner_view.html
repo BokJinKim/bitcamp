@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>탐라는제주 - 숨어 있던 진짜 hot한 제주</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../../img/common/favicon.ico">
     <meta property="og:title" content="탐라는제주">
     <meta property="og:type" content="website">
     <meta property="og:description" content="탐라는제주 - 숨어 있던 진짜 hot한 제주">
@@ -35,32 +35,120 @@
 
 <body>
     <div id="header"></div>
+    <!-- <div id="visual">
+        <img src="../../img/sub04/sub04_visual.jpg" alt="제주의 풍경">
+      </div> -->
+
+
+    <style type="text/css">
+        #sub10 .share_text {
+            font-weight: bold;
+            color: gray;
+        }
+
+        #sub10 .share_div {
+            text-align: right;
+            margin-right: 20px;
+        }
+
+        #sub10 .share_div img {
+            border-radius: 100%;
+            height: 40px;
+            transition: 0.5s;
+        }
+
+        #sub10 .share_div img:hover {
+            opacity: 0.7;
+        }
+
+
+        #sub10 #content {
+            margin: 0
+        }
+
+        #sub10 .plan .cover_img {}
+
+        #sub10 .plan .cover_img {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            background: url(http://img.earthtory.com/img/city_images/312/jeju_1425527621.jpg) no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+
+        /* #sub10 .plan .plan_cover{width:1200px;margin:0 auto;} */
+
+        #sub10 .plan .plan_mnu_box {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        #sub10 .plan .day_page_all {
+            width: 1200px;
+            margin: 30px auto;
+        }
+
+        /* #sub10 .plan .plan_cover{width:1200px;margin:0 auto;} */
+
+        #sub10 .plan .cover_bg {
+            background: url(../../img/sub10/cover_bg.png) repeat-x;
+            width: 100%;
+            height: 204px;
+            position: absolute;
+            z-index: 2;
+            left: 0px;
+            bottom: 0px;
+        }
+
+        #sub10 .plan .plan_cover {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        #sub10 .plan .plan_cover .share_box {
+            right: 0;
+            top: -70px;
+        }
+
+        #sub10 .plan .plan_cover .plan_box {
+            top: -205px;
+            left: 0;
+        }
+
+        #sub10 .plan .plan_cover .plan_box .plan_title {
+            font-size: 32px;
+        }
+
+        #sub10 .plan .plan_cover .plan_box .plan_cont {
+            margin: 5px 0;
+        }
+    </style>
+
+
+
 
     <div class="container" id="sub10">
 
-        <div id="content" class="wrapper">
+        <div id="content">
 
-            <div class="plan wrapper clear">
+            <div class="plan clear">
+                <div class="cover_img">
+                    <div class="cover_bg"></div>
+                </div>
 
                 <div class="plan_cover">
-                    <div class="cover_img"></div>
-                    <div class="share_box">
-                        <div class="share_btn" id="share">
-                            <img src="../../img/sub10/btn_share.png" alt="">
-                        </div>
-                        <div class="share_btn" id="like">
-                            <img src="../../img/sub10/btn_like.png" alt="">
-                        </div>
-                    </div>
+
+
                     <ul class="plan_box">
-                        <li class="plan_title">xxxx 여행</li>
+                        <li class="plan_title"></li>
                         <li class="clear"></li>
                         <li id="tableBody"></li>
 
                     </ul>
-                    <div class="cover_bg"></div>
+
                 </div>
-                <div class="plan_mnu_box clear" style>
+                <div class="plan_mnu_box wrapper  clear">
                     <div class="plan_mnu_box1">
                         <button type="button" class="plan_mnu" onclick="openCity(event, '1')" id="defaultOpen">일정</button>
                         <div class="plan_mnu_line"></div>
@@ -70,14 +158,25 @@
                         <div class="plan_mnu_line"></div>
                         <button type="button" class="plan_mnu" onclick="openCity(event, '4')">댓글</button>
                         <div class="plan_mnu_line"></div>
+
+                        <div class="plan_mnu_line"></div>
                     </div>
                     <div class="plan_mnu_box2">
-                        <div class="pdfexcel_box">
-                            <div class="pe_txt">다운로드</div>
-                            <a class="down_btn pdf member_btn" href="#" target="_blank"></a>
-                            <a class="down_btn excel member_btn" href="#" target="_blank"></a>
+                        <div class='share_div'>
+                            <a class='share_text'>SNS 공유하기</a>
+                            <a href="#" data-toggle="sns_share" data-service="facebook" data-title="페이스북 SNS공유" class="shareBtn btn-facebook">
+                                <img src="../../img/common/share/facebook.png">
+                            </a>
+                            <a href="#" data-toggle="sns_share" data-service="twitter" data-title="트위터 SNS공유" class="shareBtn btn-twitter">
+                                <img src="../../img/common/share/twitter.png">
+                            </a>
+                            <a href="#" data-toggle="sns_share" data-service="kakaostory" data-title="카카오스토리 SNS공유" class="shareBtn btn-kakaostory">
+                                <img src="../../img/common/share/kakaostory.png">
+                            </a>
+                            <a href="#" data-toggle="sns_share" data-service="naver" data-title="네이버 SNS공유" class="shareBtn btn-naver">
+                                <img src="../../img/common/share/naverblog.png">
+                            </a>
                         </div>
-                        <a class="plan_mnu_btn">복 사</a>
                     </div>
                 </div>
                 <div class="day_page_all" id="1">
@@ -189,9 +288,9 @@
                 </div>
 
                 <div class="list_bottom page show" data-id="1">
-              <!--       <button style="border: 1px solid #223b68; z-index:100; color: #223b68; background-color: white;" 
+                    <!--       <button style="border: 1px solid #223b68; z-index:100; color: #223b68; background-color: white;" 
                     type="button" class="btn btn-primary" OnClick="location.href='planner_list.html'">목록보기</button> -->
-                <div id='delete_div'></div>
+                    <div id='delete_div' class="mb30"></div>
                 </div>
 
             </div>
@@ -234,6 +333,52 @@
 
 
     <script>
+        $(document).ready(function () {
+
+            $("a[data-toggle='sns_share']").click(function (e) {
+
+
+                e.preventDefault();
+
+                var _this = $(this);
+                var sns_type = _this.attr('data-service');
+                var href = window.location.href;
+                var title = _this.attr('data-title');
+                var loc = "";
+                var img = $("meta[name='og:image']").attr('content');
+                var popOption = "width=500, height=660, resizable=no, scrollbars=no, status=no;";
+
+                if (!sns_type || !href || !title) return;
+
+                if (sns_type == 'facebook') {
+                    loc = '//www.facebook.com/sharer/sharer.php?u=' + href + '&t=' + title;
+                } else if (sns_type == 'twitter') {
+                    loc = '//twitter.com/home?status=' + encodeURIComponent(title) + ' ' + href;
+                } else if (sns_type == 'google') {
+                    loc = '//plus.google.com/share?url=' + href;
+                } else if (sns_type == 'pinterest') {
+
+                    loc = '//www.pinterest.com/pin/create/button/?url=' + href + '&media=' + img +
+                        '&description=' + encodeURIComponent(title);
+                } else if (sns_type == 'kakaostory') {
+                    loc = 'https://story.kakao.com/share?url=' + encodeURIComponent(href);
+                } else if (sns_type == 'band') {
+                    loc = 'http://www.band.us/plugin/share?body=' + encodeURIComponent(title) + '%0A' +
+                        encodeURIComponent(href);
+                } else if (sns_type == 'naver') {
+                    loc = "http://share.naver.com/web/shareView.nhn?url=" + encodeURIComponent(href) +
+                        "&title=" + encodeURIComponent(title);
+                } else {
+                    return false;
+                }
+
+                window.open(loc, "", popOption);
+                return false;
+            });
+
+
+        });
+
         // 일별로 스케줄 뿌려주는 스크립트
         var linePath = [];
         var polyline = [];
@@ -252,17 +397,19 @@
             var currDay = 24 * 60 * 60 * 1000; // 시 * 분 * 초 * 밀리세컨
             betweenDay = parseInt(diff / currDay);
             var week = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-            var planSdate = new Date(((dat1 / currDay)) * currDay).getFullYear()+"."+new Date(((dat1 / currDay)) * currDay).getMonth()+"."+(new Date(((dat1 / currDay)) * currDay).getDate()+1)
-            var planEdate = new Date(((dat2 / currDay)) * currDay).getFullYear()+"."+new Date(((dat2 / currDay)) * currDay).getMonth()+"."+(new Date(((dat2 / currDay)) * currDay).getDate()+1)
-                $('#travelDate')[0].textContent=("출발일: "+planSdate+" ~ "+"도착일: "+planEdate+"");
+            var planSdate = new Date(((dat1 / currDay)) * currDay).getFullYear() + "." + new Date(((dat1 / currDay)) *
+                currDay).getMonth() + "." + (new Date(((dat1 / currDay)) * currDay).getDate() + 1)
+            var planEdate = new Date(((dat2 / currDay)) * currDay).getFullYear() + "." + new Date(((dat2 / currDay)) *
+                currDay).getMonth() + "." + (new Date(((dat2 / currDay)) * currDay).getDate() + 1)
+            $('#travelDate')[0].textContent = ("출발일: " + planSdate + " ~ " + "도착일: " + planEdate + "");
             for (var i = 0; i < betweenDay + 1; i++) {
                 linePath[(i + 1)] = [];
                 polyline[(i + 1)] = [];
                 var dat3 = (new Date(((dat1 / currDay) + i) * currDay));
-                calMonthDate = (dat3.getFullYear() + "." + dat3.getMonth() + "." + (dat3.getDate()+1));
-                var calYearMonthDate = dat3.getFullYear() + "." + dat3.getMonth() + "." + (dat3.getDate()+1);
+                calMonthDate = (dat3.getFullYear() + "." + dat3.getMonth() + "." + (dat3.getDate() + 1));
+                var calYearMonthDate = dat3.getFullYear() + "." + dat3.getMonth() + "." + (dat3.getDate() + 1);
                 dayOfWeek = week[new Date(calYearMonthDate).getDay()];
-                
+
                 $('.plan #1').append(
                     "<div class='day_page' data-id=" + (i + 1) + ">" +
                     "<div class='day_page_left'>" +
@@ -321,7 +468,7 @@
                     if (schedule[i].plday == d) {
                         for (let j = 0; j < schedule_data.response.body.items.item.length; j++) {
                             if (schedule[i].tno == schedule_data.response.body.items.item[j].contentid) {
-                            	
+
                                 $("#day_page" + (d) + "").append(
                                     "<div class='day_sch_box' data-id=" + d + '-' + (i + 1) + ">" +
                                     "<div class='day_sch_num'>" +
@@ -333,7 +480,12 @@
                                     "onclick='window.open('/ko/city/jeju_312/attraction/jeju-international-airport_7488');" +
                                     "style='cursor:pointer;'>" +
                                     "<div class='spot_content_box'>" +
-                                    "<div class='spot_name' onclick='window.open("+'"'+serverRoot+"/tamlaisjeju/html/tourspot/view.html?id="+schedule_data.response.body.items.item[j].contentid+'&'+'item'+'='+schedule_data.response.body.items.item[j].contenttypeid+'&mapx='+schedule_data.response.body.items.item[j].mapx+'&mapy='+schedule_data.response.body.items.item[j].mapy+'"'+")' "+' style="cursor:pointer;">' +
+                                    "<div class='spot_name' onclick='window.open(" + '"' + serverRoot +
+                                    "/tamlaisjeju/html/tourspot/view.html?id=" + schedule_data.response.body.items.item[
+                                        j].contentid + '&' + 'item' + '=' + schedule_data.response.body.items.item[
+                                        j].contenttypeid + '&mapx=' + schedule_data.response.body.items.item[j].mapx +
+                                    '&mapy=' + schedule_data.response.body.items.item[j].mapy + '"' + ")' " +
+                                    ' style="cursor:pointer;">' +
                                     schedule_data.response.body.items.item[j].title + "</div>" +
                                     "<div class='spot_info'>" +
                                     "<div class='tag'>" + schedule_data.response.body.items.item[j].addr1 +
@@ -437,66 +589,68 @@
             }
 
 
-        function col_cal_width() {
-            for (let i in $('col')) {
-                if (i == 0) continue;
-                $('col')[i].style.width = 90 / (betweenDay + 1) + "%";
+            function col_cal_width() {
+                for (let i in $('col')) {
+                    if (i == 0) continue;
+                    $('col')[i].style.width = 90 / (betweenDay + 1) + "%";
+                }
+            }
+
+            function displayInfowindow(marker, title) {
+                var content =
+                    '<div style="background-color:#4CAF50;color: white;text-align:center;width:150px;padding:5px;z-index:1;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">' +
+                    title + '</div>';
+
+                infowindow.setContent(content);
+                infowindow.open(map, marker);
             }
         }
-        
-    function displayInfowindow(marker, title) {
-        var content = '<div style="background-color:#4CAF50;color: white;text-align:center;width:150px;padding:5px;z-index:1;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">' + title + '</div>';
-        
-        infowindow.setContent(content);
-        infowindow.open(map, marker);
-    }
-}
-    
-	function OverlayDelete() {
-	    if (overlay != null) {
-	        overlay.setMap(null);
-	    } 
-	}
-    
-	function markerOverlay(node) {
-		console.log(node.textContent);
-	        for (var i = 0; i < schedule_data.response.body.items.item.length; i++) {
-	            if (schedule_data.response.body.items.item[i].title == node.textContent) {
-	            	console.log(i);
-	            	console.log(schedule_data.response.body.items.item[i]);
-	                if(prevClickItem != null)
-	                    prevClickItem.removeClass('on');
-	                prevClickItem = $(node).parent();
-	                prevClickItem.addClass('on');
-	                markerPoint(schedule_data.response.body.items.item[i]);
-	            }
-	        }
-	}  
 
-	function markerPoint(datas) {
-		var bounds = new daum.maps.LatLngBounds();
-	    if (!(overlay == null)) {
-	        closeOverlay(); 
-	    }
-	    console.log(datas)
-	    
-	    bounds.extend(new daum.maps.LatLng(datas.mapy, datas.mapx));
-	    var content = '<div class="customoverlay">' +'<img src=' + datas.firstimage + '>' 
-	                    + '<div>' + datas.title + '</div>' + '</div>'
-	                    + '<div class="close" onclick="closeOverlay()" title="닫기"></div>';
-	    overlay = new daum.maps.CustomOverlay({
-	        content: content,
-	        position: new daum.maps.LatLng(datas.mapy, datas.mapx)
-	    });
-	    overlay.setMap(map);
-	    console.log(bounds);
-	    map.setBounds(bounds);
-	    map.setLevel(5);
-	}
-    function closeOverlay() {
-        overlay.setMap(null);   
-    }
-    
+        function OverlayDelete() {
+            if (overlay != null) {
+                overlay.setMap(null);
+            }
+        }
+
+        function markerOverlay(node) {
+            console.log(node.textContent);
+            for (var i = 0; i < schedule_data.response.body.items.item.length; i++) {
+                if (schedule_data.response.body.items.item[i].title == node.textContent) {
+                    console.log(i);
+                    console.log(schedule_data.response.body.items.item[i]);
+                    if (prevClickItem != null)
+                        prevClickItem.removeClass('on');
+                    prevClickItem = $(node).parent();
+                    prevClickItem.addClass('on');
+                    markerPoint(schedule_data.response.body.items.item[i]);
+                }
+            }
+        }
+
+        function markerPoint(datas) {
+            var bounds = new daum.maps.LatLngBounds();
+            if (!(overlay == null)) {
+                closeOverlay();
+            }
+            console.log(datas)
+
+            bounds.extend(new daum.maps.LatLng(datas.mapy, datas.mapx));
+            var content = '<div class="customoverlay">' + '<img src=' + datas.firstimage + '>' +
+                '<div>' + datas.title + '</div>' + '</div>' +
+                '<div class="close" onclick="closeOverlay()" title="닫기"></div>';
+            overlay = new daum.maps.CustomOverlay({
+                content: content,
+                position: new daum.maps.LatLng(datas.mapy, datas.mapx)
+            });
+            overlay.setMap(map);
+            console.log(bounds);
+            map.setBounds(bounds);
+            map.setLevel(5);
+        }
+
+        function closeOverlay() {
+            overlay.setMap(null);
+        }
     </script>
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35a2267e059228624227866fafbb7d06&libraries=services"></script>
@@ -651,7 +805,7 @@
                 var container = $('.container').height();
                 var content = $('.day_page_all').height();
                 if ($(window).scrollTop() > container - content - 200) {
-                    if ($(window).scrollTop() > content - 400) {
+                    if ($(window).scrollTop() > content - 100) {
                         $('nav').addClass('absolute');
                         $('nav').removeClass('fixed');
                         return;
@@ -686,6 +840,7 @@
             modal_map();
             map.relayout();
         });
+        
     </script>
 
     <script>
@@ -803,7 +958,7 @@
                                             event.target.style.color = '#000';
                                             var mouseX = event.pageX;
                                             var mouseY = event.pageY;
-                                            $('#aa').css("left", mouseX + 15).css("top", mouseY + 15).html([
+                                            $('#aa').css("left", mouseX + 1).css("top", mouseY + 1).html([
                                                 schedule[idx].plday
                                             ] + '일차 입니다.')[0].style.display = 'block';
                                             /*  event.target.xc[0].style.color='#000';
@@ -915,6 +1070,16 @@
             }
             cur_day = day;
         }
+    </script>
+    <script>
+        $(document).on('change', '.day_select', function () {
+            var _this_day = $(this).val();
+            var scrollId = $('[data-id=' + _this_day + ']').offset();
+
+             $('html, body').animate({
+        scrollTop: scrollId.top - 75
+    }, 400);
+        });
     </script>
 
     <!-- <script type="text/javascript">

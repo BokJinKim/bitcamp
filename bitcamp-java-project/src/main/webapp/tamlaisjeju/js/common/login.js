@@ -1,4 +1,4 @@
-var serverRoot = "http://localhost:8888/bitcamp-java-project";
+var serverRoot = "http://kimbokjin.com:8888/pms";
 
 
 $.get(serverRoot + "/json/auth/islogin", {}, user => {

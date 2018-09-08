@@ -21,7 +21,7 @@ router.get('/login', function (req, res) {
 // 로그아웃
 router.get('/logout', (req, res) => {
     req.logout();
-    res.redirect('/bitcamp-java-project/tamlaisjeju');
+    res.redirect('/pms/tamlaisjeju');
 });
 
 // 페이스북 로그인 시작
@@ -29,7 +29,7 @@ router.get('/facebook', passport.authenticate('facebook'));
 
 // 페이스북 로그인 결과 콜백
 router.get('/facebook/callback', passport.authenticate('facebook', {
-    failureRedirect: '/bitcamp-java-project/tamlaisjeju/auth/login'
+    failureRedirect: '/pms/tamlaisjeju/auth/login'
 }), (req, res) => {
     loginSuccessHandler(req, res);
 });
@@ -39,14 +39,14 @@ router.get('/google', passport.authenticate('google'));
 
 // 구글 로그인 결과 콜백
 router.get('/google/callback', passport.authenticate('google', {
-    failureRedirect: '/bitcamp-java-project/tamlaisjeju/auth/login'
+    failureRedirect: '/pms/tamlaisjeju/auth/login'
 }), (req, res) => {
     loginSuccessHandler(req, res);
 });
 
 // 로그인 성공시 처리
 function loginSuccessHandler(req, res) {
-    let successRedirectUrl = "/bitcamp-java-project/tamlaisjeju";
+    let successRedirectUrl = "/pms/tamlaisjeju";
 
     if (req.cookies.redirectUrl) {
         successRedirectUrl = req.cookies.redirectUrl;

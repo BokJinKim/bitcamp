@@ -3,7 +3,7 @@
 #sub10_planner_header {
 	height: 85px;
 	width: 100%;
-	min-width: 1500px;
+	min-width: 1200px;
 	float: left;
 }
 
@@ -30,13 +30,11 @@
 	padding: 0;
 	line-height: 0;
 	background: url(../img/common/tamla_logo_web.gif) no-repeat;
-	background-size: cover;
-	margin-right: 100px;
+	background-size: cover; 
 }
 
 #sub10_planner_header .myTopnav .planner_set {
 	float: left;
-	margin-left: 100px;
 }
 
 #sub10_planner_header .myTopnav .planner_set .planner_title {
@@ -66,7 +64,7 @@
 
 #sub10_planner_header .myTopnav .planner_set .people {
 	float: left;
-	width: 170px;
+	width: 100px;
 	height: 65px;
 	line-height: 65px;
 	border-right: solid #ebebeb 1px;
@@ -78,7 +76,7 @@
 
 #sub10_planner_header .myTopnav .planner_set .people input {
 	float: left;
-	width: 140px;
+	width: 70px;
 	height: 65px;
 	line-height: 62px;
 	border: 0;
@@ -205,9 +203,8 @@
 
 .fixed {
 	width: 1200px;
-	top: 228px;
+	top: 120px;
 	position: fixed;
-	z-index: 1;
 }
 
 .absolute {
@@ -905,6 +902,7 @@
 	color: #49b2e9;
 	height: 30px;
 	float: left;
+	width: 130px;
 }
 
 #sub10 .full_wrap .left_full_box .f1 #pn_title_box li .day_edit_start_btn
@@ -984,8 +982,8 @@
 	width: 160px;
 	background: rgb(32, 51, 65);
 	color: rgb(255, 255, 255);
-	height: 624px;
-	max-height: 624px;
+	height: 694px;
+	max-height: 694px;
 	overflow-y: auto;
 }
 
@@ -1091,7 +1089,7 @@
 #sub10 .full_wrap .left_full_box #schedule_full_box .connectedSortable {
 	display: block;
 	overflow-y: scroll;
-	height: 724px;
+	height: 774px;
 }
 
 #sub10 .full_wrap .left_full_box #schedule_full_box .connectedSortable .day_spot_item
@@ -1210,7 +1208,8 @@
 	display: none;
 }
 
-#sub10 .full_wrap .left_full_box #schedule_full_box .inspot_add_box {
+/*
+ #sub10 .full_wrap .left_full_box #schedule_full_box .inspot_add_box {
 	border-top: solid #a7a7a7 1px;
 	padding-top: 10px;
 	height: 49px;
@@ -1234,7 +1233,7 @@
 	{
 	display: inline-block;
 }
-
+ */
 #sub10 .full_wrap .left_full_box #schedule_detail_box .item h5 {
 	font-weight: 0;
 	padding-left: 13px;
@@ -1324,6 +1323,7 @@
 
 #sub10 .full_wrap #right_full_box #city_list .list_search_full_box .list_category_box
 	{
+	width: 340px;
 	background: #f7f7f7;
 	height: 55px;
 	/*padding-top: 8px;*/
@@ -1338,7 +1338,7 @@
 
 #sub10 .full_wrap #right_full_box #city_list .list_search_full_box .list_category_box li span
 	{
-	width: 68px;
+	width: 85px;
 	height: 100%;
 	text-align: center;
 	cursor: pointer;
@@ -1346,7 +1346,7 @@
 
 #sub10 .full_wrap #right_full_box #city_list .list_search_full_box .list_category_box li
 	{
-	width: 68px;
+	width: 85px;
 	height: 100%;
 	text-align: center;
 	cursor: pointer;

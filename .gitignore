@@ -12,4 +12,5 @@
 **/node_modules
 **/package-lock.json
 **/aws.properties
+
 !build.gradle

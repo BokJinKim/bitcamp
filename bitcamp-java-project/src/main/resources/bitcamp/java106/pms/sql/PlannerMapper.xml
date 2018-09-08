@@ -41,8 +41,9 @@
   <select id="selectOne" 
           resultMap="PlannerMap" 
           parameterType="map">
-   SELECT TP.PLNO, TP.SDT, TP.EDT, TP.PATA, TP.PART, TP.THEMA
+   SELECT TP.PLNO, TP.SDT, TP.EDT, TP.PATA, TP.PART, TP.THEMA,C.TITL
    FROM TAMLA_PLAN TP
+   left join TAMLA_CONTENT C on TP.PLNO = C.CNO
    where TP.PLNO=#{no}
   </select>
   
@@ -66,5 +67,9 @@
   <!-- 파라미터의 타입이 primitive type이나 wrapper 클래스, String 클래스인 경우
        값을 꺼낼 때 프로퍼티 이름을 마음대로 해도 된다.
   -->
-  
+  <delete id="delete" parameterType="int">
+        <!-- delete from TAMLA_CONTENT where CNO=#{tlno} -->
+        delete from TAMLA_PLAN where PLNO=#{no}
+        
+    </delete>
 </mapper>
