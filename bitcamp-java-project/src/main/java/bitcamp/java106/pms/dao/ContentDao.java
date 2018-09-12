@@ -6,7 +6,7 @@ import java.util.Map;
 import bitcamp.java106.pms.domain.Board;
 import bitcamp.java106.pms.domain.Content;
 
-public interface ContentDao {
+public interface ContentDao { 
     int delete(int no);
     List<Content> selectList(Map<String,Object> params);
     int insert(Content content);
